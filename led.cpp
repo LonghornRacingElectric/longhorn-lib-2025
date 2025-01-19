@@ -16,12 +16,12 @@ void led_init() {
 }
 
 static void led_setInt(uint8_t r, uint8_t g, uint8_t b) {
-#ifdef STM32L431xx
+#ifdef STM32L4
     TIM2->CCR1 = r;
   TIM2->CCR2 = g;
   TIM2->CCR3 = b;
 #else
-#ifndef STM32H7A3xxQ
+#ifdef STM32H7
     TIM5->CCR1 = b;
     TIM5->CCR2 = r;
     TIM5->CCR3 = g;
