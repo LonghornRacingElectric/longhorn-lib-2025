@@ -2,12 +2,12 @@
 #include "tim.h"
 
 void led_init() {
-#ifdef STM32L431xx
+#ifdef STM32L496xx
     HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
 #else
-#ifndef STM32H7A3xxQ
+#ifdef STM32H7
     HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_1);
     HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_2);
     HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_3);
@@ -16,7 +16,7 @@ void led_init() {
 }
 
 static void led_setInt(uint8_t r, uint8_t g, uint8_t b) {
-#ifdef STM32L431xx
+#ifdef STM32L496xx
     TIM2->CCR1 = r;
   TIM2->CCR2 = g;
   TIM2->CCR3 = b;
