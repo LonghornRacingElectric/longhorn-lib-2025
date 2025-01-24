@@ -6,5 +6,7 @@
 #define VCU_FIRMWARE_2025_USB_VCP_H
 
 void println(char *buffer);
+void receiveData(uint8_t* data, uint32_t len);
+
 
 #endif //VCU_FIRMWARE_2025_USB_VCP_H
