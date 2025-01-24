@@ -18,3 +18,8 @@ void println(char *buffer) {
     CDC_Transmit_HS((uint8_t *) buf, len + 3);
 #endif
 }
+
+void receiveData(uint8_t* data, uint32_t len) {
+
+}
+

@@ -45,7 +45,7 @@ void led_rainbow(float deltaTime) {
     timer += deltaTime * 3.0f * 255.0f;
     if (timer > 3.0f) {
         // one cycle every 1.5 seconds
-        count = static_cast<uint32_t>(timer / 3.0f);
+        count = (uint32_t)(timer / 3.0f);
         timer = 0;
         if(count > 10)
             count = 1;
