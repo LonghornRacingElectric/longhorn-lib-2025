@@ -7,6 +7,7 @@
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
 #include "stdarg.h"
+#include "usart.h"
 
 #define BUFFER_SIZE 64
 #define OUT_BUFFER_SIZE 256
@@ -26,6 +27,7 @@ void println(char *buffer) {
     CDC_Transmit_FS((uint8_t *) buf, len + 3);
 #elif defined(STM32H7)
     CDC_Transmit_HS((uint8_t *) buf, len + 3);
+    HAL_UART_Transmit(&huart5, (uint8_t *) buf, len + 3, HAL_MAX_DELAY);
 #endif
 }
 
@@ -63,7 +65,7 @@ void receiveData(uint8_t* data, uint32_t len) {
 void receive_periodic() {
     if(receivedNotRead) {
         receivedNotRead = 0;
-        usb_printf("receivedNotRead was %i", receivedNotRead + 1);
+        usb_printf("Received and ingested message.");
     }
 }
 
