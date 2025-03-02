@@ -4,8 +4,9 @@
 #include "tim.h"
 
 static TIM_TypeDef *ledtim;
+static int channels;
 
-void led_init(TIM_TypeDef *tim, TIM_HandleTypeDef *htim);
+void led_init(TIM_TypeDef *tim, TIM_HandleTypeDef *htim, int channels);
 
 /**
  * Set debug LED to given RGB value (0-1 scale).
