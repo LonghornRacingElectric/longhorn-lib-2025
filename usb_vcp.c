@@ -7,6 +7,7 @@
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
 #include "stdarg.h"
+#include "dfu.h"
 
 #define BUFFER_SIZE 64
 #define OUT_BUFFER_SIZE 256
@@ -56,7 +57,14 @@ void receiveData(uint8_t* data, uint32_t len) {
 
     receivedNotRead = 1;
 
-    if(!strcmp(message, DFU_COMMAND)) println("Restarting in DFU mode...");
+    if(!strcmp(message, DFU_COMMAND)) {
+#ifdef SELF_BOOT_DFU
+        println("Restarting in DFU mode...");
+        boot_to_dfu();
+#else
+        println("Device not configured to enter DFU mode... check the code.")
+#endif
+    }
 }
 
 

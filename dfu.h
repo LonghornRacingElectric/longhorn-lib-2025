@@ -10,6 +10,7 @@
 static uint16_t boot0pin;
 static GPIO_TypeDef *boot0GPIO;
 
+/* To enable: define SELF_BOOT_DFU in the main.h file */
 void dfu_init(GPIO_TypeDef *boot0, uint16_t bootPin);
 
 /* DANGEROUS!! This will pull up boot0, you'll have to upload code */
