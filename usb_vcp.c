@@ -28,7 +28,7 @@ void println(char *buffer) {
     CDC_Transmit_FS((uint8_t *) buf, len + 3);
 #elif defined(STM32H7)
     CDC_Transmit_HS((uint8_t *) buf, len + 3);
-    HAL_UART_Transmit(&huart5, (uint8_t *) buf, len + 3, HAL_MAX_DELAY);
+//    HAL_UART_Transmit(&huart5, (uint8_t *) buf, len + 3, HAL_MAX_DELAY);
 #endif
 }
 
