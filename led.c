@@ -2,12 +2,17 @@
 
 void led_init(TIM_TypeDef *tim1, TIM_HandleTypeDef *htim, int timchs) {
     ledtim = tim1;
+    channels = timchs;
+
 
     HAL_TIM_PWM_Start(htim, TIM_CHANNEL_1);
+
+    if(timchs <= 1) return;
     HAL_TIM_PWM_Start(htim, TIM_CHANNEL_2);
+
+    if(timchs <= 2) return;
     HAL_TIM_PWM_Start(htim, TIM_CHANNEL_3);
 
-    channels = timchs;
 }
 
 static void led_setInt(uint8_t r, uint8_t g, uint8_t b) {
@@ -52,5 +57,6 @@ void led_rainbow(float deltaTime) {
             r++;
         }
     }
+
     led_setInt(r / 4, g / 2, b / 2);
 }
