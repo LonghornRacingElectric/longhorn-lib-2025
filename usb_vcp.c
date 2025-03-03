@@ -14,6 +14,7 @@
 #define BUFFER_SIZE 16
 #define OUT_BUFFER_SIZE 256
 
+static int dfu_enable = 0;
 volatile uint8_t receivedNotRead = 0;
 uint8_t message[BUFFER_SIZE];
 uint8_t idx = 0;
