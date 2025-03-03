@@ -14,6 +14,7 @@
 #define BUFFER_SIZE 16
 #define OUT_BUFFER_SIZE 256
 
+static int dfu_enable = 0;
 volatile uint8_t receivedNotRead = 0;
 uint8_t message[BUFFER_SIZE];
 uint8_t idx = 0;
@@ -59,11 +60,7 @@ void receiveData(uint8_t* data, uint32_t len) {
 
 
     if(!strcmp(message, DFU_COMMAND)) {
-#ifdef SELF_BOOT_DFU
-    dfu_enable = 1;
-#else
-        println("Device not configured to enter DFU mode... check the code.")
-#endif
+        dfu_enable = 1;
     }
 
     receivedNotRead = 1;
@@ -75,8 +72,13 @@ void receive_periodic() {
     if(receivedNotRead) {
         receivedNotRead = 0;
         if(dfu_enable) {
-            println("Restarting in DFU mode...");
-            boot_to_dfu();
+            #ifdef SELF_BOOT_DFU
+                println("Restarting in DFU mode...");
+                boot_to_dfu();
+            #else
+                println("Device not configured to enter DFU mode... check the code.");
+                dfu_enable = 0;
+            #endif
         }
     }
 
