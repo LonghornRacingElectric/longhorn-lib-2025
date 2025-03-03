@@ -7,14 +7,15 @@
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
 #include "stdarg.h"
+#include "dfu.h"
 #include "usart.h"
 
-#define BUFFER_SIZE 64
+#define BUFFER_SIZE 16
 #define OUT_BUFFER_SIZE 256
 
 volatile uint8_t receivedNotRead = 0;
-volatile uint8_t message[BUFFER_SIZE];
-volatile uint8_t idx = 0;
+uint8_t message[BUFFER_SIZE];
+uint8_t idx = 0;
 uint8_t sendMessage[OUT_BUFFER_SIZE];
 
 void println(char *buffer) {
@@ -27,7 +28,7 @@ void println(char *buffer) {
     CDC_Transmit_FS((uint8_t *) buf, len + 3);
 #elif defined(STM32H7)
     CDC_Transmit_HS((uint8_t *) buf, len + 3);
-    HAL_UART_Transmit(&huart5, (uint8_t *) buf, len + 3, HAL_MAX_DELAY);
+//    HAL_UART_Transmit(&huart5, (uint8_t *) buf, len + 3, HAL_MAX_DELAY);
 #endif
 }
 
@@ -40,14 +41,14 @@ void usb_printf(const char *format, ...) {
 }
 
 void receiveData(uint8_t* data, uint32_t len) {
+    idx = 0;
     for(uint32_t i = 0; i < len; i++) {
-        message[idx++] = tolower(data[i]);
 
-        if (data[i] == '\0' || data[i] == '\n') {
+        if (data[i] == '\0' || data[i] == '\n' || data[i] == '\r') {
             // end of message
             message[idx] = '\0';
-
-            idx = 0;
+        } else {
+            message[idx++] = tolower(data[i]);
         }
 
         if (idx >= BUFFER_SIZE) {
@@ -56,16 +57,29 @@ void receiveData(uint8_t* data, uint32_t len) {
         }
     }
 
+
+    if(!strcmp(message, DFU_COMMAND)) {
+#ifdef SELF_BOOT_DFU
+    dfu_enable = 1;
+#else
+        println("Device not configured to enter DFU mode... check the code.")
+#endif
+    }
+
     receivedNotRead = 1;
 
-    if(!strcmp(message, DFU_COMMAND)) println("Restarting in DFU mode...");
 }
 
 
 void receive_periodic() {
     if(receivedNotRead) {
         receivedNotRead = 0;
-        usb_printf("Received and ingested message.");
+        if(dfu_enable) {
+            println("Restarting in DFU mode...");
+            boot_to_dfu();
+        }
     }
+
+
 }
 

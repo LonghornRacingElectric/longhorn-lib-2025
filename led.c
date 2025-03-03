@@ -1,41 +1,34 @@
 #include "led.h"
-#include "tim.h"
 
-void led_init() {
-#ifdef STM32L496xx
-    HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
-#else
-#ifdef STM32H7
-    HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_1);
-    HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_2);
-    HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_3);
-#endif
-#endif
+void led_init(TIM_TypeDef *tim1, TIM_HandleTypeDef *htim, int timchs) {
+    ledtim = tim1;
+    channels = timchs;
+
+
+    HAL_TIM_PWM_Start(htim, TIM_CHANNEL_1);
+
+    if(timchs <= 1) return;
+    HAL_TIM_PWM_Start(htim, TIM_CHANNEL_2);
+
+    if(timchs <= 2) return;
+    HAL_TIM_PWM_Start(htim, TIM_CHANNEL_3);
+
 }
 
 static void led_setInt(uint8_t r, uint8_t g, uint8_t b) {
-#ifdef STM32L496xx
-    TIM2->CCR1 = r;
-  TIM2->CCR2 = g;
-  TIM2->CCR3 = b;
-#else
-#ifndef STM32H7A3xxQ
-    TIM5->CCR1 = b;
-    TIM5->CCR2 = r;
-    TIM5->CCR3 = g;
-#endif
-#endif
+    if (channels <= 0) return;
+    ledtim->CCR1 = b;
+    if (channels <= 1) return;
+    ledtim->CCR2 = r;
+    if (channels <= 2) return;
+    ledtim->CCR3 = g;
 }
 
 void led_set(float r, float g, float b) {
-    led_setInt((uint8_t) (r * 255), (uint8_t) (g * 255), (uint8_t) (b * 255));
+    led_setInt((uint8_t)(r * 255), (uint8_t)(g * 255), (uint8_t)(b * 255));
 }
 
-void led_off() {
-    led_setInt(0, 0, 0);
-}
+void led_off() { led_setInt(0, 0, 0); }
 
 void led_rainbow(float deltaTime) {
     static uint8_t r = 255, g = 0, b = 0;
@@ -47,13 +40,12 @@ void led_rainbow(float deltaTime) {
         // one cycle every 1.5 seconds
         count = (uint32_t)(timer / 3.0f);
         timer = 0;
-        if(count > 10)
-            count = 1;
+        if (count > 10) count = 1;
     } else {
         return;
     }
 
-    for(uint32_t i = 0; i < count; i++) {
+    for (uint32_t i = 0; i < count; i++) {
         if ((r && g) || (!g && !b)) {
             r--;
             g++;
@@ -65,5 +57,6 @@ void led_rainbow(float deltaTime) {
             r++;
         }
     }
+
     led_setInt(r / 4, g / 2, b / 2);
 }

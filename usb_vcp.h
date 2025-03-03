@@ -7,6 +7,8 @@
 
 void usb_init();
 
+static int dfu_enable = 0;
+
 void println(char *buffer);
 void usb_printf(const char *format, ...);
 void receiveData(uint8_t* data, uint32_t len);

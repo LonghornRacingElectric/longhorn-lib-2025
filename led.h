@@ -1,7 +1,12 @@
 #ifndef LONGHORN_LIBRARY_2025_LED_H
 #define LONGHORN_LIBRARY_2025_LED_H
 
-void led_init();
+#include "tim.h"
+
+static TIM_TypeDef *ledtim;
+static int channels;
+
+void led_init(TIM_TypeDef *tim, TIM_HandleTypeDef *htim, int channels);
 
 /**
  * Set debug LED to given RGB value (0-1 scale).
@@ -22,4 +27,4 @@ void led_off();
  */
 void led_rainbow(float deltaTime);
 
-#endif //LONGHORN_LIBRARY_2025_LED_H
+#endif  // LONGHORN_LIBRARY_2025_LED_H
