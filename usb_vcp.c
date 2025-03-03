@@ -2,13 +2,14 @@
 // Created by Dhairya Gupta on 1/19/25.
 //
 
-#include <ctype.h>
 #include "usb_vcp.h"
+#ifdef USB_VCP
+
+#include <ctype.h>
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
 #include "stdarg.h"
 #include "dfu.h"
-#include "usart.h"
 
 #define BUFFER_SIZE 16
 #define OUT_BUFFER_SIZE 256
@@ -28,7 +29,6 @@ void println(char *buffer) {
     CDC_Transmit_FS((uint8_t *) buf, len + 3);
 #elif defined(STM32H7)
     CDC_Transmit_HS((uint8_t *) buf, len + 3);
-//    HAL_UART_Transmit(&huart5, (uint8_t *) buf, len + 3, HAL_MAX_DELAY);
 #endif
 }
 
@@ -82,4 +82,6 @@ void receive_periodic() {
 
 
 }
+
+#endif
 
