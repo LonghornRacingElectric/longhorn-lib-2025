@@ -6,10 +6,12 @@
 #include "dfu.h"
 #include "usb_vcp.h"
 
+static uint16_t boot0pin;
+static GPIO_TypeDef *boot0GPIO;
+
 void dfu_init(GPIO_TypeDef *boot0, uint16_t bootPin) {
     boot0pin = bootPin;
     boot0GPIO = boot0;
-    dfu_enable = 0;
 }
 
 void boot_to_dfu() {
