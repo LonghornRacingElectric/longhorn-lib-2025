@@ -5,6 +5,8 @@
 #include "timer.h"
 #include "tim.h"
 
+static uint32_t lib_timer_prevcycle = 0;
+
 void lib_timer_init() {
     lib_timer_prevcycle = HAL_GetTick();
 }
