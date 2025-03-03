@@ -65,8 +65,15 @@ if(serial_port):
 
 print(bcolors.OKCYAN + "Updating device over DFU\n" + bcolors.ENDC)
 # result = subprocess.run(["dfu-util", "-a 0 -d 0483:df11 --dfuse-address=0x08000000 -D", binpath], capture_output=True, text=True) # dfu-util -a 0 -d 0483:df11 --dfuse-address=0x08000000 -D cmake-build-debug/upright-2025.bin
-res = os.popen("dfu-util -a 0 -d 0483:df11 --dfuse-address=0x08000000 -D " + binpath + "").read()
-print(res)
+res = os.popen("dfu-util -a 0 -d 0483:df11 --dfuse-address=0x08000000 -D " + binpath + "")
+print(res.read())
+
+build_status = res.close()
+
+if(build_status):
+    build_status = os.waitstatus_to_exitcode(build_status)
+    if build_status != 0:
+        exit(127)
 
 print(bcolors.OKCYAN + "Resetting device" + bcolors.ENDC)
 res2 = os.popen("dfu-util -a 0 -d 0483:df11 -s :leave")
