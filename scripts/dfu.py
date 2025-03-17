@@ -55,7 +55,7 @@ ports = serial.tools.list_ports.comports()
 
 serial_port = None
 for port, desc, hwid in sorted(ports):
-    if("lhre" in desc.lower()):
+    if("lhre" in desc.lower() or "0483:5740" in hwid.lower()):
         print(bcolors.OKGREEN + f"Found device at port {port}: {desc} [{hwid}]" + bcolors.ENDC)
         serial_port = port
 
