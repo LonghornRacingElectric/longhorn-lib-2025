@@ -1,11 +1,12 @@
 //
 // Created by Dhairya Gupta on 1/19/25.
 //
-#ifdef USB_VCP
 #include <stdint.h>
 #include "main.h"
 #ifndef VCU_FIRMWARE_2025_USB_VCP_H
 #define VCU_FIRMWARE_2025_USB_VCP_H
+#ifdef USB_VCP
+
 
 void usb_init();
 
@@ -18,6 +19,5 @@ extern volatile uint8_t receivedNotRead;
 
 #define DFU_COMMAND "update"
 
-
-#endif //VCU_FIRMWARE_2025_USB_VCP_H
 #endif
+#endif //VCU_FIRMWARE_2025_USB_VCP_H

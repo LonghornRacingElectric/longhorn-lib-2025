@@ -4,7 +4,6 @@
 
 #include "usb_vcp.h"
 #ifdef USB_VCP
-
 #include <ctype.h>
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
