@@ -1,6 +1,7 @@
 //
 // Created by Dhairya Gupta on 1/19/25.
 //
+#ifdef USB_VCP
 #include <stdint.h>
 #include "main.h"
 #ifndef VCU_FIRMWARE_2025_USB_VCP_H
@@ -19,3 +20,4 @@ extern volatile uint8_t receivedNotRead;
 
 
 #endif //VCU_FIRMWARE_2025_USB_VCP_H
+#endif
