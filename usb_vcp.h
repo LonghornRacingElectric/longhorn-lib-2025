@@ -1,6 +1,7 @@
 //
 // Created by Dhairya Gupta on 1/19/25.
 //
+#include <stdarg.h>'
 #include <stdint.h>
 
 #include "main.h"
