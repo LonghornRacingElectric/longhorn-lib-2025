@@ -13,11 +13,16 @@
 #define BUFFER_SIZE 16
 #define OUT_BUFFER_SIZE 256
 
+#define DRIVE_CMD_TEST "drive."
+#define STOP_CMD_TEST "stop."
+
 static int dfu_enable = 0;
 volatile uint8_t receivedNotRead = 0;
 uint8_t message[BUFFER_SIZE];
 uint8_t idx = 0;
 uint8_t sendMessage[OUT_BUFFER_SIZE];
+
+int drive;
 
 void println(char *buffer) {
     size_t len = strlen(buffer);
@@ -62,6 +67,14 @@ void receiveData(uint8_t* data, uint32_t len) {
         dfu_enable = 1;
     }
 
+    if(!strcmp(message, DRIVE_CMD_TEST)) {
+        drive = 1;
+    }
+
+    if(!strcmp(message, STOP_CMD_TEST)) {
+        drive = 0;
+    }
+
     receivedNotRead = 1;
 
 }
@@ -82,6 +95,10 @@ void receive_periodic() {
     }
 
 
+}
+
+int checkDrive() {
+    return drive;
 }
 
 #endif

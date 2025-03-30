@@ -15,6 +15,7 @@ void usb_printf(const char *format, ...);
 void receiveData(uint8_t* data, uint32_t len);
 void receive_periodic();
 extern volatile uint8_t receivedNotRead;
+int checkDrive();
 
 
 #define DFU_COMMAND "update"
