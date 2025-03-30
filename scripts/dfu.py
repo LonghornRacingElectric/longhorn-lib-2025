@@ -27,7 +27,10 @@ print(bcolors.OKBLUE + "Building files" + bcolors.ENDC)
 res1 = os.popen("cmake -B cmake-build-debug/ -DCMAKE_BUILD_TYPE=PRODUCTION")
 print(res1.read())
 
-res2 = os.popen("cmake --build cmake-build-debug/ --config PRODUCTION --target vcu-firmware-2025.elf -j 8")
+import sys
+target = sys.argv[1];
+
+res2 = os.popen(f"cmake --build cmake-build-debug/ --config PRODUCTION --target {target} -j 8")
 print(res2.read())
 build_status = res2.close()
 
@@ -52,7 +55,7 @@ ports = serial.tools.list_ports.comports()
 
 serial_port = None
 for port, desc, hwid in sorted(ports):
-    if("lhre" in desc.lower()):
+    if("lhre" in desc.lower() or "0483:5740" in hwid.lower()):
         print(bcolors.OKGREEN + f"Found device at port {port}: {desc} [{hwid}]" + bcolors.ENDC)
         serial_port = port
 
