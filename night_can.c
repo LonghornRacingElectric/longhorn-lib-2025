@@ -5,9 +5,11 @@
 #include "night_can.h"
 #include "usb_vcp.h"
 
+static NIGHT_CAN_HANDLE_TYPE *nightCanHandleTypeDef;
+
 HAL_StatusTypeDef send_CAN_data(FDCAN_HandleTypeDef* p_can, uint32_t id, uint32_t dlc, uint8_t* pData) {
     NIGHT_CAN_TxHeaderTypeDef  TxHeader;
-//#ifdef STM32H733xx
+#ifdef STM32H733xx
     // 1. Configure Transmission Header
     TxHeader.Identifier = id;                     // Set the CAN ID passed to the function
     TxHeader.IdType = FDCAN_STANDARD_ID;            // Standard ID type
@@ -24,10 +26,18 @@ HAL_StatusTypeDef send_CAN_data(FDCAN_HandleTypeDef* p_can, uint32_t id, uint32_
         return HAL_ERROR; // Data pointer is null but DLC > 0
     }
 
-    // Add more validation if needed (e.g., check if ID is within standard range)
-
     // 2. Add the message to the Tx FIFO Queue
     //    The HAL function copies the data from the buffer pointed to by pData.
     return HAL_FDCAN_AddMessageToTxFifoQ(p_can, &TxHeader, &pData[0]);
-//#endif
+#endif
+}
+
+void night_can_init(NIGHT_CAN_HANDLE_TYPE *can) {
+    nightCanHandleTypeDef = can;
+
+#ifdef STM32H7
+    HAL_FDCAN_Start(nightCanHandleTypeDef);
+#elif defined (STM32L4)
+    HAL_CAN_Start(nightCanHandleTypeDef);
+#endif
 }
