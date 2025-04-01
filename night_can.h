@@ -162,6 +162,8 @@ CANDriverStatus CAN_RemoveScheduledTxPacket(NightCANDriverInstance *instance, Ni
  */
 CANDriverStatus CAN_GetReceivedPacket(NightCANDriverInstance *instance, NightCANReceivePacket *received_packet);
 
+CANDriverStatus CAN_PollReceive(NightCANDriverInstance *instance);
+
 /**
  * @brief Services the CAN driver for a specific instance (handles periodic transmissions).
  * This function MUST be called periodically for each active instance.

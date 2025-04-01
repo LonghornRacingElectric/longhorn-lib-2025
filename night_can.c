@@ -409,6 +409,85 @@ CANDriverStatus CAN_GetReceivedPacket(NightCANDriverInstance *instance, NightCAN
 }
 
 /**
+ * @brief Polls the hardware FIFOs for received messages and moves them to the driver's buffer.
+ */
+CANDriverStatus CAN_PollReceive(NightCANDriverInstance *instance) {
+    if (!instance || !instance->initialized) return CAN_INSTANCE_NULL;
+    if (!instance->hcan) return CAN_ERROR;
+
+    // This function should only be called in polling mode
+//    if (instance->op_mode != CAN_MODE_POLLING) {
+//        return CAN_WRONG_MODE;
+//    }
+
+    // --- Platform specific polling ---
+#if defined(STM32H733xx)
+    uint32_t fill_level0 = HAL_FDCAN_GetRxFifoFillLevel(instance->hcan, FDCAN_RX_FIFO0);
+    uint32_t fill_level1 = HAL_FDCAN_GetRxFifoFillLevel(instance->hcan, FDCAN_RX_FIFO1);
+    FDCAN_RxHeaderTypeDef rx_header;
+    uint8_t rx_data[8]; // Assuming classic CAN max DLC
+
+    // Poll FIFO 0
+    while (fill_level0 > 0) {
+        if (HAL_FDCAN_GetRxMessage(instance->hcan, FDCAN_RX_FIFO0, &rx_header, rx_data) == HAL_OK) {
+            add_to_rx_buffer(instance, &rx_header, rx_data);
+        } else {
+            // Error getting message from FIFO0, maybe break or log?
+            break; // Avoid infinite loop if GetRxMessage fails repeatedly
+        }
+        fill_level0--; // Decrement manually as we process one message
+        // Re-check fill level if GetRxMessage could fail without consuming msg?
+        // fill_level0 = HAL_FDCAN_GetRxFifoFillLevel(instance->hcan, FDCAN_RX_FIFO0);
+    }
+
+    // Poll FIFO 1
+    while (fill_level1 > 0) {
+        if (HAL_FDCAN_GetRxMessage(instance->hcan, FDCAN_RX_FIFO1, &rx_header, rx_data) == HAL_OK) {
+            add_to_rx_buffer(instance, &rx_header, rx_data);
+        } else {
+            // Error getting message from FIFO1
+            break;
+        }
+        fill_level1--;
+        // fill_level1 = HAL_FDCAN_GetRxFifoFillLevel(instance->hcan, FDCAN_RX_FIFO1);
+    }
+
+#elif defined(STM32L4xx)
+    uint32_t fill_level0 = HAL_CAN_GetRxFifoFillLevel(instance->hcan, CAN_RX_FIFO0);
+        uint32_t fill_level1 = HAL_CAN_GetRxFifoFillLevel(instance->hcan, CAN_RX_FIFO1);
+        CAN_RxHeaderTypeDef rx_header;
+        uint8_t rx_data[8];
+
+        // Poll FIFO 0
+        while (fill_level0 > 0) {
+             if (HAL_CAN_GetRxMessage(instance->hcan, CAN_RX_FIFO0, &rx_header, rx_data) == HAL_OK) {
+                 add_to_rx_buffer(instance, &rx_header, rx_data);
+             } else {
+                 break; // Error
+             }
+             fill_level0--;
+             // fill_level0 = HAL_CAN_GetRxFifoFillLevel(instance->hcan, CAN_RX_FIFO0);
+        }
+
+        // Poll FIFO 1
+        while (fill_level1 > 0) {
+             if (HAL_CAN_GetRxMessage(instance->hcan, CAN_RX_FIFO1, &rx_header, rx_data) == HAL_OK) {
+                 add_to_rx_buffer(instance, &rx_header, rx_data);
+             } else {
+                 break; // Error
+             }
+             fill_level1--;
+             // fill_level1 = HAL_CAN_GetRxFifoFillLevel(instance->hcan, CAN_RX_FIFO1);
+        }
+    #else
+        #error "Unsupported STM32 series for CAN polling"
+        return CAN_ERROR;
+#endif
+
+    return CAN_OK;
+}
+
+/**
  * @brief Services the CAN driver for a specific instance (handles periodic transmissions).
  */
 void CAN_Service(NightCANDriverInstance *instance) {
