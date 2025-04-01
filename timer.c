@@ -11,7 +11,7 @@ void lib_timer_init() {
     lib_timer_prevcycle = HAL_GetTick();
 }
 
-uint32_t lib_timer_ms_elapsed() {
+uint32_t lib_timer_delta_ms() {
     uint32_t cur = HAL_GetTick();
     uint32_t timeElapsed = cur - lib_timer_prevcycle;
 
@@ -21,4 +21,8 @@ uint32_t lib_timer_ms_elapsed() {
 
     lib_timer_prevcycle = cur;
     return timeElapsed;
+}
+
+uint32_t lib_timer_elapsed_ms() {
+   return HAL_GetTick();
 }
