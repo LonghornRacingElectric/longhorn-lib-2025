@@ -87,7 +87,7 @@ static void add_to_rx_buffer(NightCANDriverInstance *instance, NIGHTCAN_RX_HANDL
     packet->ide = rx_header->IDE;
     packet->rtr = rx_header->RTR;
     packet->dlc = rx_header->DLC;
-    packet->timestamp_ms = HAL_GetTick(); // Use HAL tick for timestamp
+    packet->timestamp_ms = lib_timer_elapsed_ms();
     packet->filter_index = rx_header->FilterMatchIndex;
     // Ensure we don't copy more data than the buffer holds or DLC indicates
     uint8_t len_to_copy = (packet->dlc > 8) ? 8 : packet->dlc;
@@ -99,7 +99,7 @@ static void add_to_rx_buffer(NightCANDriverInstance *instance, NIGHTCAN_RX_HANDL
     packet->id = rx_header->Identifier;
     packet->ide = rx_header->IdType;
     packet->dlc = rx_header->DataLength;
-    packet->timestamp_ms = HAL_GetTick(); // Use HAL tick for timestamp
+    packet->timestamp_ms = lib_timer_elapsed_ms(); // Use HAL tick for timestamp
     packet->filter_index = rx_header->FilterIndex;
     // Ensure we don't copy more data than the buffer holds or DLC indicates
     uint8_t len_to_copy = (packet->dlc > 8) ? 8 : packet->dlc;
@@ -145,8 +145,8 @@ static CANDriverStatus send_immediate(NightCANDriverInstance *instance, NightCAN
     tx_header.IdType = FDCAN_STANDARD_ID;            // Standard ID type
     tx_header.TxFrameType = FDCAN_DATA_FRAME;      // Data frame
     tx_header.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
-    tx_header.BitRateSwitch = FDCAN_BRS_OFF;         // Assuming Classic CAN (no bitrate switch)
-    tx_header.FDFormat = FDCAN_CLASSIC_CAN;        // Assuming Classic CAN format
+    tx_header.BitRateSwitch = FDCAN_BRS_OFF;
+    tx_header.FDFormat = FDCAN_CLASSIC_CAN;
     tx_header.TxEventFifoControl = FDCAN_NO_TX_EVENTS; // No Tx events stored by default
 #endif
 
@@ -227,18 +227,18 @@ CANDriverStatus CAN_Init(NightCANDriverInstance *instance, NIGHTCAN_HANDLE_TYPED
     sFilterConfig.FilterID1 = default_filter_id_1;      // The ID to match
     sFilterConfig.FilterID2 = default_filter_id_2;    // The mask applied to FilterID1
 
-    if (HAL_FDCAN_ConfigFilter(instance->hcan, &sFilterConfig) != HAL_OK) {
-        // Consider unregistering the instance on failure
-        g_active_instances--;
-        g_can_instances[g_active_instances] = NULL;
-        return CAN_ERROR; // Error configuring filter
-    }
-    // Configure global filter settings (accept non-matching frames, reject remote)
-    if (HAL_FDCAN_ConfigGlobalFilter(instance->hcan, FDCAN_ACCEPT_IN_RX_FIFO0, FDCAN_ACCEPT_IN_RX_FIFO0, FDCAN_REJECT_REMOTE, FDCAN_REJECT_REMOTE) != HAL_OK) {
-        g_active_instances--;
-        g_can_instances[g_active_instances] = NULL;
-        return CAN_ERROR;
-    }
+//    if (HAL_FDCAN_ConfigFilter(instance->hcan, &sFilterConfig) != HAL_OK) {
+//        // Consider unregistering the instance on failure
+//        g_active_instances--;
+//        g_can_instances[g_active_instances] = NULL;
+//        return CAN_ERROR; // Error configuring filter
+//    }
+//    // Configure global filter settings (accept non-matching frames, reject remote)
+//    if (HAL_FDCAN_ConfigGlobalFilter(instance->hcan, FDCAN_ACCEPT_IN_RX_FIFO0, FDCAN_ACCEPT_IN_RX_FIFO0, FDCAN_REJECT_REMOTE, FDCAN_REJECT_REMOTE) != HAL_OK) {
+//        g_active_instances--;
+//        g_can_instances[g_active_instances] = NULL;
+//        return CAN_ERROR;
+//    }
 
 #elif defined(STM32L4xx) // Use the specific define from can_driver.h
     // bxCAN Filter Configuration (Example for 32-bit mask mode)
@@ -349,7 +349,7 @@ CANDriverStatus CAN_AddTxPacket(NightCANDriverInstance *instance, NightCANPacket
         }
 
         // Add to the instance's schedule
-        packet->_last_tx_time_ms = HAL_GetTick(); // Initialize last tx time
+        packet->_last_tx_time_ms = lib_timer_elapsed_ms(); // Initialize last tx time
         packet->_is_scheduled = true;             // Mark as actively scheduled
         instance->tx_schedule[instance->tx_schedule_count++] = packet; // Store pointer
         return CAN_OK;
@@ -398,20 +398,12 @@ CANDriverStatus CAN_GetReceivedPacket(NightCANDriverInstance *instance, NightCAN
         return CAN_BUFFER_EMPTY;
     }
 
-    // --- Critical Section Start ---
-    // Disable interrupts briefly to ensure atomic access to the instance's buffer tail and data.
-    // If using an RTOS, use its mutex or semaphore mechanisms instead.
-    uint32_t primask_bit = __get_PRIMASK(); // Store current interrupt state
-    __disable_irq(); // Disable interrupts
-
     // Copy data from the instance's buffer at the tail position
     *received_packet = instance->rx_buffer[instance->rx_buffer_tail];
 
     // Advance the instance's tail index (with wrap-around)
     instance->rx_buffer_tail = (instance->rx_buffer_tail + 1) % CAN_RX_BUFFER_SIZE;
 
-    __set_PRIMASK(primask_bit); // Restore interrupt state
-    // --- Critical Section End ---
 
     return CAN_OK;
 }
@@ -423,7 +415,7 @@ void CAN_Service(NightCANDriverInstance *instance) {
     // Check for valid instance
     if (!instance || !instance->initialized || !instance->hcan) return;
 
-    uint32_t current_time_ms = HAL_GetTick();
+    uint32_t current_time_ms = lib_timer_elapsed_ms();
 
     // Check scheduled packets for this instance
     for (uint32_t i = 0; i < instance->tx_schedule_count; ++i) {
@@ -477,9 +469,9 @@ CANDriverStatus CAN_ConfigFilter(NightCANDriverInstance *instance, uint32_t filt
     sFilterConfig.FilterID1 = filter_id;      // ID or start of range
     sFilterConfig.FilterID2 = filter_mask;    // Mask or end of range
 
-    if (HAL_FDCAN_ConfigFilter(instance->hcan, &sFilterConfig) != HAL_OK) {
-        return CAN_ERROR;
-    }
+//    if (HAL_FDCAN_ConfigFilter(instance->hcan, &sFilterConfig) != HAL_OK) {
+//        return CAN_ERROR;
+//    }
 #elif defined(STM32L4xx)
     // bxCAN Filter Configuration
         sFilterConfig.FilterBank = filter_bank;           // Filter bank number (0..13 or 0..27 depending on device)
