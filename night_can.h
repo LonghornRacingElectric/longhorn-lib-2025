@@ -81,7 +81,9 @@ typedef struct {
     uint8_t  dlc;        // Data Length Code (0-8 bytes)
     uint8_t  data[8];    // Payload data
     uint32_t timestamp_ms; // Timestamp when the packet was received (based on HAL_GetTick())
-    uint8_t  filter_index; // Index of the filter that matched the message
+    uint32_t timeout_ms; // after how long to register timeout
+    bool is_recent; // if this packet was received after being consumed
+    bool is_timed_out; // if this packet hasnt been recieved in timeout_ms -- raise fault
 } NightCANReceivePacket;
 
 /**
@@ -107,11 +109,8 @@ typedef enum {
 typedef struct {
     NIGHTCAN_HANDLE_TYPEDEF *hcan; // Pointer to the HAL CAN handle for this instance
 
-    // Receive buffer (Ring Buffer)
-    NightCANReceivePacket rx_buffer[CAN_RX_BUFFER_SIZE];
-    volatile uint32_t rx_buffer_head;
-    volatile uint32_t rx_buffer_tail;
-    volatile uint32_t rx_overflow_count;
+    NightCANReceivePacket *rx_buffer[CAN_RX_BUFFER_SIZE]; // buffer of pointers to user-defined packet "inboxes"
+    uint32_t rx_buffer_count;
 
     // Transmit schedule buffer
     NightCANPacket* tx_schedule[CAN_TX_SCHEDULE_SIZE]; // Array of pointers to user packets
@@ -160,7 +159,9 @@ CANDriverStatus CAN_RemoveScheduledTxPacket(NightCANInstance *instance, NightCAN
  * @param received_packet Pointer to a NightCANReceivePacket structure where the data will be copied.
  * @retval CANDriverStatus status code.
  */
-CANDriverStatus CAN_GetReceivedPacket(NightCANInstance *instance, NightCANReceivePacket *received_packet);
+NightCANReceivePacket *CAN_GetReceivedPacket(NightCANInstance *instance, uint32_t id);
+
+NightCANReceivePacket CAN_create_receive_packet(uint32_t id, uint32_t timeout_ms, uint8_t dlc);
 
 CANDriverStatus CAN_PollReceive(NightCANInstance *instance);
 
@@ -190,28 +191,13 @@ NightCANPacket CAN_create_packet(uint32_t id, uint32_t interval_ms, uint8_t dlc)
  */
 CANDriverStatus CAN_ConfigFilter(NightCANInstance *instance, uint32_t filter_bank, uint32_t filter_id, uint32_t filter_mask);
 
+/* Periodic function to be called */
+void CAN_periodic(NightCANInstance *instance);
 
-// --- Callback Handling ---
-// These HAL callbacks are global. The driver implementation (.c file)
-// needs to determine which instance corresponds to the 'hcan' parameter.
+void CAN_consume_packet(NightCANReceivePacket *packet);
 
-/**
- * @brief HAL CAN RX FIFO 0 Message Pending Callback (to be called by HAL).
- * @param hcan Pointer to the CAN handle that triggered the interrupt.
- */
-void HAL_CAN_RxFifo0MsgPendingCallback(NIGHTCAN_HANDLE_TYPEDEF *hcan);
+void CAN_addReceivePacket(NightCANInstance *instance, NightCANReceivePacket *packet);
 
-/**
- * @brief HAL CAN RX FIFO 1 Message Pending Callback (to be called by HAL).
- * @param hcan Pointer to the CAN handle that triggered the interrupt.
- */
-void HAL_CAN_RxFifo1MsgPendingCallback(NIGHTCAN_HANDLE_TYPEDEF *hcan);
-
-/**
- * @brief HAL CAN Error Callback (to be called by HAL).
- * @param hcan Pointer to the CAN handle that triggered the interrupt.
- */
-void HAL_CAN_ErrorCallback(NIGHTCAN_HANDLE_TYPEDEF *hcan);
 
 /**
  * @brief Read an integral value (e.g., int16_t, uint32_t) from a CAN packet's data buffer.

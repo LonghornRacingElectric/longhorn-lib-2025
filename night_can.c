@@ -45,8 +45,7 @@ static NightCANInstance* find_instance(NIGHTCAN_HANDLE_TYPEDEF *hcan) {
  * @retval true if full, false otherwise.
  */
 static bool is_rx_buffer_full(NightCANInstance *instance) {
-    // Check if head is one position behind tail (considering wrap-around) (this is a circulat buffer)
-    return ((instance->rx_buffer_head + 1) % CAN_RX_BUFFER_SIZE) == instance->rx_buffer_tail;
+    return instance->rx_buffer_count == CAN_RX_BUFFER_SIZE;
 }
 
 /**
@@ -55,9 +54,21 @@ static bool is_rx_buffer_full(NightCANInstance *instance) {
  * @retval true if empty, false otherwise.
  */
 static bool is_rx_buffer_empty(NightCANInstance *instance) {
-    // Check if head and tail indices are the same
-    return instance->rx_buffer_head == instance->rx_buffer_tail;
+    return instance->rx_buffer_count == 0;
 }
+
+NightCANReceivePacket *get_packet_from_id(NightCANInstance *instance, uint32_t id) {
+    for(int i = 0; i < instance->rx_buffer_count; i++) {
+        if(id == instance->rx_buffer[i]->id) {
+            // this is the correct packet, we can update the data on this.
+           return  instance->rx_buffer[i];
+
+        }
+    }
+
+    return NULL;
+}
+
 
 /**
  * @brief Adds a received message to the ring buffer of a specific instance.
@@ -65,20 +76,11 @@ static bool is_rx_buffer_empty(NightCANInstance *instance) {
  * @param rx_header Pointer to the received message header.
  * @param rx_data Pointer to the received data payload.
  */
-static void add_to_rx_buffer(NightCANInstance *instance, NIGHTCAN_RX_HANDLETYPEDEF *rx_header, uint8_t *rx_data) {
-    if (is_rx_buffer_full(instance)) {
-        // buffer overflowed so we shall discard the newest message
-        instance->rx_overflow_count++;
-
-        // this will overwrite the older packet, burt also dangerous because we might miss something
-        instance->rx_buffer_tail = (instance->rx_buffer_tail + 1) % CAN_RX_BUFFER_SIZE;
-        return;
-    }
-
-    // Get pointer to the next available slot in the instance's buffer
-    NightCANReceivePacket *packet = &instance->rx_buffer[instance->rx_buffer_head];
-
+static void update_rx_buffer(NightCANInstance *instance, NIGHTCAN_RX_HANDLETYPEDEF *rx_header, uint8_t *rx_data) {
 #ifdef STM32L4xx
+    NightCANReceivePacket *packet = get_packet_from_id(instance,
+                                                (rx_header->IDE == CAN_ID_STD) ? rx_header->StdId : rx_header->ExtId);
+
     packet->id = (rx_header->IDE == CAN_ID_STD) ? rx_header->StdId : rx_header->ExtId;
     packet->ide = rx_header->IDE;
     packet->rtr = rx_header->RTR;
@@ -92,17 +94,16 @@ static void add_to_rx_buffer(NightCANInstance *instance, NIGHTCAN_RX_HANDLETYPED
     // Advance head index for the instance's buffer (with wrap-around)
     instance->rx_buffer_head = (instance->rx_buffer_head + 1) % CAN_RX_BUFFER_SIZE;
 #elif defined(STM32H733xx)
-    packet->id = rx_header->Identifier;
-    packet->ide = rx_header->IdType;
-    packet->dlc = rx_header->DataLength;
+    NightCANReceivePacket *packet = get_packet_from_id(instance, rx_header->Identifier);
+
+    // error, there is no packet given with this ID
+    if(!packet) return;
+
     packet->timestamp_ms = lib_timer_elapsed_ms(); // Use HAL tick for timestamp
-    packet->filter_index = rx_header->FilterIndex;
+    packet->is_recent = true;
 
     uint8_t len_to_copy = (packet->dlc > 8) ? 8 : packet->dlc;
     memcpy(packet->data, rx_data, len_to_copy);
-
-    // Advance head index for the instance's buffer (with wrap-around)
-    instance->rx_buffer_head = (instance->rx_buffer_head + 1) % CAN_RX_BUFFER_SIZE;
 #endif
 }
 
@@ -193,9 +194,7 @@ CANDriverStatus CAN_Init(NightCANInstance *instance, NIGHTCAN_HANDLE_TYPEDEF *hc
 
 
     // add this to our instances
-    night_can_instances[night_active_instances] = instance;
-    night_active_instances++;
-
+    night_can_instances[night_active_instances++] = instance;
 
 
 #if defined(STM32H733xx)
@@ -337,25 +336,18 @@ CANDriverStatus CAN_RemoveScheduledTxPacket(NightCANInstance *instance, NightCAN
 
 
 /**
- * @brief Retrieves the oldest received CAN packet from the buffer for a specific instance.
+ * @brief Retrieves a packet with a specific ID.
  */
-CANDriverStatus CAN_GetReceivedPacket(NightCANInstance *instance, NightCANReceivePacket *received_packet) {
+NightCANReceivePacket *CAN_GetReceivedPacket(NightCANInstance *instance, uint32_t id) {
     // Check for valid instance and output pointer
-    if (!instance || !instance->initialized) return CAN_INSTANCE_NULL;
-    if (!received_packet) return CAN_INVALID_PARAM;
+    if (!instance || !instance->initialized) return NULL;
 
     if (is_rx_buffer_empty(instance)) {
-        return CAN_BUFFER_EMPTY;
+        return NULL;
     }
 
     // Copy data from the instance's buffer at the tail position
-    *received_packet = instance->rx_buffer[instance->rx_buffer_tail];
-
-    // Advance the instance's tail index (also wraps around for circular bufferness)
-    instance->rx_buffer_tail = (instance->rx_buffer_tail + 1) % CAN_RX_BUFFER_SIZE;
-
-
-    return CAN_OK;
+    return instance->rx_buffer[instance->rx_buffer_count];
 }
 
 /**
@@ -375,7 +367,7 @@ CANDriverStatus CAN_PollReceive(NightCANInstance *instance) {
     // Poll FIFO 0
     while (fill_level0 > 0) {
         if (HAL_FDCAN_GetRxMessage(instance->hcan, FDCAN_RX_FIFO0, &rx_header, rx_data) == HAL_OK) {
-            add_to_rx_buffer(instance, &rx_header, rx_data);
+            update_rx_buffer(instance, &rx_header, rx_data);
         } else {
             // Error getting message from FIFO0, break out of loop so we don't have error
             break;
@@ -390,7 +382,7 @@ CANDriverStatus CAN_PollReceive(NightCANInstance *instance) {
     // Poll FIFO 1
     while (fill_level1 > 0) {
         if (HAL_FDCAN_GetRxMessage(instance->hcan, FDCAN_RX_FIFO1, &rx_header, rx_data) == HAL_OK) {
-            add_to_rx_buffer(instance, &rx_header, rx_data);
+            update_rx_buffer(instance, &rx_header, rx_data);
         } else {
             // Error getting message from FIFO1
             break;
@@ -435,6 +427,28 @@ CANDriverStatus CAN_PollReceive(NightCANInstance *instance) {
 }
 
 /**
+ * Mark a packet as timed out if not received in the defined ms
+ * @param instance
+ */
+void check_timeouts(NightCANInstance *instance) {
+    for (int i = 0; i < instance->rx_buffer_count; i++) {
+        NightCANReceivePacket *packet = instance->rx_buffer[i];
+        // if the ms is defined, then we can check for timeouts, otherwise assume there's no timeouts
+        if(packet->timeout_ms != 0 && packet->timeout_ms < lib_timer_elapsed_ms() - packet->timestamp_ms) {
+            packet->is_timed_out = true;
+        }
+    }
+}
+
+void CAN_periodic(NightCANInstance *instance) {
+    if (!instance || !instance->initialized) return;
+
+    CAN_Service(instance);
+    CAN_PollReceive(instance);
+    check_timeouts(instance);
+}
+
+/**
  * @brief Services the CAN driver for a specific instance (handles periodic transmissions).
  */
 void CAN_Service(NightCANInstance *instance) {
@@ -461,6 +475,10 @@ void CAN_Service(NightCANInstance *instance) {
     }
 }
 
+void CAN_consume_packet(NightCANReceivePacket *packet) {
+    packet->is_recent = false;
+}
+
 /**
  * Creates a packet to be used by the driver. Use this to set up the packet, like a constructor! You NEED to use
  * the packet that is returned because it is the pointer that is stored in the CAN instance's struct. Lock in.
@@ -475,16 +493,42 @@ NightCANPacket CAN_create_packet(uint32_t id, uint32_t interval_ms, uint8_t dlc)
     packet.id = id;
     packet.dlc = dlc;
 
+    return packet;
+};
+
+/**
+ * Creates a packet to be used by the driver. Use this to set up the packet, like a constructor! You NEED to use
+ * the packet that is returned because it is the pointer that is stored in the CAN instance's struct. Lock in.
+ * @param id
+ * @param timeout_ms
+ * @param dlc
+ * @return
+ */
+NightCANReceivePacket CAN_create_receive_packet(uint32_t id, uint32_t timeout_ms, uint8_t dlc) {
+    NightCANReceivePacket packet;
+    packet.timeout_ms = timeout_ms;
+    packet.id = id;
+    packet.dlc = dlc;
+    packet.timestamp_ms = lib_timer_elapsed_ms();
 
     return packet;
 };
+
+void CAN_addReceivePacket(NightCANInstance *instance, NightCANReceivePacket *packet) {
+    if(get_packet_from_id(instance, packet->id)) {
+        // packet exists, don't add it
+        return;
+    }
+
+    // add to the buffer and increment 🥰
+    instance->rx_buffer[instance->rx_buffer_count++] = packet;
+}
 
 /**
  * @brief Configures an additional CAN filter for a specific instance.
  */
 CANDriverStatus CAN_ConfigFilter(NightCANInstance *instance, uint32_t filter_bank, uint32_t filter_id, uint32_t filter_mask) {
     if (!instance || !instance->initialized || !instance->hcan) return CAN_INSTANCE_NULL;
-
 
 #if defined(STM32H733xx)
 #elif defined(STM32L4xx)
@@ -510,76 +554,4 @@ CANDriverStatus CAN_ConfigFilter(NightCANInstance *instance, uint32_t filter_ban
 #endif
 
     return CAN_OK;
-}
-
-
-// --- HAL Callback Implementations ---
-// These functions are called by the HAL library globally for any CAN instance.
-// We need to find which specific driver instance triggered the callback.
-// ALL of this is for interrupt mode (which we probably won't ever use -- this part is ai generated tbh)
-
-/**
- * @brief Common RX message processing logic called by FIFO callbacks.
- * @param instance Pointer to the specific driver instance.
- * @param RxFifo The FIFO identifier (e.g., CAN_RX_FIFO0 or FDCAN_RX_FIFO0).
- */
-static void ProcessRxMessage(NightCANInstance *instance, uint32_t RxFifo) {
-    // Basic check
-    if (!instance || !instance->initialized || !instance->hcan) return;
-
-    NIGHTCAN_RX_HANDLETYPEDEF rx_header; // Use base HAL type
-    uint8_t rx_data[8];            // Max data length is 8 for classic CAN
-
-    // Get the message from the appropriate FIFO using the instance's handle
-#if defined(STM32H733xx)
-    HAL_StatusTypeDef status = HAL_FDCAN_GetRxMessage(instance->hcan, RxFifo, &rx_header, rx_data);
-#elif defined(STM32L4xx)
-    HAL_StatusTypeDef status = HAL_CAN_GetRxMessage(instance->hcan, RxFifo, &rx_header, rx_data);
-    #else
-        #error "Unsupported STM32 series for GetRxMessage in can_driver.c"
-        return;
-#endif
-
-    if (status == HAL_OK) {
-        // Add the received message to the specific instance's buffer
-        add_to_rx_buffer(instance, &rx_header, rx_data);
-    } else {
-        // Handle error getting message (optional: log error, increment instance error counter)
-        // instance->rx_error_count++;
-    }
-}
-
-
-/**
- * @brief HAL CAN RX FIFO 0 Message Pending Callback.
- */
-void HAL_CAN_RxFifo0MsgPendingCallback(NIGHTCAN_HANDLE_TYPEDEF *hcan) {
-    // Find which driver instance this callback belongs to
-    NightCANInstance* instance = find_instance(hcan);
-    if (instance) {
-        // Call the processing function for the found instance
-#if defined(STM32H733xx)
-        ProcessRxMessage(instance, FDCAN_RX_FIFO0);
-#elif defined(STM32L4xx)
-        ProcessRxMessage(instance, CAN_RX_FIFO0);
-#endif
-    }
-    // Else: Callback received for an unknown/uninitialized CAN handle
-}
-
-/**
- * @brief HAL CAN RX FIFO 1 Message Pending Callback.
- */
-void HAL_CAN_RxFifo1MsgPendingCallback(NIGHTCAN_HANDLE_TYPEDEF *hcan) {
-    // Find which driver instance this callback belongs to
-    NightCANInstance* instance = find_instance(hcan);
-    if (instance) {
-        // Call the processing function for the found instance
-#if defined(STM32H733xx)
-        ProcessRxMessage(instance, FDCAN_RX_FIFO1);
-#elif defined(STM32L4xx)
-        ProcessRxMessage(instance, CAN_RX_FIFO1);
-#endif
-    }
-    // Else: Callback received for an unknown/uninitialized CAN handle
 }
