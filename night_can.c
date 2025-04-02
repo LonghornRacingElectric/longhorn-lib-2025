@@ -14,7 +14,7 @@
 // --- Static Variables for Instance Management ---
 
 // Static array to hold pointers to active driver instances
-static NightCANDriverInstance* g_can_instances[MAX_CAN_INSTANCES] = {NULL};
+static NightCANInstance* g_can_instances[MAX_CAN_INSTANCES] = {NULL};
 // Counter for the number of active/initialized instances
 static uint32_t g_active_instances = 0;
 
@@ -26,7 +26,7 @@ static uint32_t g_active_instances = 0;
  * @param hcan Pointer to the HAL CAN handle.
  * @retval Pointer to the found NightCANDriverInstance, or NULL if not found.
  */
-static NightCANDriverInstance* find_instance(NIGHTCAN_HANDLE_TYPEDEF *hcan) {
+static NightCANInstance* find_instance(NIGHTCAN_HANDLE_TYPEDEF *hcan) {
     if (!hcan) return NULL;
     for (uint32_t i = 0; i < g_active_instances; ++i) {
         // Check if the pointer is valid and the HAL handle matches
@@ -42,7 +42,7 @@ static NightCANDriverInstance* find_instance(NIGHTCAN_HANDLE_TYPEDEF *hcan) {
  * @param instance Pointer to the driver instance.
  * @retval true if full, false otherwise.
  */
-static bool is_rx_buffer_full(NightCANDriverInstance *instance) {
+static bool is_rx_buffer_full(NightCANInstance *instance) {
     if (!instance) return true; // Treat NULL instance as full
     // Check if head is one position behind tail (considering wrap-around)
     return ((instance->rx_buffer_head + 1) % CAN_RX_BUFFER_SIZE) == instance->rx_buffer_tail;
@@ -53,7 +53,7 @@ static bool is_rx_buffer_full(NightCANDriverInstance *instance) {
  * @param instance Pointer to the driver instance.
  * @retval true if empty, false otherwise.
  */
-static bool is_rx_buffer_empty(NightCANDriverInstance *instance) {
+static bool is_rx_buffer_empty(NightCANInstance *instance) {
     if (!instance) return true; // Treat NULL instance as empty
     // Check if head and tail indices are the same
     return instance->rx_buffer_head == instance->rx_buffer_tail;
@@ -65,7 +65,7 @@ static bool is_rx_buffer_empty(NightCANDriverInstance *instance) {
  * @param rx_header Pointer to the received message header.
  * @param rx_data Pointer to the received data payload.
  */
-static void add_to_rx_buffer(NightCANDriverInstance *instance, NIGHTCAN_RX_HANDLETYPEDEF *rx_header, uint8_t *rx_data) {
+static void add_to_rx_buffer(NightCANInstance *instance, NIGHTCAN_RX_HANDLETYPEDEF *rx_header, uint8_t *rx_data) {
     // Basic check for valid instance and header
     if (!instance || !rx_header || !rx_data) return;
 
@@ -116,7 +116,7 @@ static void add_to_rx_buffer(NightCANDriverInstance *instance, NIGHTCAN_RX_HANDL
  * @param packet Pointer to the NightCANPacket to send.
  * @retval CANDriverStatus status code.
  */
-static CANDriverStatus send_immediate(NightCANDriverInstance *instance, NightCANPacket *packet) {
+static CANDriverStatus send_immediate(NightCANInstance *instance, NightCANPacket *packet) {
     // Check for valid instance and packet pointers
     if (!instance || !instance->initialized || !packet) {
         return CAN_INSTANCE_NULL; // Or CAN_INVALID_PARAM
@@ -187,7 +187,7 @@ static CANDriverStatus send_immediate(NightCANDriverInstance *instance, NightCAN
 /**
  * @brief Initializes a CAN peripheral instance and the driver state for it.
  */
-CANDriverStatus CAN_Init(NightCANDriverInstance *instance, NIGHTCAN_HANDLE_TYPEDEF *hcan, uint32_t default_filter_id_1, uint32_t default_filter_id_2) {
+CANDriverStatus CAN_Init(NightCANInstance *instance, NIGHTCAN_HANDLE_TYPEDEF *hcan, uint32_t default_filter_id_1, uint32_t default_filter_id_2) {
     // Check for valid pointers and available instance slots
     if (!instance) return CAN_INVALID_PARAM;
     if (!hcan) return CAN_INVALID_PARAM;
@@ -202,7 +202,7 @@ CANDriverStatus CAN_Init(NightCANDriverInstance *instance, NIGHTCAN_HANDLE_TYPED
     }
 
     // --- Initialize Instance Structure ---
-    memset(instance, 0, sizeof(NightCANDriverInstance)); // Clear the structure
+    memset(instance, 0, sizeof(NightCANInstance)); // Clear the structure
     instance->hcan = hcan;
     instance->initialized = false; // Mark as not initialized until setup succeeds
     // Buffers/counts are already zeroed by memset
@@ -317,7 +317,7 @@ CANDriverStatus CAN_Init(NightCANDriverInstance *instance, NIGHTCAN_HANDLE_TYPED
 /**
  * @brief Adds a CAN packet to the transmission schedule or sends it immediately for a specific instance.
  */
-CANDriverStatus CAN_AddTxPacket(NightCANDriverInstance *instance, NightCANPacket *packet) {
+CANDriverStatus CAN_AddTxPacket(NightCANInstance *instance, NightCANPacket *packet) {
     // Check for valid instance and packet
     if (!instance || !instance->initialized) return CAN_INSTANCE_NULL;
     if (!packet) return CAN_INVALID_PARAM;
@@ -359,7 +359,7 @@ CANDriverStatus CAN_AddTxPacket(NightCANDriverInstance *instance, NightCANPacket
 /**
  * @brief Removes a previously scheduled periodic packet from the transmission schedule for a specific instance.
  */
-CANDriverStatus CAN_RemoveScheduledTxPacket(NightCANDriverInstance *instance, NightCANPacket *packet) {
+CANDriverStatus CAN_RemoveScheduledTxPacket(NightCANInstance *instance, NightCANPacket *packet) {
     // Check for valid instance and packet
     if (!instance || !instance->initialized) return CAN_INSTANCE_NULL;
     if (!packet) return CAN_INVALID_PARAM;
@@ -388,7 +388,7 @@ CANDriverStatus CAN_RemoveScheduledTxPacket(NightCANDriverInstance *instance, Ni
 /**
  * @brief Retrieves the oldest received CAN packet from the buffer for a specific instance.
  */
-CANDriverStatus CAN_GetReceivedPacket(NightCANDriverInstance *instance, NightCANReceivePacket *received_packet) {
+CANDriverStatus CAN_GetReceivedPacket(NightCANInstance *instance, NightCANReceivePacket *received_packet) {
     // Check for valid instance and output pointer
     if (!instance || !instance->initialized) return CAN_INSTANCE_NULL;
     if (!received_packet) return CAN_INVALID_PARAM;
@@ -411,7 +411,7 @@ CANDriverStatus CAN_GetReceivedPacket(NightCANDriverInstance *instance, NightCAN
 /**
  * @brief Polls the hardware FIFOs for received messages and moves them to the driver's buffer.
  */
-CANDriverStatus CAN_PollReceive(NightCANDriverInstance *instance) {
+CANDriverStatus CAN_PollReceive(NightCANInstance *instance) {
     if (!instance || !instance->initialized) return CAN_INSTANCE_NULL;
     if (!instance->hcan) return CAN_ERROR;
 
@@ -490,7 +490,7 @@ CANDriverStatus CAN_PollReceive(NightCANDriverInstance *instance) {
 /**
  * @brief Services the CAN driver for a specific instance (handles periodic transmissions).
  */
-void CAN_Service(NightCANDriverInstance *instance) {
+void CAN_Service(NightCANInstance *instance) {
     // Check for valid instance
     if (!instance || !instance->initialized || !instance->hcan) return;
 
@@ -530,10 +530,20 @@ void CAN_Service(NightCANDriverInstance *instance) {
 #endif
 }
 
+NightCANPacket CAN_create_packet(uint32_t id, uint32_t interval_ms, uint8_t dlc) {
+    NightCANPacket packet;
+    packet.tx_interval_ms = interval_ms;
+    packet.id = id;
+    packet.dlc = dlc;
+
+
+    return packet;
+};
+
 /**
  * @brief Configures an additional CAN filter for a specific instance.
  */
-CANDriverStatus CAN_ConfigFilter(NightCANDriverInstance *instance, uint32_t filter_bank, uint32_t filter_id, uint32_t filter_mask) {
+CANDriverStatus CAN_ConfigFilter(NightCANInstance *instance, uint32_t filter_bank, uint32_t filter_id, uint32_t filter_mask) {
     // Check for valid instance
     if (!instance || !instance->initialized || !instance->hcan) return CAN_INSTANCE_NULL;
 
@@ -552,7 +562,6 @@ CANDriverStatus CAN_ConfigFilter(NightCANDriverInstance *instance, uint32_t filt
 //        return CAN_ERROR;
 //    }
 #elif defined(STM32L4xx)
-    // bxCAN Filter Configuration
         sFilterConfig.FilterBank = filter_bank;           // Filter bank number (0..13 or 0..27 depending on device)
         sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK; // Or CAN_FILTERMODE_IDLIST
         sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;// Or CAN_FILTERSCALE_16BIT
@@ -580,13 +589,14 @@ CANDriverStatus CAN_ConfigFilter(NightCANDriverInstance *instance, uint32_t filt
 // --- HAL Callback Implementations ---
 // These functions are called by the HAL library globally for any CAN instance.
 // We need to find which specific driver instance triggered the callback.
+// ALL of this is for interrupt mode (which we probably won't ever use -- this part is mostly ai generated tbh)
 
 /**
  * @brief Common RX message processing logic called by FIFO callbacks.
  * @param instance Pointer to the specific driver instance.
  * @param RxFifo The FIFO identifier (e.g., CAN_RX_FIFO0 or FDCAN_RX_FIFO0).
  */
-static void ProcessRxMessage(NightCANDriverInstance *instance, uint32_t RxFifo) {
+static void ProcessRxMessage(NightCANInstance *instance, uint32_t RxFifo) {
     // Basic check
     if (!instance || !instance->initialized || !instance->hcan) return;
 
@@ -618,7 +628,7 @@ static void ProcessRxMessage(NightCANDriverInstance *instance, uint32_t RxFifo) 
  */
 void HAL_CAN_RxFifo0MsgPendingCallback(NIGHTCAN_HANDLE_TYPEDEF *hcan) {
     // Find which driver instance this callback belongs to
-    NightCANDriverInstance* instance = find_instance(hcan);
+    NightCANInstance* instance = find_instance(hcan);
     if (instance) {
         // Call the processing function for the found instance
 #if defined(STM32H733xx)
@@ -635,7 +645,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(NIGHTCAN_HANDLE_TYPEDEF *hcan) {
  */
 void HAL_CAN_RxFifo1MsgPendingCallback(NIGHTCAN_HANDLE_TYPEDEF *hcan) {
     // Find which driver instance this callback belongs to
-    NightCANDriverInstance* instance = find_instance(hcan);
+    NightCANInstance* instance = find_instance(hcan);
     if (instance) {
         // Call the processing function for the found instance
 #if defined(STM32H733xx)
@@ -646,36 +656,3 @@ void HAL_CAN_RxFifo1MsgPendingCallback(NIGHTCAN_HANDLE_TYPEDEF *hcan) {
     }
     // Else: Callback received for an unknown/uninitialized CAN handle
 }
-
-/**
- * @brief HAL CAN Error Callback.
- */
-//void HAL_CAN_ErrorCallback(NIGHTCAN_HANDLE_TYPEDEF *hcan) {
-//    // Find which driver instance this callback belongs to
-//    NightCANDriverInstance* instance = find_instance(hcan);
-//    if (instance) {
-//        // Handle CAN errors for this specific instance
-//        uint32_t error_code = HAL_CAN_GetError(instance->hcan);
-//
-//        // Example: Log error code or set flags in the instance structure
-//        // instance->last_error_code = error_code;
-//        // instance->error_flags |= CAN_ERROR_HAL_FLAG; // Define appropriate flags
-//
-//        if (error_code & HAL_CAN_ERROR_BOF) {
-//            // Bus Off error occurred on this instance
-//            // instance->error_flags |= CAN_ERROR_BUS_OFF_FLAG;
-//            // The main application should check this flag in CAN_Service or elsewhere
-//            // and decide on recovery action (e.g., re-init after delay).
-//            // Avoid complex recovery directly in ISR context.
-//        }
-//        // Add handling for other errors as needed (Warning, Passive, ACK, Stuff, Form, CRC etc.)
-//
-//        // Optional: Clear specific error flags if required by HAL/hardware
-//        // Check HAL documentation for necessary clearing actions for specific errors.
-//        // e.g., __HAL_FDCAN_CLEAR_FLAG(instance->hcan, FDCAN_FLAG_BUS_OFF); (Check exact flag names)
-//    }
-//    // Else: Error callback received for an unknown/uninitialized CAN handle
-//}
-
-// Add implementations for other HAL callbacks if needed (e.g., Tx Complete)
-// Remember to use find_instance() inside them to route to the correct instance state.

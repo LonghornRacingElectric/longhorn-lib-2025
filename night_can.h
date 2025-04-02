@@ -120,7 +120,7 @@ typedef struct {
     // Add any other instance-specific state if needed (e.g., error flags)
     bool initialized;
 
-} NightCANDriverInstance;
+} NightCANInstance;
 
 
 // --- Function Prototypes ---
@@ -135,7 +135,7 @@ typedef struct {
  * @param default_filter_mask Optional default filter mask (set to 0 if not needed).
  * @retval CANDriverStatus status code.
  */
-CANDriverStatus CAN_Init(NightCANDriverInstance *instance, NIGHTCAN_HANDLE_TYPEDEF *hcan, uint32_t default_filter_id_1, uint32_t default_filter_id_2);
+CANDriverStatus CAN_Init(NightCANInstance *instance, NIGHTCAN_HANDLE_TYPEDEF *hcan, uint32_t default_filter_id_1, uint32_t default_filter_id_2);
 
 /**
  * @brief Adds a CAN packet to the transmission schedule or sends it immediately for a specific instance.
@@ -143,7 +143,7 @@ CANDriverStatus CAN_Init(NightCANDriverInstance *instance, NIGHTCAN_HANDLE_TYPED
  * @param packet Pointer to the NightCANPacket structure containing the message details.
  * @retval CANDriverStatus status code.
  */
-CANDriverStatus CAN_AddTxPacket(NightCANDriverInstance *instance, NightCANPacket *packet);
+CANDriverStatus CAN_AddTxPacket(NightCANInstance *instance, NightCANPacket *packet);
 
 /**
  * @brief Removes a previously scheduled periodic packet from the transmission schedule for a specific instance.
@@ -151,7 +151,7 @@ CANDriverStatus CAN_AddTxPacket(NightCANDriverInstance *instance, NightCANPacket
  * @param packet Pointer to the NightCANPacket structure that was previously added.
  * @retval CANDriverStatus status code.
  */
-CANDriverStatus CAN_RemoveScheduledTxPacket(NightCANDriverInstance *instance, NightCANPacket *packet);
+CANDriverStatus CAN_RemoveScheduledTxPacket(NightCANInstance *instance, NightCANPacket *packet);
 
 
 /**
@@ -160,16 +160,25 @@ CANDriverStatus CAN_RemoveScheduledTxPacket(NightCANDriverInstance *instance, Ni
  * @param received_packet Pointer to a NightCANReceivePacket structure where the data will be copied.
  * @retval CANDriverStatus status code.
  */
-CANDriverStatus CAN_GetReceivedPacket(NightCANDriverInstance *instance, NightCANReceivePacket *received_packet);
+CANDriverStatus CAN_GetReceivedPacket(NightCANInstance *instance, NightCANReceivePacket *received_packet);
 
-CANDriverStatus CAN_PollReceive(NightCANDriverInstance *instance);
+CANDriverStatus CAN_PollReceive(NightCANInstance *instance);
 
 /**
  * @brief Services the CAN driver for a specific instance (handles periodic transmissions).
  * This function MUST be called periodically for each active instance.
  * @param instance Pointer to the driver instance.
  */
-void CAN_Service(NightCANDriverInstance *instance);
+void CAN_Service(NightCANInstance *instance);
+
+/**
+ * @brief Creates a CAN packet that you can then use in your code. Pass in the parameters as described.
+ * @param id
+ * @param interval_ms
+ * @param dlc
+ * @return
+ */
+NightCANPacket CAN_create_packet(uint32_t id, uint32_t interval_ms, uint8_t dlc);
 
 /**
  * @brief Configures an additional CAN filter for a specific instance.
@@ -179,7 +188,7 @@ void CAN_Service(NightCANDriverInstance *instance);
  * @param filter_mask The mask to apply to the ID for filtering.
  * @retval CANDriverStatus status code.
  */
-CANDriverStatus CAN_ConfigFilter(NightCANDriverInstance *instance, uint32_t filter_bank, uint32_t filter_id, uint32_t filter_mask);
+CANDriverStatus CAN_ConfigFilter(NightCANInstance *instance, uint32_t filter_bank, uint32_t filter_id, uint32_t filter_mask);
 
 
 // --- Callback Handling ---

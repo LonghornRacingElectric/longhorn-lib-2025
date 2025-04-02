@@ -15,7 +15,6 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
-# thank you gemini
 def find_first_file(directory):
     for root, dirs, files in os.walk(directory):
         for file in files:
@@ -82,3 +81,47 @@ print(bcolors.OKCYAN + "Resetting device" + bcolors.ENDC)
 res2 = os.popen("dfu-util -a 0 -d 0483:df11 -s :leave")
 
 print(res2.read())
+
+print(bcolors.OKGREEN + "Connecting to Serial Port" + bcolors.ENDC)
+
+if(serial_port):
+    print(bcolors.OKBLUE + "Opening serial monitor" + bcolors.ENDC)
+    ser = serial.Serial(serial_port)
+    ser.baudrate = 115200
+    while True:
+        if ser.in_waiting > 0:
+            line = ser.readline().decode('utf-8').rstrip()
+            print(line)
+            import sys
+            import threading
+            import time
+
+            def read_serial():
+                while True:
+                    if ser.in_waiting > 0:
+                        line = ser.readline().decode('utf-8').rstrip()
+                        print("\033[K" + line)
+                        print("\033[1A", end="")
+                        print("\033[K", end="")
+                        sys.stdout.flush()
+
+            def write_serial():
+                while True:
+                    try:
+                        command = input()
+                        ser.write((command + "\r\n").encode('utf-8'))
+                    except KeyboardInterrupt:
+                        break
+
+            read_thread = threading.Thread(target=read_serial)
+            write_thread = threading.Thread(target=write_serial)
+
+            read_thread.daemon = True
+            write_thread.daemon = True
+
+            read_thread.start()
+            write_thread.start()
+
+            while True:
+                time.sleep(1)
+
