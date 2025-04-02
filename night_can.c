@@ -36,7 +36,7 @@ static NightCANInstance* find_instance(NIGHTCAN_HANDLE_TYPEDEF *hcan) {
             return night_can_instances[i];
         }
     }
-    return NULL; // Instance not found for this HAL handle
+    return NULL;
 }
 
 /**
@@ -45,8 +45,7 @@ static NightCANInstance* find_instance(NIGHTCAN_HANDLE_TYPEDEF *hcan) {
  * @retval true if full, false otherwise.
  */
 static bool is_rx_buffer_full(NightCANInstance *instance) {
-    if (!instance) return true; // Treat NULL instance as full
-    // Check if head is one position behind tail (considering wrap-around)
+    // Check if head is one position behind tail (considering wrap-around) (this is a circulat buffer)
     return ((instance->rx_buffer_head + 1) % CAN_RX_BUFFER_SIZE) == instance->rx_buffer_tail;
 }
 
@@ -56,7 +55,6 @@ static bool is_rx_buffer_full(NightCANInstance *instance) {
  * @retval true if empty, false otherwise.
  */
 static bool is_rx_buffer_empty(NightCANInstance *instance) {
-    if (!instance) return true; // Treat NULL instance as empty
     // Check if head and tail indices are the same
     return instance->rx_buffer_head == instance->rx_buffer_tail;
 }
@@ -68,10 +66,6 @@ static bool is_rx_buffer_empty(NightCANInstance *instance) {
  * @param rx_data Pointer to the received data payload.
  */
 static void add_to_rx_buffer(NightCANInstance *instance, NIGHTCAN_RX_HANDLETYPEDEF *rx_header, uint8_t *rx_data) {
-    // Basic check for valid instance and header
-    if (!instance || !rx_header || !rx_data) return;
-
-    // Check if the instance's buffer is full
     if (is_rx_buffer_full(instance)) {
         // buffer overflowed so we shall discard the newest message
         instance->rx_overflow_count++;
@@ -103,7 +97,7 @@ static void add_to_rx_buffer(NightCANInstance *instance, NIGHTCAN_RX_HANDLETYPED
     packet->dlc = rx_header->DataLength;
     packet->timestamp_ms = lib_timer_elapsed_ms(); // Use HAL tick for timestamp
     packet->filter_index = rx_header->FilterIndex;
-    // Ensure we don't copy more data than the buffer holds or DLC indicates
+
     uint8_t len_to_copy = (packet->dlc > 8) ? 8 : packet->dlc;
     memcpy(packet->data, rx_data, len_to_copy);
 
@@ -119,13 +113,12 @@ static void add_to_rx_buffer(NightCANInstance *instance, NIGHTCAN_RX_HANDLETYPED
  * @retval CANDriverStatus status code.
  */
 static CANDriverStatus send_immediate(NightCANInstance *instance, NightCANPacket *packet) {
-    // Check for valid instance and packet pointers
     if (!instance || !instance->initialized || !packet) {
         return CAN_INSTANCE_NULL; // Or CAN_INVALID_PARAM
     }
 
     if (!instance->hcan) {
-        return CAN_ERROR; // no handle
+        return CAN_ERROR;
     }
 
     NIGHTCAN_TX_HANDLETYPEDEF tx_header;
@@ -155,9 +148,6 @@ static CANDriverStatus send_immediate(NightCANInstance *instance, NightCANPacket
 
     // --- Platform-Specific HAL Calls ---
 #if defined(STM32H733xx) // Use the specific define from can_driver.h
-    // FDCAN (H7) specific handling
-    // Assume HAL_FDCAN_AddMessageToTxFifoQ handles queuing/mailbox checking internally
-    tx_header.TxFrameType = FDCAN_DATA_FRAME; // Adjust if needed (e.g., FDCAN_BRS_ON)
     HAL_StatusTypeDef hal_status = HAL_FDCAN_AddMessageToTxFifoQ(instance->hcan, &tx_header, packet->data);
 #elif defined(STM32L4xx) // Use the specific define from can_driver.h
     // bxCAN (L4) specific handling
@@ -172,14 +162,12 @@ static CANDriverStatus send_immediate(NightCANInstance *instance, NightCANPacket
 #endif
 
 
-    // Check the result of the HAL transmission function
+    // return the status of the HAl but with our CAN wrapper
     if (hal_status == HAL_OK) {
         return CAN_OK;
     } else if (hal_status == HAL_BUSY) {
-        // This might indicate FIFO full (FDCAN) or mailboxes full (bxCAN)
         return CAN_BUSY;
     } else {
-        // Other HAL error (timeout, parameter error, etc.)
         return CAN_ERROR;
     }
 }
@@ -198,23 +186,23 @@ CANDriverStatus CAN_Init(NightCANInstance *instance, NIGHTCAN_HANDLE_TYPEDEF *hc
         return CAN_MAX_INSTANCES_REACHED;
     }
 
-    // --- Initialize Instance Structure ---
-    memset(instance, 0, sizeof(NightCANInstance)); // Clear the structure
+    // set up the instance, memset is clearing anytthing that might be there before
+    memset(instance, 0, sizeof(NightCANInstance));
     instance->hcan = hcan;
-    instance->initialized = false; // Mark as not initialized until setup succeeds
-    // Buffers/counts are already zeroed by memset
+    instance->initialized = false;
 
 
     // add this to our instances
     night_can_instances[night_active_instances] = instance;
     night_active_instances++;
 
-    // to set up filter, bascially only using this on L4
-    NIGHTCAN_FILTERTYPEDEF sFilterConfig;
+
 
 #if defined(STM32H733xx)
 
 #elif defined(STM32L4xx)
+        // to set up filter, bascially only using this on L4
+        NIGHTCAN_FILTERTYPEDEF sFilterConfig;
         sFilterConfig.FilterBank = 0;                     // Filter bank index (0 to 13 for single CAN)
         sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK; // Mask mode
         sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;// 32-bit scale
@@ -290,17 +278,16 @@ CANDriverStatus CAN_AddTxPacket(NightCANInstance *instance, NightCANPacket *pack
     if (!packet) return CAN_INVALID_PARAM;
 
     if (packet->dlc > 8) {
-        return CAN_INVALID_PARAM; // Invalid data length for classic CAN
+        return CAN_INVALID_PARAM;
     }
 
     // 0 interval means its nota scheduled packet
     if (packet->tx_interval_ms == 0) {
-        // Send immediately (one-shot)
         return send_immediate(instance, packet);
     } else {
         // check if we have space to schedule this (we should be fine).
         if (instance->tx_schedule_count >= CAN_TX_SCHEDULE_SIZE) {
-            return CAN_BUFFER_FULL; // Schedule is full for this instance
+            return CAN_BUFFER_FULL;
         }
 
         // make sure this packet isnt already scheudled for this can bus -- if it is, juyst uypdate the inverval
@@ -344,7 +331,8 @@ CANDriverStatus CAN_RemoveScheduledTxPacket(NightCANInstance *instance, NightCAN
         }
     }
 
-    return CAN_NOT_FOUND; // Packet not found in this instance's schedule
+    // packet not found in instance's schedule
+    return CAN_NOT_FOUND;
 }
 
 
@@ -356,7 +344,6 @@ CANDriverStatus CAN_GetReceivedPacket(NightCANInstance *instance, NightCANReceiv
     if (!instance || !instance->initialized) return CAN_INSTANCE_NULL;
     if (!received_packet) return CAN_INVALID_PARAM;
 
-    // Check if the instance's buffer is empty
     if (is_rx_buffer_empty(instance)) {
         return CAN_BUFFER_EMPTY;
     }
@@ -364,7 +351,7 @@ CANDriverStatus CAN_GetReceivedPacket(NightCANInstance *instance, NightCANReceiv
     // Copy data from the instance's buffer at the tail position
     *received_packet = instance->rx_buffer[instance->rx_buffer_tail];
 
-    // Advance the instance's tail index (with wrap-around)
+    // Advance the instance's tail index (also wraps around for circular bufferness)
     instance->rx_buffer_tail = (instance->rx_buffer_tail + 1) % CAN_RX_BUFFER_SIZE;
 
 
@@ -390,10 +377,12 @@ CANDriverStatus CAN_PollReceive(NightCANInstance *instance) {
         if (HAL_FDCAN_GetRxMessage(instance->hcan, FDCAN_RX_FIFO0, &rx_header, rx_data) == HAL_OK) {
             add_to_rx_buffer(instance, &rx_header, rx_data);
         } else {
-            // Error getting message from FIFO0, maybe break or log?
-            break; // Avoid infinite loop if GetRxMessage fails repeatedly
+            // Error getting message from FIFO0, break out of loop so we don't have error
+            break;
         }
         fill_level0--; // Decrement manually as we process one message
+
+        // TODO: actually a good suggestion, need to test
         // Re-check fill level if GetRxMessage could fail without consuming msg?
         // fill_level0 = HAL_FDCAN_GetRxFifoFillLevel(instance->hcan, FDCAN_RX_FIFO0);
     }
@@ -494,20 +483,12 @@ NightCANPacket CAN_create_packet(uint32_t id, uint32_t interval_ms, uint8_t dlc)
  * @brief Configures an additional CAN filter for a specific instance.
  */
 CANDriverStatus CAN_ConfigFilter(NightCANInstance *instance, uint32_t filter_bank, uint32_t filter_id, uint32_t filter_mask) {
-    // Check for valid instance
     if (!instance || !instance->initialized || !instance->hcan) return CAN_INSTANCE_NULL;
 
-    NIGHTCAN_FILTERTYPEDEF sFilterConfig; // Use base HAL type
 
 #if defined(STM32H733xx)
-    // FDCAN Filter Configuration
-    sFilterConfig.IdType = FDCAN_STANDARD_ID; // Assuming standard ID, adjust if needed (e.g., FDCAN_EXTENDED_ID)
-    sFilterConfig.FilterIndex = filter_bank; // Index of the filter to configure
-    sFilterConfig.FilterType = FDCAN_FILTER_MASK; // Or FDCAN_FILTER_RANGE etc.
-    sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0; // Or FDCAN_FILTER_TO_RX_FIFO1, FDCAN_FILTER_REJECT
-    sFilterConfig.FilterID1 = filter_id;      // ID or start of range
-    sFilterConfig.FilterID2 = filter_mask;    // Mask or end of range
 #elif defined(STM32L4xx)
+        NIGHTCAN_FILTERTYPEDEF sFilterConfig; // Use base HAL type
         sFilterConfig.FilterBank = filter_bank;           // Filter bank number (0..13 or 0..27 depending on device)
         sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK; // Or CAN_FILTERMODE_IDLIST
         sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;// Or CAN_FILTERSCALE_16BIT
