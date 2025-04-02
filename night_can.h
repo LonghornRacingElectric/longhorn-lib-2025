@@ -161,7 +161,8 @@ CANDriverStatus CAN_RemoveScheduledTxPacket(NightCANInstance *instance, NightCAN
  */
 NightCANReceivePacket *CAN_GetReceivedPacket(NightCANInstance *instance, uint32_t id);
 
-NightCANReceivePacket CAN_create_receive_packet(uint32_t id, uint32_t timeout_ms, uint8_t dlc);
+NightCANReceivePacket CAN_create_receive_packet(uint32_t id,
+                                uint32_t timeout_ms, uint8_t dlc);
 
 CANDriverStatus CAN_PollReceive(NightCANInstance *instance);
 
