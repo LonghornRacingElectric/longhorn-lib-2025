@@ -99,6 +99,10 @@ void receive_periodic() {
     }
 }
 
+/**
+ * Returns 1 if the DIGITAL drive switch is enabled, 0 otherwise
+ * @return
+ */
 int checkDrive() {
     return drive;
 }
