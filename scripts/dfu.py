@@ -85,6 +85,7 @@ print(res2.read())
 print(bcolors.OKGREEN + "Connecting to Serial Port" + bcolors.ENDC)
 
 if(serial_port):
+    time.sleep(2)
     print(bcolors.OKBLUE + "Opening serial monitor" + bcolors.ENDC)
     ser = serial.Serial(serial_port)
     ser.baudrate = 115200
