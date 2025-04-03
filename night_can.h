@@ -39,7 +39,7 @@
 #define NIGHTCAN_RX_HANDLETYPEDEF FDCAN_RxHeaderTypeDef
 #define NIGHTCAN_TX_HANDLETYPEDEF FDCAN_TxHeaderTypeDef
 #define NIGHTCAN_FILTERTYPEDEF FDCAN_FilterTypeDef
-#elif defined(STM32L4xx)
+#elif defined(STM32L496xx)
 #include "stm32l4xx_hal.h"
 #define NIGHTCAN_HANDLE_TYPEDEF CAN_HandleTypeDef
 #define NIGHTCAN_RX_HANDLETYPEDEF CAN_RxHeaderTypeDef
@@ -134,7 +134,9 @@ typedef struct {
  * @param default_filter_mask Optional default filter mask (set to 0 if not needed).
  * @retval CANDriverStatus status code.
  */
-CANDriverStatus CAN_Init(NightCANInstance *instance, NIGHTCAN_HANDLE_TYPEDEF *hcan, uint32_t default_filter_id_1, uint32_t default_filter_id_2);
+CANDriverStatus CAN_Init(NightCANInstance *instance, NIGHTCAN_HANDLE_TYPEDEF *hcan,
+                         uint32_t default_filter_id_1, uint32_t default_filter_id_2, uint32_t default_filter_mask_1,
+                            uint32_t default_filter_mask_2);
 
 /**
  * @brief Adds a CAN packet to the transmission schedule or sends it immediately for a specific instance.

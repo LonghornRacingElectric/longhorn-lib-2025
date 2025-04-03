@@ -19,6 +19,10 @@ static NightCANInstance* night_can_instances[MAX_CAN_INSTANCES] = {NULL};
 // number of instances of the can
 static uint32_t night_active_instances = 0;
 
+#ifdef STM32L496xx
+uint32_t tx_mailbox;
+#endif
+
 
 // --- Private Helper Functions ---
 
@@ -77,24 +81,12 @@ NightCANReceivePacket *get_packet_from_id(NightCANInstance *instance, uint32_t i
  * @param rx_data Pointer to the received data payload.
  */
 static void update_rx_buffer(NightCANInstance *instance, NIGHTCAN_RX_HANDLETYPEDEF *rx_header, uint8_t *rx_data) {
-#ifdef STM32L4xx
+#ifdef STM32L496xx
     NightCANReceivePacket *packet = get_packet_from_id(instance,
-                                                (rx_header->IDE == CAN_ID_STD) ? rx_header->StdId : rx_header->ExtId);
-
-    packet->id = (rx_header->IDE == CAN_ID_STD) ? rx_header->StdId : rx_header->ExtId;
-    packet->ide = rx_header->IDE;
-    packet->rtr = rx_header->RTR;
-    packet->dlc = rx_header->DLC;
-    packet->timestamp_ms = lib_timer_elapsed_ms();
-    packet->filter_index = rx_header->FilterMatchIndex;
-    // Ensure we don't copy more data than the buffer holds or DLC indicates
-    uint8_t len_to_copy = (packet->dlc > 8) ? 8 : packet->dlc;
-    memcpy(packet->data, rx_data, len_to_copy);
-
-    // Advance head index for the instance's buffer (with wrap-around)
-    instance->rx_buffer_head = (instance->rx_buffer_head + 1) % CAN_RX_BUFFER_SIZE;
+                                            (rx_header->IDE == CAN_ID_STD) ? rx_header->StdId : rx_header->ExtId);
 #elif defined(STM32H733xx)
     NightCANReceivePacket *packet = get_packet_from_id(instance, rx_header->Identifier);
+#endif
 
     // error, there is no packet given with this ID
     if(!packet) return;
@@ -104,7 +96,6 @@ static void update_rx_buffer(NightCANInstance *instance, NIGHTCAN_RX_HANDLETYPED
 
     uint8_t len_to_copy = (packet->dlc > 8) ? 8 : packet->dlc;
     memcpy(packet->data, rx_data, len_to_copy);
-#endif
 }
 
 /**
@@ -124,7 +115,7 @@ static CANDriverStatus send_immediate(NightCANInstance *instance, NightCANPacket
 
     NIGHTCAN_TX_HANDLETYPEDEF tx_header;
 
-#ifdef STM32L4xx
+#ifdef STM32L496xx
     // Prepare the HAL transmit header from our packet structure
     tx_header.DLC = packet->dlc;
     tx_header.RTR = packet->rtr;
@@ -150,15 +141,16 @@ static CANDriverStatus send_immediate(NightCANInstance *instance, NightCANPacket
     // --- Platform-Specific HAL Calls ---
 #if defined(STM32H733xx) // Use the specific define from can_driver.h
     HAL_StatusTypeDef hal_status = HAL_FDCAN_AddMessageToTxFifoQ(instance->hcan, &tx_header, packet->data);
-#elif defined(STM32L4xx) // Use the specific define from can_driver.h
-    // bxCAN (L4) specific handling
+#elif defined(STM32L496xx) // Use the specific define from can_driver.h
         // Check available mailboxes before attempting to send
         if (HAL_CAN_GetTxMailboxesFreeLevel(instance->hcan) == 0) {
             return CAN_BUSY; // No free mailboxes
         }
-        HAL_StatusTypeDef hal_status = HAL_CAN_AddTxMessage(instance->hcan, &tx_header, packet->data, &tx_mailbox);
+
+        HAL_StatusTypeDef hal_status = HAL_CAN_AddTxMessage(instance->hcan, &tx_header, packet->data,
+                                                            &tx_mailbox);
     #else
-        #error "Unsupported STM32 series for CAN transmission in can_driver.c"
+        #error "Ay follow the notion"
         return CAN_ERROR; // Should not reach here if header check passed
 #endif
 
@@ -179,7 +171,9 @@ static CANDriverStatus send_immediate(NightCANInstance *instance, NightCANPacket
 /**
  * @brief Initializes a CAN peripheral instance and the driver state for it.
  */
-CANDriverStatus CAN_Init(NightCANInstance *instance, NIGHTCAN_HANDLE_TYPEDEF *hcan, uint32_t default_filter_id_1, uint32_t default_filter_id_2) {
+CANDriverStatus CAN_Init(NightCANInstance *instance, NIGHTCAN_HANDLE_TYPEDEF *hcan,
+                         uint32_t default_filter_id_1, uint32_t default_filter_id_2, uint32_t default_filter_mask_1,
+                         uint32_t default_filter_mask_2) {
     // Check for valid pointers and available instance slots
     if (!instance) return CAN_INVALID_PARAM;
     if (!hcan) return CAN_INVALID_PARAM;
@@ -199,16 +193,16 @@ CANDriverStatus CAN_Init(NightCANInstance *instance, NIGHTCAN_HANDLE_TYPEDEF *hc
 
 #if defined(STM32H733xx)
 
-#elif defined(STM32L4xx)
+#elif defined(STM32L496xx)
         // to set up filter, bascially only using this on L4
         NIGHTCAN_FILTERTYPEDEF sFilterConfig;
         sFilterConfig.FilterBank = 0;                     // Filter bank index (0 to 13 for single CAN)
         sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK; // Mask mode
         sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;// 32-bit scale
         // Mask calculation for standard ID in 32-bit mask mode
-        sFilterConfig.FilterIdHigh = (default_filter_id << 5) & 0xFFFF;
+        sFilterConfig.FilterIdHigh = (default_filter_id_1 << 5) & 0xFFFF;
         sFilterConfig.FilterIdLow = 0x0000; // RTR, IDE bits = 0
-        sFilterConfig.FilterMaskIdHigh = (default_filter_mask << 5) & 0xFFFF;
+        sFilterConfig.FilterMaskIdHigh = (default_filter_mask_1 << 5) & 0xFFFF;
         sFilterConfig.FilterMaskIdLow = 0x0000 | CAN_ID_EXT | CAN_RTR_REMOTE; // Mask IDE and RTR bits if needed (0 = don't care)
 
         sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0; // Assign to FIFO0
@@ -216,38 +210,12 @@ CANDriverStatus CAN_Init(NightCANInstance *instance, NIGHTCAN_HANDLE_TYPEDEF *hc
         sFilterConfig.SlaveStartFilterBank = 14;          // Relevant for dual CAN instances, set to 14 for single CAN
 
         if (HAL_CAN_ConfigFilter(instance->hcan, &sFilterConfig) != HAL_OK) {
-             g_active_instances--;
-             g_can_instances[g_active_instances] = NULL;
             return CAN_ERROR; // Error configuring filter
         }
     #else
-        #error "Unsupported STM32 series for CAN filter configuration in can_driver.c"
-        g_active_instances--;
-        g_can_instances[g_active_instances] = NULL;
+        #error "Ay follow the notion"
         return CAN_ERROR;
 #endif
-
-    // --- Activate CAN Notifications ---
-    // Common notifications: Rx FIFO 0/1 message pending
-#if defined(STM32H733xx)
-//    if (HAL_FDCAN_ActivateNotification(instance->hcan, FDCAN_IT_RX_FIFO0_NEW_MESSAGE | FDCAN_IT_RX_FIFO1_NEW_MESSAGE, 0) != HAL_OK) {
-//        night_active_instances--;
-//        night_can_instances[night_active_instances] = NULL;
-//        return CAN_ERROR;
-//    }
-#elif defined(STM32L4xx)
-    // bxCAN Notifications
-        if (HAL_CAN_ActivateNotification(instance->hcan, CAN_IT_RX_FIFO0_MSG_PENDING | CAN_IT_RX_FIFO1_MSG_PENDING) != HAL_OK) {
-             g_active_instances--;
-             g_can_instances[g_active_instances] = NULL;
-            return CAN_ERROR;
-        }
-
-        HAL_CAN_Start(hcan);
-         // Activate error notifications (optional but recommended)
-         HAL_CAN_ActivateNotification(instance->hcan, CAN_IT_ERROR_WARNING | CAN_IT_ERROR_PASSIVE | CAN_IT_BUSOFF | CAN_IT_LAST_ERROR_CODE | CAN_IT_ERROR);
-#endif
-
 
     // --- Start CAN Peripheral ---
 #if defined(STM32H733xx)
@@ -256,10 +224,10 @@ CANDriverStatus CAN_Init(NightCANInstance *instance, NIGHTCAN_HANDLE_TYPEDEF *hc
         night_can_instances[night_active_instances] = NULL;
         return CAN_ERROR;
     }
-#elif defined(STM32L4xx)
+#elif defined(STM32L496xx)
     if (HAL_CAN_Start(instance->hcan) != HAL_OK) {
-             g_active_instances--;
-             g_can_instances[g_active_instances] = NULL;
+             night_active_instances--;
+             night_can_instances[night_active_instances] = NULL;
             return CAN_ERROR;
         }
 #endif
@@ -394,7 +362,7 @@ CANDriverStatus CAN_PollReceive(NightCANInstance *instance) {
         // fill_level1 = HAL_FDCAN_GetRxFifoFillLevel(instance->hcan, FDCAN_RX_FIFO1);
     }
 
-#elif defined(STM32L4xx)
+#elif defined(STM32L496xx)
     uint32_t fill_level0 = HAL_CAN_GetRxFifoFillLevel(instance->hcan, CAN_RX_FIFO0);
         uint32_t fill_level1 = HAL_CAN_GetRxFifoFillLevel(instance->hcan, CAN_RX_FIFO1);
         CAN_RxHeaderTypeDef rx_header;
@@ -403,7 +371,7 @@ CANDriverStatus CAN_PollReceive(NightCANInstance *instance) {
         // Poll FIFO 0
         while (fill_level0 > 0) {
              if (HAL_CAN_GetRxMessage(instance->hcan, CAN_RX_FIFO0, &rx_header, rx_data) == HAL_OK) {
-                 add_to_rx_buffer(instance, &rx_header, rx_data);
+                 update_rx_buffer(instance, &rx_header, rx_data);
              } else {
                  break; // Error
              }
@@ -414,7 +382,7 @@ CANDriverStatus CAN_PollReceive(NightCANInstance *instance) {
         // Poll FIFO 1
         while (fill_level1 > 0) {
              if (HAL_CAN_GetRxMessage(instance->hcan, CAN_RX_FIFO1, &rx_header, rx_data) == HAL_OK) {
-                 add_to_rx_buffer(instance, &rx_header, rx_data);
+                 update_rx_buffer(instance, &rx_header, rx_data);
              } else {
                  break; // Error
              }
@@ -422,7 +390,7 @@ CANDriverStatus CAN_PollReceive(NightCANInstance *instance) {
              // fill_level1 = HAL_CAN_GetRxFifoFillLevel(instance->hcan, CAN_RX_FIFO1);
         }
     #else
-        #error "Unsupported STM32 series for CAN polling"
+        #error "Ay follow the notion!"
         return CAN_ERROR;
 #endif
 
@@ -496,6 +464,10 @@ NightCANPacket CAN_create_packet(uint32_t id, uint32_t interval_ms, uint8_t dlc)
     packet.id = id;
     packet.dlc = dlc;
 
+#ifdef STM32L496xx
+    packet.ide = id > 0x7FF ?  CAN_ID_EXT : CAN_ID_STD;
+#endif
+
     return packet;
 };
 
@@ -534,7 +506,7 @@ CANDriverStatus CAN_ConfigFilter(NightCANInstance *instance, uint32_t filter_ban
     if (!instance || !instance->initialized || !instance->hcan) return CAN_INSTANCE_NULL;
 
 #if defined(STM32H733xx)
-#elif defined(STM32L4xx)
+#elif defined(STM32L496xx)
         NIGHTCAN_FILTERTYPEDEF sFilterConfig; // Use base HAL type
         sFilterConfig.FilterBank = filter_bank;           // Filter bank number (0..13 or 0..27 depending on device)
         sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK; // Or CAN_FILTERMODE_IDLIST
@@ -552,7 +524,7 @@ CANDriverStatus CAN_ConfigFilter(NightCANInstance *instance, uint32_t filter_ban
             return CAN_ERROR;
         }
     #else
-         #error "Unsupported STM32 series for CAN filter configuration in can_driver.c"
+         #error "Ay follow the notion!"
          return CAN_ERROR;
 #endif
 
