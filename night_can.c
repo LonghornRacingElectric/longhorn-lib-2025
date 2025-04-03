@@ -466,7 +466,7 @@ void CAN_Service(NightCANInstance *instance) {
 
         // make sure packet exists and that it is shceudled to be sent (should be), also make sure that this one
         // is nto a one time send packet (if ms interval is 0, it is meant ot only be sent once (crazy right?)) ⛺︎
-        if (packet != NULL && packet->_is_scheduled && packet->tx_interval_ms > 0) {
+        if (packet && packet->_is_scheduled && packet->tx_interval_ms > 0) {
             // make sure that we have waiited long enough
             if ((current_time_ms - packet->_last_tx_time_ms) >= packet->tx_interval_ms) {
                 if (send_immediate(instance, packet) == CAN_OK) {
