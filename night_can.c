@@ -71,7 +71,7 @@ NightCANReceivePacket *get_packet_from_id(NightCANInstance *instance, uint32_t i
 
 
 /**
- * @brief Adds a received message to the ring buffer of a specific instance.
+ * @brief Updates the data in the RX buffer for an ID
  * @param instance Pointer to the driver instance.
  * @param rx_header Pointer to the received message header.
  * @param rx_data Pointer to the received data payload.
@@ -292,9 +292,7 @@ CANDriverStatus CAN_AddTxPacket(NightCANInstance *instance, NightCANPacket *pack
         // make sure this packet isnt already scheudled for this can bus -- if it is, juyst uypdate the inverval
         for (uint32_t i = 0; i < instance->tx_schedule_count; i++) {
             if (instance->tx_schedule[i] == packet) {
-                // Already scheduled, update interval and return OK
-                instance->tx_schedule[i]->tx_interval_ms = packet->tx_interval_ms;
-                instance->tx_schedule[i]->_is_scheduled = true;
+                // Already scheduled
                 return CAN_OK;
             }
         }
@@ -316,16 +314,16 @@ CANDriverStatus CAN_RemoveScheduledTxPacket(NightCANInstance *instance, NightCAN
     if (!packet) return CAN_INVALID_PARAM;
 
     // look for packetm if we find it, send scheudled to false and remove from the transmit queue
-    for (uint32_t i = 0; i < instance->tx_schedule_count; ++i) {
+    for (uint32_t i = 0; i < instance->tx_schedule_count; i++) {
         if (instance->tx_schedule[i] == packet) {
             instance->tx_schedule[i]->_is_scheduled = false;
 
-            for (uint32_t j = i; j < instance->tx_schedule_count - 1; ++j) {
+            // shift everything over
+            for (uint32_t j = i; j < instance->tx_schedule_count - 1; j++) {
                 instance->tx_schedule[j] = instance->tx_schedule[j + 1];
             }
 
-            instance->tx_schedule[instance->tx_schedule_count - 1] = NULL;
-            instance->tx_schedule_count--;
+            instance->tx_schedule[--instance->tx_schedule_count] = NULL;
             return CAN_OK;
         }
     }
@@ -346,8 +344,13 @@ NightCANReceivePacket *CAN_GetReceivedPacket(NightCANInstance *instance, uint32_
         return NULL;
     }
 
+    for(int i = 0; i < instance->rx_buffer_count; i++) {
+        if(instance->rx_buffer[i]->id == id) {
+            return instance->rx_buffer[i];
+        }
+    }
     // Copy data from the instance's buffer at the tail position
-    return instance->rx_buffer[instance->rx_buffer_count];
+    return NULL;
 }
 
 /**
@@ -515,8 +518,8 @@ NightCANReceivePacket CAN_create_receive_packet(uint32_t id, uint32_t timeout_ms
 };
 
 void CAN_addReceivePacket(NightCANInstance *instance, NightCANReceivePacket *packet) {
-    if(get_packet_from_id(instance, packet->id)) {
-        // packet exists, don't add it
+    if(get_packet_from_id(instance, packet->id) || is_rx_buffer_full(instance)) {
+        // packet exists or the buffers are full, don't add it
         return;
     }
 
