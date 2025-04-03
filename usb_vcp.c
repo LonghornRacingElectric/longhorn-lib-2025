@@ -71,11 +71,11 @@ void receiveData(uint8_t *data, uint32_t len) {
         dfu_enable = 1;
     }
 
-    if(!strcmp(message, DRIVE_CMD_TEST)) {
+    if (!strcmp(message, DRIVE_CMD_TEST)) {
         drive = 1;
     }
 
-    if(!strcmp(message, STOP_CMD_TEST)) {
+    if (!strcmp(message, STOP_CMD_TEST)) {
         drive = 0;
     }
 
@@ -103,8 +103,6 @@ void receive_periodic() {
  * Returns 1 if the DIGITAL drive switch is enabled, 0 otherwise
  * @return
  */
-int checkDrive() {
-    return drive;
-}
+int checkDrive() { return drive; }
 
 #endif
