@@ -2,8 +2,8 @@
 // Created by Dhairya Gupta on 3/1/25.
 //
 
-
 #include "dfu.h"
+
 #include "usb_vcp.h"
 
 static uint16_t boot0pin;

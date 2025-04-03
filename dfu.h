@@ -13,4 +13,4 @@ void dfu_init(GPIO_TypeDef *boot0, uint16_t bootPin);
 /* DANGEROUS!! This will pull up boot0, you'll have to upload code */
 void boot_to_dfu();
 
-#endif //VCU_FIRMWARE_2025_DFU_H
+#endif  // VCU_FIRMWARE_2025_DFU_H
