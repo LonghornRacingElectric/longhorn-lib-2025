@@ -12,6 +12,7 @@
 #include <string.h>  // For memcpy
 
 #include "timer.h"
+#include "usb_vcp.h"
 
 // --- Static Variables for Instance Management ---
 
@@ -284,6 +285,7 @@ CANDriverStatus CAN_AddTxPacket(NightCANInstance *instance,
         // add this shire to the scheudle.
         packet->_last_tx_time_ms = lib_timer_elapsed_ms();
         packet->_is_scheduled = true;
+
         instance->tx_schedule[instance->tx_schedule_count++] = packet;
         return CAN_OK;
     }
@@ -338,6 +340,11 @@ NightCANReceivePacket *CAN_GetReceivedPacket(NightCANInstance *instance,
     }
     // Copy data from the instance's buffer at the tail position
     return NULL;
+}
+
+NightCANInstance CAN_new_instance() {
+    NightCANInstance instance = {};
+    return instance;
 }
 
 /**
@@ -501,10 +508,12 @@ void CAN_consume_packet(NightCANReceivePacket *packet) {
  */
 NightCANPacket CAN_create_packet(uint32_t id, uint32_t interval_ms,
                                  uint8_t dlc) {
-    NightCANPacket packet;
-    packet.tx_interval_ms = interval_ms;
-    packet.id = id;
-    packet.dlc = dlc;
+    NightCANPacket packet = {
+            .tx_interval_ms = interval_ms,
+            .id = id,
+            .dlc = dlc,
+            .data = {0}
+    };
 
 #ifdef STM32L496xx
     packet.ide = id > 0x7FF ? CAN_ID_EXT : CAN_ID_STD;
@@ -525,12 +534,8 @@ NightCANPacket CAN_create_packet(uint32_t id, uint32_t interval_ms,
 NightCANReceivePacket CAN_create_receive_packet(uint32_t id,
                                                 uint32_t timeout_ms,
                                                 uint8_t dlc) {
-    NightCANReceivePacket packet;
-    packet.timeout_ms = timeout_ms;
-    packet.id = id;
-    packet.dlc = dlc;
-    packet.timestamp_ms = lib_timer_elapsed_ms();
-
+    NightCANReceivePacket packet = {.id = id, .timeout_ms = timeout_ms, .dlc = dlc,
+                                    .timestamp_ms = lib_timer_elapsed_ms(), .is_recent = false};
     return packet;
 };
 

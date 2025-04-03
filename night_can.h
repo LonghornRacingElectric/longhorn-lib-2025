@@ -189,6 +189,8 @@ NightCANReceivePacket CAN_create_receive_packet(uint32_t id,
 
 CANDriverStatus CAN_PollReceive(NightCANInstance *instance);
 
+NightCANInstance CAN_new_instance();
+
 /**
  * @brief Services the CAN driver for a specific instance (handles periodic
  * transmissions). This function MUST be called periodically for each active
