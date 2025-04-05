@@ -29,6 +29,7 @@
 #include <stdint.h>
 
 #include "main.h"  // Include if NIGHTCAN_HANDLE_TYPEDEF needs it
+#include "night_can_ids.h"
 
 // --- Select the target STM32 series ---
 // Define ONE of these (or similar) in your project's preprocessor settings:
