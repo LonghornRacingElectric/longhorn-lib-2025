@@ -204,16 +204,45 @@ else:
         print(f"{bcolors.FAIL}An unexpected error occurred: {e}{bcolors.ENDC}", file=sys.stderr)
         print("Proceeding to DFU update anyway.")
 
+import re # Need to import the regex module
+
+def find_first_path_for_device_regex(data_string, device_id="0483:df11"):
+    # Regex to find path="..." and capture the content inside quotes
+    # We'll apply this *only* to the line that matches the device_id
+    path_regex = re.compile(r'path="([^"]*)"')
+
+    for line in data_string.splitlines():
+        if device_id in line:
+            # Found the first line with the device ID
+            match = path_regex.search(line) # Search for the path pattern *on this line*
+            if match:
+                # Pattern found, return the captured group (the content inside quotes)
+                return match.group(1)
+            else:
+                # Device ID found, but path="xxx" pattern not found on this line.
+                # Since we need the path from the *first* matching line, stop and return None.
+                return None
+    # If the loop finishes without finding the device_id
+    return None
+
 
 # 5. Update Device via DFU
 print(bcolors.OKCYAN + "\n--- Updating Device via DFU ---" + bcolors.ENDC)
+
+process = os.popen("dfu-util --list")
+
+dfu_path = find_first_path_for_device_regex(process.read())
+
 # Note: Ensure dfu-util is installed and in your system's PATH
 # Use the correct DFU VID:PID for STM32 bootloader
 dfu_vid_pid = "0483:df11"
-dfu_command = f"dfu-util -a 0 -d {dfu_vid_pid} --dfuse-address 0x08000000 -D \"{binpath}\""
-print(f"DFU VID:PID used: {dfu_vid_pid}")
+dfu_command = f"dfu-util -a 0 -p {dfu_path} --dfuse-address 0x08000000 -D \"{binpath}\""
+print(f"DFU VID:PID used: -p {dfu_path}")
+
+
+
 run_command(dfu_command)
-run_command("dfu-util -a 0 -d {dfu_vid_pid} -s :leave", ignore_error=True)
+run_command(f"dfu-util -a 0 -p {dfu_path} -s :leave", ignore_error=True)
 # The ':leave' suffix should handle the reset. If not, uncomment the lines below.
 # run_command("dfu-util -a 0 -d 0483:df11 -s 0x08000000:leave", ignore_error=True) # Alternative leave command
 
