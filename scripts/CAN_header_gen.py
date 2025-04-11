@@ -56,12 +56,17 @@ def generate_header(json_data, input_filename, output_filename=DEFAULT_OUTPUT_FI
             f"at index {packet_index - 1}"  # Default error identifier
         )
         try:
+            # --- Mandatory Fields ---
             packet_name = packet["packet_name"]
             packet_name_for_error = f"'{packet_name}'"  # Use name if available
             packet_id = packet["packet_id"]
             data_length = packet["data_length"]
+
+            # --- Optional Fields with Defaults/Handling ---
             quantity = packet.get("quantity", 1)  # Default quantity if missing
             bytes_data = packet.get("bytes", [])  # Default to empty list
+            from_nodes = packet.get("from", [])  # Get 'from' list, default to empty
+            to_nodes = packet.get("to", [])  # Get 'to' list, default to empty
 
             # --- Handle frequency_ms (allowing for null/None) ---
             freq_ms_value = packet.get(
@@ -85,12 +90,22 @@ def generate_header(json_data, input_filename, output_filename=DEFAULT_OUTPUT_FI
                 )
                 # frequency_ms_int remains 0
 
-            # Note: The 'frequency' field from JSON is not used for the _FREQ define,
-            # based on the requirement to use frequency_ms. No specific handling needed for it here.
-
+            # --- Start Generating Header Lines for Packet ---
             packet_macro_base = to_macro_name(packet_name)
 
             header_lines.append(f"// Packet: {packet_name}")
+
+            # --- Add From/To comments if data exists ---
+            if from_nodes:
+                from_str = ", ".join(
+                    str(n) for n in from_nodes
+                )  # Ensure items are strings
+                header_lines.append(f"// From: {from_str}")
+            if to_nodes:
+                to_str = ", ".join(str(n) for n in to_nodes)  # Ensure items are strings
+                header_lines.append(f"// To:   {to_str}")  # Added spacing for alignment
+
+            # --- Add Packet Defines ---
             header_lines.append(f"#define {packet_macro_base}_ID {packet_id}")
             header_lines.append(f"#define {packet_macro_base}_DLC {data_length}")
             header_lines.append(

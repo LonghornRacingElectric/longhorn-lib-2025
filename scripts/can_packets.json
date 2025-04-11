@@ -2,6 +2,12 @@
     {
         "packet_id": 4,
         "packet_name": "Write Memory Data -- Firmware Update",
+        "from": [
+            "Pi"
+        ],
+        "to": [
+            "\\*"
+        ],
         "data_length": 8,
         "frequency_ms": null,
         "frequency": null,
@@ -68,6 +74,8 @@
     {
         "packet_id": 16,
         "packet_name": "Packet_0x010",
+        "from": [],
+        "to": [],
         "data_length": 0,
         "frequency_ms": null,
         "frequency": null,
@@ -77,6 +85,8 @@
     {
         "packet_id": 18,
         "packet_name": "Packet_0x012",
+        "from": [],
+        "to": [],
         "data_length": 0,
         "frequency_ms": null,
         "frequency": null,
@@ -86,6 +96,8 @@
     {
         "packet_id": 19,
         "packet_name": "Packet_0x013",
+        "from": [],
+        "to": [],
         "data_length": 0,
         "frequency_ms": null,
         "frequency": null,
@@ -95,6 +107,12 @@
     {
         "packet_id": 20,
         "packet_name": "Packet_0x014",
+        "from": [
+            "Pi"
+        ],
+        "to": [
+            "Undertray"
+        ],
         "data_length": 0,
         "frequency_ms": null,
         "frequency": null,
@@ -104,6 +122,12 @@
     {
         "packet_id": 32,
         "packet_name": "Bus Enable/Disable",
+        "from": [
+            "Pi"
+        ],
+        "to": [
+            "HVC"
+        ],
         "data_length": 1,
         "frequency_ms": null,
         "frequency": null,
@@ -121,6 +145,12 @@
     {
         "packet_id": 33,
         "packet_name": "Bus Enable/Disable",
+        "from": [
+            "Pi"
+        ],
+        "to": [
+            "VCU"
+        ],
         "data_length": 1,
         "frequency_ms": null,
         "frequency": null,
@@ -138,6 +168,12 @@
     {
         "packet_id": 34,
         "packet_name": "Bus Enable/Disable",
+        "from": [
+            "Pi"
+        ],
+        "to": [
+            "Upright"
+        ],
         "data_length": 1,
         "frequency_ms": null,
         "frequency": null,
@@ -155,6 +191,12 @@
     {
         "packet_id": 49,
         "packet_name": "(Meta Data for Write Memory -- Firmware Update, 256B max)",
+        "from": [
+            "Pi"
+        ],
+        "to": [
+            "\\*"
+        ],
         "data_length": 5,
         "frequency_ms": null,
         "frequency": null,
@@ -200,6 +242,12 @@
     {
         "packet_id": 160,
         "packet_name": "Inverter Temps",
+        "from": [
+            "Inverter"
+        ],
+        "to": [
+            "VCU"
+        ],
         "data_length": 8,
         "frequency_ms": 100.0,
         "frequency": 10.0,
@@ -238,6 +286,12 @@
     {
         "packet_id": 162,
         "packet_name": "Inverter Temps 2",
+        "from": [
+            "Inverter"
+        ],
+        "to": [
+            "VCU"
+        ],
         "data_length": 8,
         "frequency_ms": 100.0,
         "frequency": 10.0,
@@ -276,6 +330,12 @@
     {
         "packet_id": 165,
         "packet_name": "Inverter Status",
+        "from": [
+            "Inverter"
+        ],
+        "to": [
+            "VCU"
+        ],
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -314,6 +374,12 @@
     {
         "packet_id": 166,
         "packet_name": "Inverter Current",
+        "from": [
+            "Inverter"
+        ],
+        "to": [
+            "VCU"
+        ],
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -352,6 +418,12 @@
     {
         "packet_id": 167,
         "packet_name": "Inverter Voltage",
+        "from": [
+            "Inverter"
+        ],
+        "to": [
+            "VCU"
+        ],
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -390,6 +462,12 @@
     {
         "packet_id": 170,
         "packet_name": "Inverter Details",
+        "from": [
+            "Inverter"
+        ],
+        "to": [
+            "VCU"
+        ],
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -456,6 +534,12 @@
     {
         "packet_id": 171,
         "packet_name": "Inverter Faults",
+        "from": [
+            "Inverter"
+        ],
+        "to": [
+            "VCU"
+        ],
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -480,6 +564,12 @@
     {
         "packet_id": 172,
         "packet_name": "Inverter TSO",
+        "from": [
+            "Inverter"
+        ],
+        "to": [
+            "VCU"
+        ],
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -511,6 +601,12 @@
     {
         "packet_id": 176,
         "packet_name": "Inverter Speed",
+        "from": [
+            "Inverter"
+        ],
+        "to": [
+            "VCU"
+        ],
         "data_length": 8,
         "frequency_ms": 3.003,
         "frequency": 333.0,
@@ -549,6 +645,12 @@
     {
         "packet_id": 192,
         "packet_name": "Inverter Torque Command",
+        "from": [
+            "VCU"
+        ],
+        "to": [
+            "Inverter"
+        ],
         "data_length": 8,
         "frequency_ms": 3.003,
         "frequency": 333.0,
@@ -594,6 +696,12 @@
     {
         "packet_id": 193,
         "packet_name": "Inverter Parameter Request",
+        "from": [
+            "VCU"
+        ],
+        "to": [
+            "Inverter"
+        ],
         "data_length": 8,
         "frequency_ms": null,
         "frequency": null,
@@ -618,6 +726,12 @@
     {
         "packet_id": 194,
         "packet_name": "Inverter Parameter Response",
+        "from": [
+            "Inverter"
+        ],
+        "to": [
+            "VCU"
+        ],
         "data_length": 8,
         "frequency_ms": null,
         "frequency": null,
@@ -642,6 +756,12 @@
     {
         "packet_id": 209,
         "packet_name": "Wheel Speed, Ride height",
+        "from": [
+            "Upright"
+        ],
+        "to": [
+            "VCU"
+        ],
         "data_length": 4,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -666,6 +786,12 @@
     {
         "packet_id": 2560,
         "packet_name": "APPS Voltages",
+        "from": [
+            "Rack"
+        ],
+        "to": [
+            "VCU"
+        ],
         "data_length": 8,
         "frequency_ms": 3.003,
         "frequency": 333.0,
@@ -704,6 +830,12 @@
     {
         "packet_id": 2561,
         "packet_name": "Accelerator Pedal",
+        "from": [
+            "Rack"
+        ],
+        "to": [
+            "VCU"
+        ],
         "data_length": 3,
         "frequency_ms": 3.003,
         "frequency": 333.0,
@@ -728,6 +860,12 @@
     {
         "packet_id": 2562,
         "packet_name": "BPPS Voltages",
+        "from": [
+            "Rack"
+        ],
+        "to": [
+            "VCU"
+        ],
         "data_length": 8,
         "frequency_ms": 3.003,
         "frequency": 333.0,
@@ -766,6 +904,12 @@
     {
         "packet_id": 2563,
         "packet_name": "Brake Pedal",
+        "from": [
+            "Rack"
+        ],
+        "to": [
+            "VCU"
+        ],
         "data_length": 3,
         "frequency_ms": 3.003,
         "frequency": 333.0,
@@ -790,6 +934,12 @@
     {
         "packet_id": 256,
         "packet_name": "BSE Voltages",
+        "from": [
+            "VCU"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 6,
         "frequency_ms": 3.003,
         "frequency": 333.0,
@@ -800,27 +950,45 @@
                 "name": "BSE Front Voltage",
                 "length": 2,
                 "conv_type": "uint16",
-                "precision": 0.0001
+                "precision": 0.0001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bse1_v"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "BSE Rear Voltage",
                 "length": 2,
                 "conv_type": "uint16",
-                "precision": 0.0001
+                "precision": 0.0001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bse2_v"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "BSE Line Lock Voltage",
                 "length": 2,
                 "conv_type": "uint16",
-                "precision": 0.0001
+                "precision": 0.0001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bse3_v"
+                }
             }
         ]
     },
     {
         "packet_id": 2564,
         "packet_name": "Brakes",
+        "from": [
+            "Rack"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 8,
         "frequency_ms": 3.003,
         "frequency": 333.0,
@@ -866,6 +1034,12 @@
     {
         "packet_id": 2565,
         "packet_name": "Rack Steering",
+        "from": [
+            "Rack"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 2,
         "frequency_ms": 3.003,
         "frequency": 333.0,
@@ -883,6 +1057,12 @@
     {
         "packet_id": 1024,
         "packet_name": "FL Steering",
+        "from": [
+            "Upright"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 2,
         "frequency_ms": 3.003,
         "frequency": 333.0,
@@ -900,6 +1080,12 @@
     {
         "packet_id": 1025,
         "packet_name": "FR Steering",
+        "from": [
+            "Upright"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 2,
         "frequency_ms": 3.003,
         "frequency": 333.0,
@@ -917,6 +1103,12 @@
     {
         "packet_id": 1026,
         "packet_name": "Acceleration Vector Unsprung FL",
+        "from": [
+            "Upright"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -948,6 +1140,12 @@
     {
         "packet_id": 1027,
         "packet_name": "Acceleration Vector Unsprung FR",
+        "from": [
+            "Upright"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -979,6 +1177,12 @@
     {
         "packet_id": 1028,
         "packet_name": "Acceleration Vector Unsprung RL",
+        "from": [
+            "Upright"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1010,6 +1214,12 @@
     {
         "packet_id": 1029,
         "packet_name": "Acceleration Vector Unsprung RR",
+        "from": [
+            "Upright"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1041,6 +1251,12 @@
     {
         "packet_id": 1280,
         "packet_name": "Acceleration Vector Sprung FL",
+        "from": [
+            "Undertray"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1072,6 +1288,12 @@
     {
         "packet_id": 1281,
         "packet_name": "Acceleration Vector Sprung FR",
+        "from": [
+            "Undertray"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1103,6 +1325,12 @@
     {
         "packet_id": 1282,
         "packet_name": "Acceleration Vector Sprung RL",
+        "from": [
+            "Undertray"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1134,6 +1362,12 @@
     {
         "packet_id": 1283,
         "packet_name": "Acceleration Vector Sprung RR",
+        "from": [
+            "Undertray"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1165,6 +1399,12 @@
     {
         "packet_id": 1284,
         "packet_name": "Angular Rate Vector FL Sprung",
+        "from": [
+            "Undertray"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1196,6 +1436,12 @@
     {
         "packet_id": 1285,
         "packet_name": "Angular Rate Vector FR Sprung",
+        "from": [
+            "Undertray"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1227,6 +1473,12 @@
     {
         "packet_id": 1286,
         "packet_name": "Angular Rate Vector BL Sprung",
+        "from": [
+            "Undertray"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1258,6 +1510,12 @@
     {
         "packet_id": 1287,
         "packet_name": "Angular Rate Vector BR Sprung",
+        "from": [
+            "Undertray"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1289,6 +1547,12 @@
     {
         "packet_id": 1030,
         "packet_name": "Wheel Speed + Strain Gauge + Pushrod + Spring Disp. FL",
+        "from": [
+            "Upright"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1327,6 +1591,12 @@
     {
         "packet_id": 1031,
         "packet_name": "Wheel Speed + Strain Gauge + Pushrod + Spring Disp. FR",
+        "from": [
+            "Upright"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1365,6 +1635,12 @@
     {
         "packet_id": 1032,
         "packet_name": "Wheel Speed + Strain Gauge + Pushrod + Spring Disp. RL",
+        "from": [
+            "Upright"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1403,6 +1679,12 @@
     {
         "packet_id": 1033,
         "packet_name": "Wheel Speed + Strain Gauge + Pushrod + Spring Disp. RR",
+        "from": [
+            "Upright"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1441,6 +1723,12 @@
     {
         "packet_id": 1288,
         "packet_name": "Ride Height FL",
+        "from": [
+            "Undertray"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 2,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1458,6 +1746,12 @@
     {
         "packet_id": 1289,
         "packet_name": "Ride Height FR",
+        "from": [
+            "Undertray"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 2,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1475,6 +1769,12 @@
     {
         "packet_id": 1296,
         "packet_name": "Ride Height RL",
+        "from": [
+            "Undertray"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 2,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1492,6 +1792,12 @@
     {
         "packet_id": 1297,
         "packet_name": "Ride Height RR",
+        "from": [
+            "Undertray"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 2,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1509,6 +1815,12 @@
     {
         "packet_id": 257,
         "packet_name": "GPS",
+        "from": [
+            "VCU"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 8,
         "frequency_ms": 100.0,
         "frequency": 10.0,
@@ -1547,6 +1859,12 @@
     {
         "packet_id": 258,
         "packet_name": "Motor Cooling",
+        "from": [
+            "VCU"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1585,6 +1903,12 @@
     {
         "packet_id": 259,
         "packet_name": "Battery Cooling",
+        "from": [
+            "VCU"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1616,6 +1940,12 @@
     {
         "packet_id": 260,
         "packet_name": "Temps",
+        "from": [
+            "VCU"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1647,6 +1977,12 @@
     {
         "packet_id": 512,
         "packet_name": "Battery Pack Status",
+        "from": [
+            "HVC"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1692,6 +2028,12 @@
     {
         "packet_id": 513,
         "packet_name": "Battery Temperature Status",
+        "from": [
+            "HVC"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 8,
         "frequency_ms": 100.0,
         "frequency": 10.0,
@@ -1730,6 +2072,12 @@
     {
         "packet_id": 514,
         "packet_name": "Indicators + Shutdown Status",
+        "from": [
+            "HVC"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 6,
         "frequency_ms": 100.0,
         "frequency": 10.0,
@@ -1782,6 +2130,12 @@
     {
         "packet_id": 515,
         "packet_name": "Contactor Status",
+        "from": [
+            "HVC"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 3,
         "frequency_ms": 100.0,
         "frequency": 10.0,
@@ -1813,6 +2167,12 @@
     {
         "packet_id": 516,
         "packet_name": "Cell Voltages",
+        "from": [
+            "HVC"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 8,
         "frequency_ms": 1000.0,
         "frequency": 1.0,
@@ -1851,6 +2211,12 @@
     {
         "packet_id": 517,
         "packet_name": "Cell Temperatures",
+        "from": [
+            "HVC"
+        ],
+        "to": [
+            "Pi"
+        ],
         "data_length": 8,
         "frequency_ms": 1000.0,
         "frequency": 1.0,
@@ -1889,6 +2255,12 @@
     {
         "packet_id": 261,
         "packet_name": "Allow Balance Command",
+        "from": [
+            "VCU"
+        ],
+        "to": [
+            "HVC"
+        ],
         "data_length": 0,
         "frequency_ms": null,
         "frequency": null,
@@ -1898,6 +2270,12 @@
     {
         "packet_id": 1536,
         "packet_name": "HVC Bounds Parameters",
+        "from": [
+            "Pi"
+        ],
+        "to": [
+            "HVC"
+        ],
         "data_length": 0,
         "frequency_ms": null,
         "frequency": null,

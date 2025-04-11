@@ -8,6 +8,8 @@
 #include <stdint.h> // For fixed-width integer types
 
 // Packet: Write Memory Data -- Firmware Update
+// From: Pi
+// To:   \*
 #define WRITE_MEMORY_DATA_FIRMWARE_UPDATE_ID 4
 #define WRITE_MEMORY_DATA_FIRMWARE_UPDATE_DLC 8
 #define WRITE_MEMORY_DATA_FIRMWARE_UPDATE_FREQ 0
@@ -80,6 +82,8 @@
 // End Packet: Packet_0x013
 
 // Packet: Packet_0x014
+// From: Pi
+// To:   Undertray
 #define PACKET_0X014_ID 20
 #define PACKET_0X014_DLC 0
 #define PACKET_0X014_FREQ 0
@@ -88,6 +92,8 @@
 // End Packet: Packet_0x014
 
 // Packet: Bus Enable/Disable
+// From: Pi
+// To:   HVC
 #define BUS_ENABLE_DISABLE_ID 32
 #define BUS_ENABLE_DISABLE_DLC 1
 #define BUS_ENABLE_DISABLE_FREQ 0
@@ -101,6 +107,8 @@
 // End Packet: Bus Enable/Disable
 
 // Packet: Bus Enable/Disable
+// From: Pi
+// To:   VCU
 #define BUS_ENABLE_DISABLE_ID 33
 #define BUS_ENABLE_DISABLE_DLC 1
 #define BUS_ENABLE_DISABLE_FREQ 0
@@ -114,6 +122,8 @@
 // End Packet: Bus Enable/Disable
 
 // Packet: Bus Enable/Disable
+// From: Pi
+// To:   Upright
 #define BUS_ENABLE_DISABLE_ID 34
 #define BUS_ENABLE_DISABLE_DLC 1
 #define BUS_ENABLE_DISABLE_FREQ 0
@@ -127,6 +137,8 @@
 // End Packet: Bus Enable/Disable
 
 // Packet: (Meta Data for Write Memory -- Firmware Update, 256B max)
+// From: Pi
+// To:   \*
 #define META_DATA_FOR_WRITE_MEMORY_FIRMWARE_UPDATE_256B_MAX_ID 49
 #define META_DATA_FOR_WRITE_MEMORY_FIRMWARE_UPDATE_256B_MAX_DLC 5
 #define META_DATA_FOR_WRITE_MEMORY_FIRMWARE_UPDATE_256B_MAX_FREQ 0
@@ -160,6 +172,8 @@
 // End Packet: (Meta Data for Write Memory -- Firmware Update, 256B max)
 
 // Packet: Inverter Temps
+// From: Inverter
+// To:   VCU
 #define INVERTER_TEMPS_ID 160
 #define INVERTER_TEMPS_DLC 8
 #define INVERTER_TEMPS_FREQ 100
@@ -188,6 +202,8 @@
 // End Packet: Inverter Temps
 
 // Packet: Inverter Temps 2
+// From: Inverter
+// To:   VCU
 #define INVERTER_TEMPS_2_ID 162
 #define INVERTER_TEMPS_2_DLC 8
 #define INVERTER_TEMPS_2_FREQ 100
@@ -216,6 +232,8 @@
 // End Packet: Inverter Temps 2
 
 // Packet: Inverter Status
+// From: Inverter
+// To:   VCU
 #define INVERTER_STATUS_ID 165
 #define INVERTER_STATUS_DLC 8
 #define INVERTER_STATUS_FREQ 10
@@ -244,6 +262,8 @@
 // End Packet: Inverter Status
 
 // Packet: Inverter Current
+// From: Inverter
+// To:   VCU
 #define INVERTER_CURRENT_ID 166
 #define INVERTER_CURRENT_DLC 8
 #define INVERTER_CURRENT_FREQ 10
@@ -272,6 +292,8 @@
 // End Packet: Inverter Current
 
 // Packet: Inverter Voltage
+// From: Inverter
+// To:   VCU
 #define INVERTER_VOLTAGE_ID 167
 #define INVERTER_VOLTAGE_DLC 8
 #define INVERTER_VOLTAGE_FREQ 10
@@ -300,6 +322,8 @@
 // End Packet: Inverter Voltage
 
 // Packet: Inverter Details
+// From: Inverter
+// To:   VCU
 #define INVERTER_DETAILS_ID 170
 #define INVERTER_DETAILS_DLC 8
 #define INVERTER_DETAILS_FREQ 10
@@ -348,6 +372,8 @@
 // End Packet: Inverter Details
 
 // Packet: Inverter Faults
+// From: Inverter
+// To:   VCU
 #define INVERTER_FAULTS_ID 171
 #define INVERTER_FAULTS_DLC 8
 #define INVERTER_FAULTS_FREQ 10
@@ -366,6 +392,8 @@
 // End Packet: Inverter Faults
 
 // Packet: Inverter TSO
+// From: Inverter
+// To:   VCU
 #define INVERTER_TSO_ID 172
 #define INVERTER_TSO_DLC 8
 #define INVERTER_TSO_FREQ 10
@@ -389,6 +417,8 @@
 // End Packet: Inverter TSO
 
 // Packet: Inverter Speed
+// From: Inverter
+// To:   VCU
 #define INVERTER_SPEED_ID 176
 #define INVERTER_SPEED_DLC 8
 #define INVERTER_SPEED_FREQ 3
@@ -417,6 +447,8 @@
 // End Packet: Inverter Speed
 
 // Packet: Inverter Torque Command
+// From: VCU
+// To:   Inverter
 #define INVERTER_TORQUE_COMMAND_ID 192
 #define INVERTER_TORQUE_COMMAND_DLC 8
 #define INVERTER_TORQUE_COMMAND_FREQ 3
@@ -450,6 +482,8 @@
 // End Packet: Inverter Torque Command
 
 // Packet: Inverter Parameter Request
+// From: VCU
+// To:   Inverter
 #define INVERTER_PARAMETER_REQUEST_ID 193
 #define INVERTER_PARAMETER_REQUEST_DLC 8
 #define INVERTER_PARAMETER_REQUEST_FREQ 0
@@ -468,6 +502,8 @@
 // End Packet: Inverter Parameter Request
 
 // Packet: Inverter Parameter Response
+// From: Inverter
+// To:   VCU
 #define INVERTER_PARAMETER_RESPONSE_ID 194
 #define INVERTER_PARAMETER_RESPONSE_DLC 8
 #define INVERTER_PARAMETER_RESPONSE_FREQ 0
@@ -486,6 +522,8 @@
 // End Packet: Inverter Parameter Response
 
 // Packet: Wheel Speed, Ride height
+// From: Upright
+// To:   VCU
 #define WHEEL_SPEED_RIDE_HEIGHT_ID 209
 #define WHEEL_SPEED_RIDE_HEIGHT_DLC 4
 #define WHEEL_SPEED_RIDE_HEIGHT_FREQ 10
@@ -504,6 +542,8 @@
 // End Packet: Wheel Speed, Ride height
 
 // Packet: APPS Voltages
+// From: Rack
+// To:   VCU
 #define APPS_VOLTAGES_ID 2560
 #define APPS_VOLTAGES_DLC 8
 #define APPS_VOLTAGES_FREQ 3
@@ -532,6 +572,8 @@
 // End Packet: APPS Voltages
 
 // Packet: Accelerator Pedal
+// From: Rack
+// To:   VCU
 #define ACCELERATOR_PEDAL_ID 2561
 #define ACCELERATOR_PEDAL_DLC 3
 #define ACCELERATOR_PEDAL_FREQ 3
@@ -550,6 +592,8 @@
 // End Packet: Accelerator Pedal
 
 // Packet: BPPS Voltages
+// From: Rack
+// To:   VCU
 #define BPPS_VOLTAGES_ID 2562
 #define BPPS_VOLTAGES_DLC 8
 #define BPPS_VOLTAGES_FREQ 3
@@ -578,6 +622,8 @@
 // End Packet: BPPS Voltages
 
 // Packet: Brake Pedal
+// From: Rack
+// To:   VCU
 #define BRAKE_PEDAL_ID 2563
 #define BRAKE_PEDAL_DLC 3
 #define BRAKE_PEDAL_FREQ 3
@@ -596,6 +642,8 @@
 // End Packet: Brake Pedal
 
 // Packet: BSE Voltages
+// From: VCU
+// To:   Pi
 #define BSE_VOLTAGES_ID 256
 #define BSE_VOLTAGES_DLC 6
 #define BSE_VOLTAGES_FREQ 3
@@ -619,6 +667,8 @@
 // End Packet: BSE Voltages
 
 // Packet: Brakes
+// From: Rack
+// To:   Pi
 #define BRAKES_ID 2564
 #define BRAKES_DLC 8
 #define BRAKES_FREQ 3
@@ -652,6 +702,8 @@
 // End Packet: Brakes
 
 // Packet: Rack Steering
+// From: Rack
+// To:   Pi
 #define RACK_STEERING_ID 2565
 #define RACK_STEERING_DLC 2
 #define RACK_STEERING_FREQ 3
@@ -665,6 +717,8 @@
 // End Packet: Rack Steering
 
 // Packet: FL Steering
+// From: Upright
+// To:   Pi
 #define FL_STEERING_ID 1024
 #define FL_STEERING_DLC 2
 #define FL_STEERING_FREQ 3
@@ -678,6 +732,8 @@
 // End Packet: FL Steering
 
 // Packet: FR Steering
+// From: Upright
+// To:   Pi
 #define FR_STEERING_ID 1025
 #define FR_STEERING_DLC 2
 #define FR_STEERING_FREQ 3
@@ -691,6 +747,8 @@
 // End Packet: FR Steering
 
 // Packet: Acceleration Vector Unsprung FL
+// From: Upright
+// To:   Pi
 #define ACCELERATION_VECTOR_UNSPRUNG_FL_ID 1026
 #define ACCELERATION_VECTOR_UNSPRUNG_FL_DLC 6
 #define ACCELERATION_VECTOR_UNSPRUNG_FL_FREQ 10
@@ -714,6 +772,8 @@
 // End Packet: Acceleration Vector Unsprung FL
 
 // Packet: Acceleration Vector Unsprung FR
+// From: Upright
+// To:   Pi
 #define ACCELERATION_VECTOR_UNSPRUNG_FR_ID 1027
 #define ACCELERATION_VECTOR_UNSPRUNG_FR_DLC 6
 #define ACCELERATION_VECTOR_UNSPRUNG_FR_FREQ 10
@@ -737,6 +797,8 @@
 // End Packet: Acceleration Vector Unsprung FR
 
 // Packet: Acceleration Vector Unsprung RL
+// From: Upright
+// To:   Pi
 #define ACCELERATION_VECTOR_UNSPRUNG_RL_ID 1028
 #define ACCELERATION_VECTOR_UNSPRUNG_RL_DLC 6
 #define ACCELERATION_VECTOR_UNSPRUNG_RL_FREQ 10
@@ -760,6 +822,8 @@
 // End Packet: Acceleration Vector Unsprung RL
 
 // Packet: Acceleration Vector Unsprung RR
+// From: Upright
+// To:   Pi
 #define ACCELERATION_VECTOR_UNSPRUNG_RR_ID 1029
 #define ACCELERATION_VECTOR_UNSPRUNG_RR_DLC 6
 #define ACCELERATION_VECTOR_UNSPRUNG_RR_FREQ 10
@@ -783,6 +847,8 @@
 // End Packet: Acceleration Vector Unsprung RR
 
 // Packet: Acceleration Vector Sprung FL
+// From: Undertray
+// To:   Pi
 #define ACCELERATION_VECTOR_SPRUNG_FL_ID 1280
 #define ACCELERATION_VECTOR_SPRUNG_FL_DLC 6
 #define ACCELERATION_VECTOR_SPRUNG_FL_FREQ 10
@@ -806,6 +872,8 @@
 // End Packet: Acceleration Vector Sprung FL
 
 // Packet: Acceleration Vector Sprung FR
+// From: Undertray
+// To:   Pi
 #define ACCELERATION_VECTOR_SPRUNG_FR_ID 1281
 #define ACCELERATION_VECTOR_SPRUNG_FR_DLC 6
 #define ACCELERATION_VECTOR_SPRUNG_FR_FREQ 10
@@ -829,6 +897,8 @@
 // End Packet: Acceleration Vector Sprung FR
 
 // Packet: Acceleration Vector Sprung RL
+// From: Undertray
+// To:   Pi
 #define ACCELERATION_VECTOR_SPRUNG_RL_ID 1282
 #define ACCELERATION_VECTOR_SPRUNG_RL_DLC 6
 #define ACCELERATION_VECTOR_SPRUNG_RL_FREQ 10
@@ -852,6 +922,8 @@
 // End Packet: Acceleration Vector Sprung RL
 
 // Packet: Acceleration Vector Sprung RR
+// From: Undertray
+// To:   Pi
 #define ACCELERATION_VECTOR_SPRUNG_RR_ID 1283
 #define ACCELERATION_VECTOR_SPRUNG_RR_DLC 6
 #define ACCELERATION_VECTOR_SPRUNG_RR_FREQ 10
@@ -875,6 +947,8 @@
 // End Packet: Acceleration Vector Sprung RR
 
 // Packet: Angular Rate Vector FL Sprung
+// From: Undertray
+// To:   Pi
 #define ANGULAR_RATE_VECTOR_FL_SPRUNG_ID 1284
 #define ANGULAR_RATE_VECTOR_FL_SPRUNG_DLC 6
 #define ANGULAR_RATE_VECTOR_FL_SPRUNG_FREQ 10
@@ -898,6 +972,8 @@
 // End Packet: Angular Rate Vector FL Sprung
 
 // Packet: Angular Rate Vector FR Sprung
+// From: Undertray
+// To:   Pi
 #define ANGULAR_RATE_VECTOR_FR_SPRUNG_ID 1285
 #define ANGULAR_RATE_VECTOR_FR_SPRUNG_DLC 6
 #define ANGULAR_RATE_VECTOR_FR_SPRUNG_FREQ 10
@@ -921,6 +997,8 @@
 // End Packet: Angular Rate Vector FR Sprung
 
 // Packet: Angular Rate Vector BL Sprung
+// From: Undertray
+// To:   Pi
 #define ANGULAR_RATE_VECTOR_BL_SPRUNG_ID 1286
 #define ANGULAR_RATE_VECTOR_BL_SPRUNG_DLC 6
 #define ANGULAR_RATE_VECTOR_BL_SPRUNG_FREQ 10
@@ -944,6 +1022,8 @@
 // End Packet: Angular Rate Vector BL Sprung
 
 // Packet: Angular Rate Vector BR Sprung
+// From: Undertray
+// To:   Pi
 #define ANGULAR_RATE_VECTOR_BR_SPRUNG_ID 1287
 #define ANGULAR_RATE_VECTOR_BR_SPRUNG_DLC 6
 #define ANGULAR_RATE_VECTOR_BR_SPRUNG_FREQ 10
@@ -967,6 +1047,8 @@
 // End Packet: Angular Rate Vector BR Sprung
 
 // Packet: Wheel Speed + Strain Gauge + Pushrod + Spring Disp. FL
+// From: Upright
+// To:   Pi
 #define WHEEL_SPEED_STRAIN_GAUGE_PUSHROD_SPRING_DISP_FL_ID 1030
 #define WHEEL_SPEED_STRAIN_GAUGE_PUSHROD_SPRING_DISP_FL_DLC 8
 #define WHEEL_SPEED_STRAIN_GAUGE_PUSHROD_SPRING_DISP_FL_FREQ 10
@@ -995,6 +1077,8 @@
 // End Packet: Wheel Speed + Strain Gauge + Pushrod + Spring Disp. FL
 
 // Packet: Wheel Speed + Strain Gauge + Pushrod + Spring Disp. FR
+// From: Upright
+// To:   Pi
 #define WHEEL_SPEED_STRAIN_GAUGE_PUSHROD_SPRING_DISP_FR_ID 1031
 #define WHEEL_SPEED_STRAIN_GAUGE_PUSHROD_SPRING_DISP_FR_DLC 8
 #define WHEEL_SPEED_STRAIN_GAUGE_PUSHROD_SPRING_DISP_FR_FREQ 10
@@ -1023,6 +1107,8 @@
 // End Packet: Wheel Speed + Strain Gauge + Pushrod + Spring Disp. FR
 
 // Packet: Wheel Speed + Strain Gauge + Pushrod + Spring Disp. RL
+// From: Upright
+// To:   Pi
 #define WHEEL_SPEED_STRAIN_GAUGE_PUSHROD_SPRING_DISP_RL_ID 1032
 #define WHEEL_SPEED_STRAIN_GAUGE_PUSHROD_SPRING_DISP_RL_DLC 8
 #define WHEEL_SPEED_STRAIN_GAUGE_PUSHROD_SPRING_DISP_RL_FREQ 10
@@ -1051,6 +1137,8 @@
 // End Packet: Wheel Speed + Strain Gauge + Pushrod + Spring Disp. RL
 
 // Packet: Wheel Speed + Strain Gauge + Pushrod + Spring Disp. RR
+// From: Upright
+// To:   Pi
 #define WHEEL_SPEED_STRAIN_GAUGE_PUSHROD_SPRING_DISP_RR_ID 1033
 #define WHEEL_SPEED_STRAIN_GAUGE_PUSHROD_SPRING_DISP_RR_DLC 8
 #define WHEEL_SPEED_STRAIN_GAUGE_PUSHROD_SPRING_DISP_RR_FREQ 10
@@ -1079,6 +1167,8 @@
 // End Packet: Wheel Speed + Strain Gauge + Pushrod + Spring Disp. RR
 
 // Packet: Ride Height FL
+// From: Undertray
+// To:   Pi
 #define RIDE_HEIGHT_FL_ID 1288
 #define RIDE_HEIGHT_FL_DLC 2
 #define RIDE_HEIGHT_FL_FREQ 10
@@ -1092,6 +1182,8 @@
 // End Packet: Ride Height FL
 
 // Packet: Ride Height FR
+// From: Undertray
+// To:   Pi
 #define RIDE_HEIGHT_FR_ID 1289
 #define RIDE_HEIGHT_FR_DLC 2
 #define RIDE_HEIGHT_FR_FREQ 10
@@ -1105,6 +1197,8 @@
 // End Packet: Ride Height FR
 
 // Packet: Ride Height RL
+// From: Undertray
+// To:   Pi
 #define RIDE_HEIGHT_RL_ID 1296
 #define RIDE_HEIGHT_RL_DLC 2
 #define RIDE_HEIGHT_RL_FREQ 10
@@ -1118,6 +1212,8 @@
 // End Packet: Ride Height RL
 
 // Packet: Ride Height RR
+// From: Undertray
+// To:   Pi
 #define RIDE_HEIGHT_RR_ID 1297
 #define RIDE_HEIGHT_RR_DLC 2
 #define RIDE_HEIGHT_RR_FREQ 10
@@ -1131,6 +1227,8 @@
 // End Packet: Ride Height RR
 
 // Packet: GPS
+// From: VCU
+// To:   Pi
 #define GPS_ID 257
 #define GPS_DLC 8
 #define GPS_FREQ 100
@@ -1159,6 +1257,8 @@
 // End Packet: GPS
 
 // Packet: Motor Cooling
+// From: VCU
+// To:   Pi
 #define MOTOR_COOLING_ID 258
 #define MOTOR_COOLING_DLC 8
 #define MOTOR_COOLING_FREQ 10
@@ -1187,6 +1287,8 @@
 // End Packet: Motor Cooling
 
 // Packet: Battery Cooling
+// From: VCU
+// To:   Pi
 #define BATTERY_COOLING_ID 259
 #define BATTERY_COOLING_DLC 6
 #define BATTERY_COOLING_FREQ 10
@@ -1210,6 +1312,8 @@
 // End Packet: Battery Cooling
 
 // Packet: Temps
+// From: VCU
+// To:   Pi
 #define TEMPS_ID 260
 #define TEMPS_DLC 6
 #define TEMPS_FREQ 10
@@ -1233,6 +1337,8 @@
 // End Packet: Temps
 
 // Packet: Battery Pack Status
+// From: HVC
+// To:   Pi
 #define BATTERY_PACK_STATUS_ID 512
 #define BATTERY_PACK_STATUS_DLC 8
 #define BATTERY_PACK_STATUS_FREQ 10
@@ -1266,6 +1372,8 @@
 // End Packet: Battery Pack Status
 
 // Packet: Battery Temperature Status
+// From: HVC
+// To:   Pi
 #define BATTERY_TEMPERATURE_STATUS_ID 513
 #define BATTERY_TEMPERATURE_STATUS_DLC 8
 #define BATTERY_TEMPERATURE_STATUS_FREQ 100
@@ -1294,6 +1402,8 @@
 // End Packet: Battery Temperature Status
 
 // Packet: Indicators + Shutdown Status
+// From: HVC
+// To:   Pi
 #define INDICATORS_SHUTDOWN_STATUS_ID 514
 #define INDICATORS_SHUTDOWN_STATUS_DLC 6
 #define INDICATORS_SHUTDOWN_STATUS_FREQ 100
@@ -1332,6 +1442,8 @@
 // End Packet: Indicators + Shutdown Status
 
 // Packet: Contactor Status
+// From: HVC
+// To:   Pi
 #define CONTACTOR_STATUS_ID 515
 #define CONTACTOR_STATUS_DLC 3
 #define CONTACTOR_STATUS_FREQ 100
@@ -1355,6 +1467,8 @@
 // End Packet: Contactor Status
 
 // Packet: Cell Voltages
+// From: HVC
+// To:   Pi
 #define CELL_VOLTAGES_ID 516
 #define CELL_VOLTAGES_DLC 8
 #define CELL_VOLTAGES_FREQ 1000
@@ -1383,6 +1497,8 @@
 // End Packet: Cell Voltages
 
 // Packet: Cell Temperatures
+// From: HVC
+// To:   Pi
 #define CELL_TEMPERATURES_ID 517
 #define CELL_TEMPERATURES_DLC 8
 #define CELL_TEMPERATURES_FREQ 1000
@@ -1411,6 +1527,8 @@
 // End Packet: Cell Temperatures
 
 // Packet: Allow Balance Command
+// From: VCU
+// To:   HVC
 #define ALLOW_BALANCE_COMMAND_ID 261
 #define ALLOW_BALANCE_COMMAND_DLC 0
 #define ALLOW_BALANCE_COMMAND_FREQ 0
@@ -1419,6 +1537,8 @@
 // End Packet: Allow Balance Command
 
 // Packet: HVC Bounds Parameters
+// From: Pi
+// To:   HVC
 #define HVC_BOUNDS_PARAMETERS_ID 1536
 #define HVC_BOUNDS_PARAMETERS_DLC 0
 #define HVC_BOUNDS_PARAMETERS_FREQ 0
