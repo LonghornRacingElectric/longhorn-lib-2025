@@ -247,7 +247,10 @@ void CAN_addReceivePacket(NightCANInstance *instance,
  * @warning See general warnings in file header regarding safety and alignment.
  * Example: uint16_t status = can_readInt(uint16_t, &myReceivedPacket, 2);
  */
-#define CAN_readInt(T, packet_ptr, start_byte, default)              \
+#define CAN_readInt(T, packet_ptr, start_byte)              \
+        (*((T *)((uint8_t *)((packet_ptr)->data) + (start_byte))))
+
+#define CAN_readInt_with_default(T, packet_ptr, start_byte, default)              \
     ((packet_ptr)->is_recent)                                        \
         ? (*((T *)((uint8_t *)((packet_ptr)->data) + (start_byte)))) \
         : default  // Cast data to uint8_t* for pointer arithmetic
@@ -310,10 +313,14 @@ void CAN_addReceivePacket(NightCANInstance *instance,
  * @return The reconstructed floating-point value.
  * @warning See general warnings in file header regarding safety and alignment.
  */
-#define CAN_readFloat(T, packet_ptr, start_byte, precision, default)          \
+#define CAN_readFloat(T, packet_ptr, start_byte, precision)          \
+((float)(*((T *)((uint8_t *)((packet_ptr)->data) + (start_byte))) * \
+                   (precision)))                                              // Cast data to uint8_t*
+
+#define CAN_readFloat_with_default(T, packet_ptr, start_byte, precision, default)          \
     ((packet_ptr)->is_recent)                                                 \
         ? ((float)(*((T *)((uint8_t *)((packet_ptr)->data) + (start_byte))) * \
                    (precision)))                                              \
-        : 0.0f  // Cast data to uint8_t*
+        : default  // Cast data to uint8_t*
 
 #endif  // CAN_DRIVER_H
