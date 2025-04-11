@@ -1326,7 +1326,7 @@
     },
     {
         "packet_id": 1280,
-        "packet_name": "Acceleration Vector Sprung FL",
+        "packet_name": "Acceleration Vector Sprung + Ride Height FL",
         "from": [
             "Undertray"
         ],
@@ -1369,13 +1369,24 @@
                 "protobuf": {
                     "type": "float",
                     "field": "fl_sprung_accel"
+                }
+            },
+            {
+                "start_byte": 6,
+                "name": "Ride Height",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.002,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_ride_height"
                 }
             }
         ]
     },
     {
         "packet_id": 1281,
-        "packet_name": "Acceleration Vector Sprung FR",
+        "packet_name": "Acceleration Vector Sprung + Ride Height FR",
         "from": [
             "Undertray"
         ],
@@ -1418,13 +1429,24 @@
                 "protobuf": {
                     "type": "float",
                     "field": "fr_sprung_accel"
+                }
+            },
+            {
+                "start_byte": 6,
+                "name": "Ride Height",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.002,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_ride_height"
                 }
             }
         ]
     },
     {
         "packet_id": 1282,
-        "packet_name": "Acceleration Vector Sprung RL",
+        "packet_name": "Acceleration Vector Sprung + Ride Height RL",
         "from": [
             "Undertray"
         ],
@@ -1467,13 +1489,24 @@
                 "protobuf": {
                     "type": "float",
                     "field": "bl_sprung_accel"
+                }
+            },
+            {
+                "start_byte": 6,
+                "name": "Ride Height",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.002,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_ride_height"
                 }
             }
         ]
     },
     {
         "packet_id": 1283,
-        "packet_name": "Acceleration Vector Sprung RR",
+        "packet_name": "Acceleration Vector Sprung + Ride Height RR",
         "from": [
             "Undertray"
         ],
@@ -1516,6 +1549,17 @@
                 "protobuf": {
                     "type": "float",
                     "field": "br_sprung_accel"
+                }
+            },
+            {
+                "start_byte": 6,
+                "name": "Ride Height",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.002,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_ride_height"
                 }
             }
         ]
@@ -1957,114 +2001,6 @@
         ]
     },
     {
-        "packet_id": 1288,
-        "packet_name": "Ride Height FL",
-        "from": [
-            "Undertray"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 2,
-        "frequency_ms": 10.0,
-        "frequency": 100.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "Ride Height",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.002,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fl_ride_height"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1289,
-        "packet_name": "Ride Height FR",
-        "from": [
-            "Undertray"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 2,
-        "frequency_ms": 10.0,
-        "frequency": 100.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "Ride Height",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.002,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fr_ride_height"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1296,
-        "packet_name": "Ride Height RL",
-        "from": [
-            "Undertray"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 2,
-        "frequency_ms": 10.0,
-        "frequency": 100.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "Ride Height",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.002,
-                "protobuf": {
-                    "type": "float",
-                    "field": "bl_ride_height"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1297,
-        "packet_name": "Ride Height RR",
-        "from": [
-            "Undertray"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 2,
-        "frequency_ms": 10.0,
-        "frequency": 100.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "Ride Height",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.002,
-                "protobuf": {
-                    "type": "float",
-                    "field": "br_ride_height"
-                }
-            }
-        ]
-    },
-    {
         "packet_id": 257,
         "packet_name": "GPS",
         "from": [
@@ -2457,8 +2393,8 @@
         ]
     },
     {
-        "packet_id": 516,
-        "packet_name": "Cell Voltages",
+        "packet_id": 528,
+        "packet_name": "Cell Voltages (Packet 1 is 0x210, Packet 35 is 0x232)",
         "from": [
             "HVC"
         ],
@@ -2501,8 +2437,8 @@
         ]
     },
     {
-        "packet_id": 517,
-        "packet_name": "Cell Temperatures",
+        "packet_id": 576,
+        "packet_name": "Cell Temperatures (Packet 1 is 0x240, Packet 23 is 0x256)",
         "from": [
             "HVC"
         ],
