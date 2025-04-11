@@ -784,154 +784,6 @@
         ]
     },
     {
-        "packet_id": 2560,
-        "packet_name": "APPS Voltages",
-        "from": [
-            "Rack"
-        ],
-        "to": [
-            "VCU"
-        ],
-        "data_length": 8,
-        "frequency_ms": 3.003,
-        "frequency": 333.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "APPS1 Voltage",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.0001
-            },
-            {
-                "start_byte": 2,
-                "name": "APPS2 Voltage",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.0001
-            },
-            {
-                "start_byte": 4,
-                "name": "APPS1 Travel",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.0001
-            },
-            {
-                "start_byte": 6,
-                "name": "APPS2 Travel",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.0001
-            }
-        ]
-    },
-    {
-        "packet_id": 2561,
-        "packet_name": "Accelerator Pedal",
-        "from": [
-            "Rack"
-        ],
-        "to": [
-            "VCU"
-        ],
-        "data_length": 3,
-        "frequency_ms": 3.003,
-        "frequency": 333.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "Accelerator Pedal Travel",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.0001
-            },
-            {
-                "start_byte": 2,
-                "name": "APPS Faults",
-                "length": 1,
-                "conv_type": "see bitfield",
-                "precision": 1.0
-            }
-        ]
-    },
-    {
-        "packet_id": 2562,
-        "packet_name": "BPPS Voltages",
-        "from": [
-            "Rack"
-        ],
-        "to": [
-            "VCU"
-        ],
-        "data_length": 8,
-        "frequency_ms": 3.003,
-        "frequency": 333.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "BPPS1 Voltage",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.0001
-            },
-            {
-                "start_byte": 2,
-                "name": "BPPS2 Voltage",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.0001
-            },
-            {
-                "start_byte": 4,
-                "name": "BPPS1 Travel",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.0001
-            },
-            {
-                "start_byte": 6,
-                "name": "BPPS2 Travel",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.0001
-            }
-        ]
-    },
-    {
-        "packet_id": 2563,
-        "packet_name": "Brake Pedal",
-        "from": [
-            "Rack"
-        ],
-        "to": [
-            "VCU"
-        ],
-        "data_length": 3,
-        "frequency_ms": 3.003,
-        "frequency": 333.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "Brake Pedal Travel",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.0001
-            },
-            {
-                "start_byte": 2,
-                "name": "BPPS Faults",
-                "length": 1,
-                "conv_type": "see bitfield",
-                "precision": 1.0
-            }
-        ]
-    },
-    {
         "packet_id": 256,
         "packet_name": "BSE Voltages",
         "from": [
@@ -976,1026 +828,6 @@
                 "protobuf": {
                     "type": "float",
                     "field": "bse3_v"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 2564,
-        "packet_name": "Brakes",
-        "from": [
-            "Rack"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 8,
-        "frequency_ms": 3.003,
-        "frequency": 333.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "Brake Pressure Front",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.05,
-                "protobuf": {
-                    "type": "float",
-                    "field": "brake_pressure_f"
-                }
-            },
-            {
-                "start_byte": 2,
-                "name": "Brake Pressure Rear Pre Lock",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.05,
-                "protobuf": {
-                    "type": "float",
-                    "field": "brake_pressure_rbll"
-                }
-            },
-            {
-                "start_byte": 4,
-                "name": "Brake Pressure Rear Post Lock",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.05,
-                "protobuf": {
-                    "type": "float",
-                    "field": "brake_pressure_rall"
-                }
-            },
-            {
-                "start_byte": 6,
-                "name": "Brake Bias",
-                "length": 1,
-                "conv_type": "uint8",
-                "precision": 0.01,
-                "protobuf": {
-                    "type": "float",
-                    "field": "brake_bias"
-                }
-            },
-            {
-                "start_byte": 7,
-                "name": "BSE Faults",
-                "length": 1,
-                "conv_type": "see bitfield",
-                "precision": 1.0
-            }
-        ]
-    },
-    {
-        "packet_id": 2565,
-        "packet_name": "Rack Steering",
-        "from": [
-            "Rack"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 2,
-        "frequency_ms": 3.003,
-        "frequency": 333.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "Steering Column Angle",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.004,
-                "protobuf": {
-                    "type": "float",
-                    "field": "steer_col_angle"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1024,
-        "packet_name": "FL Steering",
-        "from": [
-            "Upright"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 2,
-        "frequency_ms": 3.003,
-        "frequency": 333.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "FL Est Steering Angle",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fl_steer_angle"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1025,
-        "packet_name": "FR Steering",
-        "from": [
-            "Upright"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 2,
-        "frequency_ms": 3.003,
-        "frequency": 333.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "FR Est Steering Angle",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fr_steer_angle"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1026,
-        "packet_name": "Acceleration Vector Unsprung FL",
-        "from": [
-            "Upright"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 6,
-        "frequency_ms": 10.0,
-        "frequency": 100.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "X",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fl_unsprung_accel"
-                }
-            },
-            {
-                "start_byte": 2,
-                "name": "Y",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fl_unsprung_accel"
-                }
-            },
-            {
-                "start_byte": 4,
-                "name": "Z",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fl_unsprung_accel"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1027,
-        "packet_name": "Acceleration Vector Unsprung FR",
-        "from": [
-            "Upright"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 6,
-        "frequency_ms": 10.0,
-        "frequency": 100.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "X",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fr_unsprung_accel"
-                }
-            },
-            {
-                "start_byte": 2,
-                "name": "Y",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fr_unsprung_accel"
-                }
-            },
-            {
-                "start_byte": 4,
-                "name": "Z",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fr_unsprung_accel"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1028,
-        "packet_name": "Acceleration Vector Unsprung RL",
-        "from": [
-            "Upright"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 6,
-        "frequency_ms": 10.0,
-        "frequency": 100.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "X",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "bl_unsprung_accel"
-                }
-            },
-            {
-                "start_byte": 2,
-                "name": "Y",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "bl_unsprung_accel"
-                }
-            },
-            {
-                "start_byte": 4,
-                "name": "Z",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "bl_unsprung_accel"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1029,
-        "packet_name": "Acceleration Vector Unsprung RR",
-        "from": [
-            "Upright"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 6,
-        "frequency_ms": 10.0,
-        "frequency": 100.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "X",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "br_unsprung_accel"
-                }
-            },
-            {
-                "start_byte": 2,
-                "name": "Y",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "br_unsprung_accel"
-                }
-            },
-            {
-                "start_byte": 4,
-                "name": "Z",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "br_unsprung_accel"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1280,
-        "packet_name": "Acceleration Vector Sprung + Ride Height FL",
-        "from": [
-            "Undertray"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 6,
-        "frequency_ms": 10.0,
-        "frequency": 100.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "X",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fl_sprung_accel"
-                }
-            },
-            {
-                "start_byte": 2,
-                "name": "Y",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fl_sprung_accel"
-                }
-            },
-            {
-                "start_byte": 4,
-                "name": "Z",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fl_sprung_accel"
-                }
-            },
-            {
-                "start_byte": 6,
-                "name": "Ride Height",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.002,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fl_ride_height"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1281,
-        "packet_name": "Acceleration Vector Sprung + Ride Height FR",
-        "from": [
-            "Undertray"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 6,
-        "frequency_ms": 10.0,
-        "frequency": 100.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "X",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fr_sprung_accel"
-                }
-            },
-            {
-                "start_byte": 2,
-                "name": "Y",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fr_sprung_accel"
-                }
-            },
-            {
-                "start_byte": 4,
-                "name": "Z",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fr_sprung_accel"
-                }
-            },
-            {
-                "start_byte": 6,
-                "name": "Ride Height",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.002,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fr_ride_height"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1282,
-        "packet_name": "Acceleration Vector Sprung + Ride Height RL",
-        "from": [
-            "Undertray"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 6,
-        "frequency_ms": 10.0,
-        "frequency": 100.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "X",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "bl_sprung_accel"
-                }
-            },
-            {
-                "start_byte": 2,
-                "name": "Y",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "bl_sprung_accel"
-                }
-            },
-            {
-                "start_byte": 4,
-                "name": "Z",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "bl_sprung_accel"
-                }
-            },
-            {
-                "start_byte": 6,
-                "name": "Ride Height",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.002,
-                "protobuf": {
-                    "type": "float",
-                    "field": "bl_ride_height"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1283,
-        "packet_name": "Acceleration Vector Sprung + Ride Height RR",
-        "from": [
-            "Undertray"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 6,
-        "frequency_ms": 10.0,
-        "frequency": 100.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "X",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "br_sprung_accel"
-                }
-            },
-            {
-                "start_byte": 2,
-                "name": "Y",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "br_sprung_accel"
-                }
-            },
-            {
-                "start_byte": 4,
-                "name": "Z",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "br_sprung_accel"
-                }
-            },
-            {
-                "start_byte": 6,
-                "name": "Ride Height",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.002,
-                "protobuf": {
-                    "type": "float",
-                    "field": "br_ride_height"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1284,
-        "packet_name": "Angular Rate Vector FL Sprung",
-        "from": [
-            "Undertray"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 6,
-        "frequency_ms": 10.0,
-        "frequency": 100.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "X",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.03,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fl_sprung_ang_rate"
-                }
-            },
-            {
-                "start_byte": 2,
-                "name": "Y",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.03,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fl_sprung_ang_rate"
-                }
-            },
-            {
-                "start_byte": 4,
-                "name": "Z",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.03,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fl_sprung_ang_rate"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1285,
-        "packet_name": "Angular Rate Vector FR Sprung",
-        "from": [
-            "Undertray"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 6,
-        "frequency_ms": 10.0,
-        "frequency": 100.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "X",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.03,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fr_sprung_ang_rate"
-                }
-            },
-            {
-                "start_byte": 2,
-                "name": "Y",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.03,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fr_sprung_ang_rate"
-                }
-            },
-            {
-                "start_byte": 4,
-                "name": "Z",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.03,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fr_sprung_ang_rate"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1286,
-        "packet_name": "Angular Rate Vector BL Sprung",
-        "from": [
-            "Undertray"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 6,
-        "frequency_ms": 10.0,
-        "frequency": 100.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "X",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.03,
-                "protobuf": {
-                    "type": "float",
-                    "field": "bl_sprung_ang_rate"
-                }
-            },
-            {
-                "start_byte": 2,
-                "name": "Y",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.03,
-                "protobuf": {
-                    "type": "float",
-                    "field": "bl_sprung_ang_rate"
-                }
-            },
-            {
-                "start_byte": 4,
-                "name": "Z",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.03,
-                "protobuf": {
-                    "type": "float",
-                    "field": "bl_sprung_ang_rate"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1287,
-        "packet_name": "Angular Rate Vector BR Sprung",
-        "from": [
-            "Undertray"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 6,
-        "frequency_ms": 10.0,
-        "frequency": 100.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "X",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.03,
-                "protobuf": {
-                    "type": "float",
-                    "field": "br_sprung_ang_rate"
-                }
-            },
-            {
-                "start_byte": 2,
-                "name": "Y",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.03,
-                "protobuf": {
-                    "type": "float",
-                    "field": "br_sprung_ang_rate"
-                }
-            },
-            {
-                "start_byte": 4,
-                "name": "Z",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.03,
-                "protobuf": {
-                    "type": "float",
-                    "field": "br_sprung_ang_rate"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1030,
-        "packet_name": "Wheel Speed + Strain Gauge + Pushrod + Spring Disp. FL",
-        "from": [
-            "Upright"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 8,
-        "frequency_ms": 10.0,
-        "frequency": 100.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "Speed",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.01,
-                "protobuf": {
-                    "type": "float",
-                    "field": "flw_speed"
-                }
-            },
-            {
-                "start_byte": 2,
-                "name": "Strain Gauge Voltage",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.0002,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fl_strain_gauge_v"
-                }
-            },
-            {
-                "start_byte": 4,
-                "name": "Pushrod",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.5,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fl_pushrod_stress"
-                }
-            },
-            {
-                "start_byte": 6,
-                "name": "Spring Displacement",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fl_spring_displace"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1031,
-        "packet_name": "Wheel Speed + Strain Gauge + Pushrod + Spring Disp. FR",
-        "from": [
-            "Upright"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 8,
-        "frequency_ms": 10.0,
-        "frequency": 100.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "Speed",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.01,
-                "protobuf": {
-                    "type": "float",
-                    "field": "frw_speed"
-                }
-            },
-            {
-                "start_byte": 2,
-                "name": "Strain Gauge Voltage",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.0002,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fr_strain_gauge_v"
-                }
-            },
-            {
-                "start_byte": 4,
-                "name": "Pushrod",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.5,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fr_pushrod_stress"
-                }
-            },
-            {
-                "start_byte": 6,
-                "name": "Spring Displacement",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "fr_spring_displace"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1032,
-        "packet_name": "Wheel Speed + Strain Gauge + Pushrod + Spring Disp. RL",
-        "from": [
-            "Upright"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 8,
-        "frequency_ms": 10.0,
-        "frequency": 100.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "Speed",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.01,
-                "protobuf": {
-                    "type": "float",
-                    "field": "blw_speed"
-                }
-            },
-            {
-                "start_byte": 2,
-                "name": "Strain Gauge Voltage",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.0002,
-                "protobuf": {
-                    "type": "float",
-                    "field": "bl_strain_gauge_v"
-                }
-            },
-            {
-                "start_byte": 4,
-                "name": "Pushrod",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.5,
-                "protobuf": {
-                    "type": "float",
-                    "field": "bl_pushrod_stress"
-                }
-            },
-            {
-                "start_byte": 6,
-                "name": "Spring Displacement",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "bl_spring_displace"
-                }
-            }
-        ]
-    },
-    {
-        "packet_id": 1033,
-        "packet_name": "Wheel Speed + Strain Gauge + Pushrod + Spring Disp. RR",
-        "from": [
-            "Upright"
-        ],
-        "to": [
-            "Pi"
-        ],
-        "data_length": 8,
-        "frequency_ms": 10.0,
-        "frequency": 100.0,
-        "quantity": 1,
-        "bytes": [
-            {
-                "start_byte": 0,
-                "name": "Speed",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.01,
-                "protobuf": {
-                    "type": "float",
-                    "field": "brw_speed"
-                }
-            },
-            {
-                "start_byte": 2,
-                "name": "Strain Gauge Voltage",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.0002,
-                "protobuf": {
-                    "type": "float",
-                    "field": "br_strain_gauge_v"
-                }
-            },
-            {
-                "start_byte": 4,
-                "name": "Pushrod",
-                "length": 2,
-                "conv_type": "int16",
-                "precision": 0.5,
-                "protobuf": {
-                    "type": "float",
-                    "field": "br_pushrod_stress"
-                }
-            },
-            {
-                "start_byte": 6,
-                "name": "Spring Displacement",
-                "length": 2,
-                "conv_type": "uint16",
-                "precision": 0.001,
-                "protobuf": {
-                    "type": "float",
-                    "field": "br_spring_displace"
                 }
             }
         ]
@@ -2201,6 +1033,21 @@
                 }
             }
         ]
+    },
+    {
+        "packet_id": 261,
+        "packet_name": "Allow Balance Command",
+        "from": [
+            "VCU"
+        ],
+        "to": [
+            "HVC"
+        ],
+        "data_length": 0,
+        "frequency_ms": null,
+        "frequency": null,
+        "quantity": 0,
+        "bytes": []
     },
     {
         "packet_id": 512,
@@ -2481,19 +1328,930 @@
         ]
     },
     {
-        "packet_id": 261,
-        "packet_name": "Allow Balance Command",
+        "packet_id": 1024,
+        "packet_name": "FL Steering",
         "from": [
-            "VCU"
+            "Upright"
         ],
         "to": [
-            "HVC"
+            "Pi"
         ],
-        "data_length": 0,
-        "frequency_ms": null,
-        "frequency": null,
-        "quantity": 0,
-        "bytes": []
+        "data_length": 2,
+        "frequency_ms": 3.003,
+        "frequency": 333.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "FL Est Steering Angle",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_steer_angle"
+                }
+            }
+        ]
+    },
+    {
+        "packet_id": 1025,
+        "packet_name": "FR Steering",
+        "from": [
+            "Upright"
+        ],
+        "to": [
+            "Pi"
+        ],
+        "data_length": 2,
+        "frequency_ms": 3.003,
+        "frequency": 333.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "FR Est Steering Angle",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_steer_angle"
+                }
+            }
+        ]
+    },
+    {
+        "packet_id": 1026,
+        "packet_name": "Acceleration Vector Unsprung FL",
+        "from": [
+            "Upright"
+        ],
+        "to": [
+            "Pi"
+        ],
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_unsprung_accel"
+                }
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_unsprung_accel"
+                }
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_unsprung_accel"
+                }
+            }
+        ]
+    },
+    {
+        "packet_id": 1027,
+        "packet_name": "Acceleration Vector Unsprung FR",
+        "from": [
+            "Upright"
+        ],
+        "to": [
+            "Pi"
+        ],
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_unsprung_accel"
+                }
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_unsprung_accel"
+                }
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_unsprung_accel"
+                }
+            }
+        ]
+    },
+    {
+        "packet_id": 1028,
+        "packet_name": "Acceleration Vector Unsprung RL",
+        "from": [
+            "Upright"
+        ],
+        "to": [
+            "Pi"
+        ],
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_unsprung_accel"
+                }
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_unsprung_accel"
+                }
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_unsprung_accel"
+                }
+            }
+        ]
+    },
+    {
+        "packet_id": 1029,
+        "packet_name": "Acceleration Vector Unsprung RR",
+        "from": [
+            "Upright"
+        ],
+        "to": [
+            "Pi"
+        ],
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_unsprung_accel"
+                }
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_unsprung_accel"
+                }
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_unsprung_accel"
+                }
+            }
+        ]
+    },
+    {
+        "packet_id": 1030,
+        "packet_name": "Wheel Speed + Strain Gauge + Pushrod + Spring Disp. FL",
+        "from": [
+            "Upright"
+        ],
+        "to": [
+            "Pi"
+        ],
+        "data_length": 8,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Speed",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.01,
+                "protobuf": {
+                    "type": "float",
+                    "field": "flw_speed"
+                }
+            },
+            {
+                "start_byte": 2,
+                "name": "Strain Gauge Voltage",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.0002,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_strain_gauge_v"
+                }
+            },
+            {
+                "start_byte": 4,
+                "name": "Pushrod",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.5,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_pushrod_stress"
+                }
+            },
+            {
+                "start_byte": 6,
+                "name": "Spring Displacement",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_spring_displace"
+                }
+            }
+        ]
+    },
+    {
+        "packet_id": 1031,
+        "packet_name": "Wheel Speed + Strain Gauge + Pushrod + Spring Disp. FR",
+        "from": [
+            "Upright"
+        ],
+        "to": [
+            "Pi"
+        ],
+        "data_length": 8,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Speed",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.01,
+                "protobuf": {
+                    "type": "float",
+                    "field": "frw_speed"
+                }
+            },
+            {
+                "start_byte": 2,
+                "name": "Strain Gauge Voltage",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.0002,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_strain_gauge_v"
+                }
+            },
+            {
+                "start_byte": 4,
+                "name": "Pushrod",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.5,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_pushrod_stress"
+                }
+            },
+            {
+                "start_byte": 6,
+                "name": "Spring Displacement",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_spring_displace"
+                }
+            }
+        ]
+    },
+    {
+        "packet_id": 1032,
+        "packet_name": "Wheel Speed + Strain Gauge + Pushrod + Spring Disp. RL",
+        "from": [
+            "Upright"
+        ],
+        "to": [
+            "Pi"
+        ],
+        "data_length": 8,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Speed",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.01,
+                "protobuf": {
+                    "type": "float",
+                    "field": "blw_speed"
+                }
+            },
+            {
+                "start_byte": 2,
+                "name": "Strain Gauge Voltage",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.0002,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_strain_gauge_v"
+                }
+            },
+            {
+                "start_byte": 4,
+                "name": "Pushrod",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.5,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_pushrod_stress"
+                }
+            },
+            {
+                "start_byte": 6,
+                "name": "Spring Displacement",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_spring_displace"
+                }
+            }
+        ]
+    },
+    {
+        "packet_id": 1033,
+        "packet_name": "Wheel Speed + Strain Gauge + Pushrod + Spring Disp. RR",
+        "from": [
+            "Upright"
+        ],
+        "to": [
+            "Pi"
+        ],
+        "data_length": 8,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Speed",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.01,
+                "protobuf": {
+                    "type": "float",
+                    "field": "brw_speed"
+                }
+            },
+            {
+                "start_byte": 2,
+                "name": "Strain Gauge Voltage",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.0002,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_strain_gauge_v"
+                }
+            },
+            {
+                "start_byte": 4,
+                "name": "Pushrod",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.5,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_pushrod_stress"
+                }
+            },
+            {
+                "start_byte": 6,
+                "name": "Spring Displacement",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_spring_displace"
+                }
+            }
+        ]
+    },
+    {
+        "packet_id": 1280,
+        "packet_name": "Acceleration Vector Sprung + Ride Height FL",
+        "from": [
+            "Undertray"
+        ],
+        "to": [
+            "Pi"
+        ],
+        "data_length": 8,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_sprung_accel"
+                }
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_sprung_accel"
+                }
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_sprung_accel"
+                }
+            },
+            {
+                "start_byte": 6,
+                "name": "Ride Height",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.002,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_ride_height"
+                }
+            }
+        ]
+    },
+    {
+        "packet_id": 1281,
+        "packet_name": "Acceleration Vector Sprung + Ride Height FR",
+        "from": [
+            "Undertray"
+        ],
+        "to": [
+            "Pi"
+        ],
+        "data_length": 8,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_sprung_accel"
+                }
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_sprung_accel"
+                }
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_sprung_accel"
+                }
+            },
+            {
+                "start_byte": 6,
+                "name": "Ride Height",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.002,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_ride_height"
+                }
+            }
+        ]
+    },
+    {
+        "packet_id": 1282,
+        "packet_name": "Acceleration Vector Sprung + Ride Height RL",
+        "from": [
+            "Undertray"
+        ],
+        "to": [
+            "Pi"
+        ],
+        "data_length": 8,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_sprung_accel"
+                }
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_sprung_accel"
+                }
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_sprung_accel"
+                }
+            },
+            {
+                "start_byte": 6,
+                "name": "Ride Height",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.002,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_ride_height"
+                }
+            }
+        ]
+    },
+    {
+        "packet_id": 1283,
+        "packet_name": "Acceleration Vector Sprung + Ride Height RR",
+        "from": [
+            "Undertray"
+        ],
+        "to": [
+            "Pi"
+        ],
+        "data_length": 8,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_sprung_accel"
+                }
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_sprung_accel"
+                }
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_sprung_accel"
+                }
+            },
+            {
+                "start_byte": 6,
+                "name": "Ride Height",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.002,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_ride_height"
+                }
+            }
+        ]
+    },
+    {
+        "packet_id": 1284,
+        "packet_name": "Angular Rate Vector FL Sprung",
+        "from": [
+            "Undertray"
+        ],
+        "to": [
+            "Pi"
+        ],
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_sprung_ang_rate"
+                }
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_sprung_ang_rate"
+                }
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_sprung_ang_rate"
+                }
+            }
+        ]
+    },
+    {
+        "packet_id": 1285,
+        "packet_name": "Angular Rate Vector FR Sprung",
+        "from": [
+            "Undertray"
+        ],
+        "to": [
+            "Pi"
+        ],
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_sprung_ang_rate"
+                }
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_sprung_ang_rate"
+                }
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_sprung_ang_rate"
+                }
+            }
+        ]
+    },
+    {
+        "packet_id": 1286,
+        "packet_name": "Angular Rate Vector BL Sprung",
+        "from": [
+            "Undertray"
+        ],
+        "to": [
+            "Pi"
+        ],
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_sprung_ang_rate"
+                }
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_sprung_ang_rate"
+                }
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_sprung_ang_rate"
+                }
+            }
+        ]
+    },
+    {
+        "packet_id": 1287,
+        "packet_name": "Angular Rate Vector BR Sprung",
+        "from": [
+            "Undertray"
+        ],
+        "to": [
+            "Pi"
+        ],
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_sprung_ang_rate"
+                }
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_sprung_ang_rate"
+                }
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_sprung_ang_rate"
+                }
+            }
+        ]
     },
     {
         "packet_id": 1536,
@@ -2509,5 +2267,247 @@
         "frequency": null,
         "quantity": 0,
         "bytes": []
+    },
+    {
+        "packet_id": 2560,
+        "packet_name": "APPS Voltages",
+        "from": [
+            "Rack"
+        ],
+        "to": [
+            "VCU"
+        ],
+        "data_length": 8,
+        "frequency_ms": 3.003,
+        "frequency": 333.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "APPS1 Voltage",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            },
+            {
+                "start_byte": 2,
+                "name": "APPS2 Voltage",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            },
+            {
+                "start_byte": 4,
+                "name": "APPS1 Travel",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            },
+            {
+                "start_byte": 6,
+                "name": "APPS2 Travel",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            }
+        ]
+    },
+    {
+        "packet_id": 2561,
+        "packet_name": "Accelerator Pedal",
+        "from": [
+            "Rack"
+        ],
+        "to": [
+            "VCU"
+        ],
+        "data_length": 3,
+        "frequency_ms": 3.003,
+        "frequency": 333.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Accelerator Pedal Travel",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            },
+            {
+                "start_byte": 2,
+                "name": "APPS Faults",
+                "length": 1,
+                "conv_type": "see bitfield",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 2562,
+        "packet_name": "BPPS Voltages",
+        "from": [
+            "Rack"
+        ],
+        "to": [
+            "VCU"
+        ],
+        "data_length": 8,
+        "frequency_ms": 3.003,
+        "frequency": 333.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "BPPS1 Voltage",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            },
+            {
+                "start_byte": 2,
+                "name": "BPPS2 Voltage",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            },
+            {
+                "start_byte": 4,
+                "name": "BPPS1 Travel",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            },
+            {
+                "start_byte": 6,
+                "name": "BPPS2 Travel",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            }
+        ]
+    },
+    {
+        "packet_id": 2563,
+        "packet_name": "Brake Pedal",
+        "from": [
+            "Rack"
+        ],
+        "to": [
+            "VCU"
+        ],
+        "data_length": 3,
+        "frequency_ms": 3.003,
+        "frequency": 333.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Brake Pedal Travel",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            },
+            {
+                "start_byte": 2,
+                "name": "BPPS Faults",
+                "length": 1,
+                "conv_type": "see bitfield",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 2564,
+        "packet_name": "Brakes",
+        "from": [
+            "Rack"
+        ],
+        "to": [
+            "Pi"
+        ],
+        "data_length": 8,
+        "frequency_ms": 3.003,
+        "frequency": 333.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Brake Pressure Front",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.05,
+                "protobuf": {
+                    "type": "float",
+                    "field": "brake_pressure_f"
+                }
+            },
+            {
+                "start_byte": 2,
+                "name": "Brake Pressure Rear Pre Lock",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.05,
+                "protobuf": {
+                    "type": "float",
+                    "field": "brake_pressure_rbll"
+                }
+            },
+            {
+                "start_byte": 4,
+                "name": "Brake Pressure Rear Post Lock",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.05,
+                "protobuf": {
+                    "type": "float",
+                    "field": "brake_pressure_rall"
+                }
+            },
+            {
+                "start_byte": 6,
+                "name": "Brake Bias",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 0.01,
+                "protobuf": {
+                    "type": "float",
+                    "field": "brake_bias"
+                }
+            },
+            {
+                "start_byte": 7,
+                "name": "BSE Faults",
+                "length": 1,
+                "conv_type": "see bitfield",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 2565,
+        "packet_name": "Rack Steering",
+        "from": [
+            "Rack"
+        ],
+        "to": [
+            "Pi"
+        ],
+        "data_length": 2,
+        "frequency_ms": 3.003,
+        "frequency": 333.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Steering Column Angle",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.004,
+                "protobuf": {
+                    "type": "float",
+                    "field": "steer_col_angle"
+                }
+            }
+        ]
     }
 ]
