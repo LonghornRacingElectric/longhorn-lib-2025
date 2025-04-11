@@ -503,28 +503,28 @@
             },
             {
                 "start_byte": 4,
-                "name": "Misc.",
+                "name": "Misc. 1",
                 "length": 1,
                 "conv_type": "uint8",
                 "precision": 1.0
             },
             {
                 "start_byte": 5,
-                "name": "Misc.",
+                "name": "Misc. 2",
                 "length": 1,
                 "conv_type": "uint8",
                 "precision": 1.0
             },
             {
                 "start_byte": 6,
-                "name": "Misc.",
+                "name": "Misc. 3",
                 "length": 1,
                 "conv_type": "uint8",
                 "precision": 1.0
             },
             {
                 "start_byte": 7,
-                "name": "Misc.",
+                "name": "Misc. 4",
                 "length": 1,
                 "conv_type": "uint8",
                 "precision": 1.0
@@ -999,28 +999,44 @@
                 "name": "Brake Pressure Front",
                 "length": 2,
                 "conv_type": "uint16",
-                "precision": 0.05
+                "precision": 0.05,
+                "protobuf": {
+                    "type": "float",
+                    "field": "brake_pressure_f"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "Brake Pressure Rear Pre Lock",
                 "length": 2,
                 "conv_type": "uint16",
-                "precision": 0.05
+                "precision": 0.05,
+                "protobuf": {
+                    "type": "float",
+                    "field": "brake_pressure_rbll"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "Brake Pressure Rear Post Lock",
                 "length": 2,
                 "conv_type": "uint16",
-                "precision": 0.05
+                "precision": 0.05,
+                "protobuf": {
+                    "type": "float",
+                    "field": "brake_pressure_rall"
+                }
             },
             {
                 "start_byte": 6,
                 "name": "Brake Bias",
                 "length": 1,
                 "conv_type": "uint8",
-                "precision": 0.01
+                "precision": 0.01,
+                "protobuf": {
+                    "type": "float",
+                    "field": "brake_bias"
+                }
             },
             {
                 "start_byte": 7,
@@ -1050,7 +1066,11 @@
                 "name": "Steering Column Angle",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.004
+                "precision": 0.004,
+                "protobuf": {
+                    "type": "float",
+                    "field": "steer_col_angle"
+                }
             }
         ]
     },
@@ -1073,7 +1093,11 @@
                 "name": "FL Est Steering Angle",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_steer_angle"
+                }
             }
         ]
     },
@@ -1096,7 +1120,11 @@
                 "name": "FR Est Steering Angle",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_steer_angle"
+                }
             }
         ]
     },
@@ -1119,21 +1147,33 @@
                 "name": "X",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_unsprung_accel"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "Y",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_unsprung_accel"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "Z",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_unsprung_accel"
+                }
             }
         ]
     },
@@ -1156,21 +1196,33 @@
                 "name": "X",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_unsprung_accel"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "Y",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_unsprung_accel"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "Z",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_unsprung_accel"
+                }
             }
         ]
     },
@@ -1193,21 +1245,33 @@
                 "name": "X",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_unsprung_accel"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "Y",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_unsprung_accel"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "Z",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_unsprung_accel"
+                }
             }
         ]
     },
@@ -1230,21 +1294,33 @@
                 "name": "X",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_unsprung_accel"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "Y",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_unsprung_accel"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "Z",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_unsprung_accel"
+                }
             }
         ]
     },
@@ -1267,21 +1343,33 @@
                 "name": "X",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_sprung_accel"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "Y",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_sprung_accel"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "Z",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_sprung_accel"
+                }
             }
         ]
     },
@@ -1304,21 +1392,33 @@
                 "name": "X",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_sprung_accel"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "Y",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_sprung_accel"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "Z",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_sprung_accel"
+                }
             }
         ]
     },
@@ -1341,21 +1441,33 @@
                 "name": "X",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_sprung_accel"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "Y",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_sprung_accel"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "Z",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_sprung_accel"
+                }
             }
         ]
     },
@@ -1378,21 +1490,33 @@
                 "name": "X",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_sprung_accel"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "Y",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_sprung_accel"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "Z",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_sprung_accel"
+                }
             }
         ]
     },
@@ -1415,21 +1539,33 @@
                 "name": "X",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.03
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_sprung_ang_rate"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "Y",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.03
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_sprung_ang_rate"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "Z",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.03
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_sprung_ang_rate"
+                }
             }
         ]
     },
@@ -1452,21 +1588,33 @@
                 "name": "X",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.03
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_sprung_ang_rate"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "Y",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.03
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_sprung_ang_rate"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "Z",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.03
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_sprung_ang_rate"
+                }
             }
         ]
     },
@@ -1489,21 +1637,33 @@
                 "name": "X",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.03
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_sprung_ang_rate"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "Y",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.03
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_sprung_ang_rate"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "Z",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.03
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_sprung_ang_rate"
+                }
             }
         ]
     },
@@ -1526,21 +1686,33 @@
                 "name": "X",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.03
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_sprung_ang_rate"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "Y",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.03
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_sprung_ang_rate"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "Z",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.03
+                "precision": 0.03,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_sprung_ang_rate"
+                }
             }
         ]
     },
@@ -1563,28 +1735,44 @@
                 "name": "Speed",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.01
+                "precision": 0.01,
+                "protobuf": {
+                    "type": "float",
+                    "field": "flw_speed"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "Strain Gauge Voltage",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.0002
+                "precision": 0.0002,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_strain_gauge_v"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "Pushrod",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.5
+                "precision": 0.5,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_pushrod_stress"
+                }
             },
             {
                 "start_byte": 6,
                 "name": "Spring Displacement",
                 "length": 2,
                 "conv_type": "uint16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_spring_displace"
+                }
             }
         ]
     },
@@ -1607,28 +1795,44 @@
                 "name": "Speed",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.01
+                "precision": 0.01,
+                "protobuf": {
+                    "type": "float",
+                    "field": "frw_speed"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "Strain Gauge Voltage",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.0002
+                "precision": 0.0002,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_strain_gauge_v"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "Pushrod",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.5
+                "precision": 0.5,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_pushrod_stress"
+                }
             },
             {
                 "start_byte": 6,
                 "name": "Spring Displacement",
                 "length": 2,
                 "conv_type": "uint16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_spring_displace"
+                }
             }
         ]
     },
@@ -1651,28 +1855,44 @@
                 "name": "Speed",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.01
+                "precision": 0.01,
+                "protobuf": {
+                    "type": "float",
+                    "field": "blw_speed"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "Strain Gauge Voltage",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.0002
+                "precision": 0.0002,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_strain_gauge_v"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "Pushrod",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.5
+                "precision": 0.5,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_pushrod_stress"
+                }
             },
             {
                 "start_byte": 6,
                 "name": "Spring Displacement",
                 "length": 2,
                 "conv_type": "uint16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_spring_displace"
+                }
             }
         ]
     },
@@ -1695,28 +1915,44 @@
                 "name": "Speed",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.01
+                "precision": 0.01,
+                "protobuf": {
+                    "type": "float",
+                    "field": "brw_speed"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "Strain Gauge Voltage",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.0002
+                "precision": 0.0002,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_strain_gauge_v"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "Pushrod",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.5
+                "precision": 0.5,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_pushrod_stress"
+                }
             },
             {
                 "start_byte": 6,
                 "name": "Spring Displacement",
                 "length": 2,
                 "conv_type": "uint16",
-                "precision": 0.001
+                "precision": 0.001,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_spring_displace"
+                }
             }
         ]
     },
@@ -1739,7 +1975,11 @@
                 "name": "Ride Height",
                 "length": 2,
                 "conv_type": "uint16",
-                "precision": 0.002
+                "precision": 0.002,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fl_ride_height"
+                }
             }
         ]
     },
@@ -1762,7 +2002,11 @@
                 "name": "Ride Height",
                 "length": 2,
                 "conv_type": "uint16",
-                "precision": 0.002
+                "precision": 0.002,
+                "protobuf": {
+                    "type": "float",
+                    "field": "fr_ride_height"
+                }
             }
         ]
     },
@@ -1785,7 +2029,11 @@
                 "name": "Ride Height",
                 "length": 2,
                 "conv_type": "uint16",
-                "precision": 0.002
+                "precision": 0.002,
+                "protobuf": {
+                    "type": "float",
+                    "field": "bl_ride_height"
+                }
             }
         ]
     },
@@ -1808,7 +2056,11 @@
                 "name": "Ride Height",
                 "length": 2,
                 "conv_type": "uint16",
-                "precision": 0.002
+                "precision": 0.002,
+                "protobuf": {
+                    "type": "float",
+                    "field": "br_ride_height"
+                }
             }
         ]
     },
@@ -1875,28 +2127,44 @@
                 "name": "Loop Temp After Motor",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.01
+                "precision": 0.01,
+                "protobuf": {
+                    "type": "float",
+                    "field": "motor_loop_motor_temp"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "Loop Temp After Inverter",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.01
+                "precision": 0.01,
+                "protobuf": {
+                    "type": "float",
+                    "field": "motor_loop_inverter_temp"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "Temp After Radiator",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.01
+                "precision": 0.01,
+                "protobuf": {
+                    "type": "float",
+                    "field": "motor_loop_rad_temp"
+                }
             },
             {
                 "start_byte": 6,
                 "name": "Radiator Fan Speed",
                 "length": 2,
                 "conv_type": "uint16",
-                "precision": 0.2
+                "precision": 0.2,
+                "protobuf": {
+                    "type": "float",
+                    "field": "motor_loop_rad_fan_speed"
+                }
             }
         ]
     },
@@ -1919,21 +2187,33 @@
                 "name": "Temp After Battery",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.01
+                "precision": 0.01,
+                "protobuf": {
+                    "type": "float",
+                    "field": "batt_loop_batt_temp"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "Temp After Radiator",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.01
+                "precision": 0.01,
+                "protobuf": {
+                    "type": "float",
+                    "field": "batt_loop_rad_temp"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "Radiator Fan Speed",
                 "length": 2,
                 "conv_type": "uint16",
-                "precision": 0.2
+                "precision": 0.2,
+                "protobuf": {
+                    "type": "float",
+                    "field": "batt_loop_rad_fan_speed"
+                }
             }
         ]
     },
@@ -1956,21 +2236,33 @@
                 "name": "Inverter",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.01
+                "precision": 0.01,
+                "protobuf": {
+                    "type": "float",
+                    "field": "inverter_temp"
+                }
             },
             {
                 "start_byte": 2,
                 "name": "Motor",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.01
+                "precision": 0.01,
+                "protobuf": {
+                    "type": "float",
+                    "field": "motor_temp"
+                }
             },
             {
                 "start_byte": 4,
                 "name": "Ambient",
                 "length": 2,
                 "conv_type": "int16",
-                "precision": 0.01
+                "precision": 0.01,
+                "protobuf": {
+                    "type": "float",
+                    "field": "ambient_temp"
+                }
             }
         ]
     },
