@@ -4,3 +4,6 @@ CMakeFiles/
 **Cache**
 /.idea
 /cmake-build-debug
+
+*.proto
+.vscode/
