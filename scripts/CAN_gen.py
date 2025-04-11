@@ -2,7 +2,7 @@ import csv
 import json
 import re
 import math
-import os  # Import os for file path handling
+import os
 
 # --- Configuration ---
 # Define the input CSV filename here
@@ -63,6 +63,10 @@ def parse_dlc(dlc_str):
     try:
         return int(dlc_str)
     except ValueError:
+        # Handle cases like 'Depends' which are not numeric DLCs
+        if dlc_str.lower() == "depends":
+            # Decide on a default or special value. 0 might be appropriate if length varies.
+            return 0
         print(f"Warning: Could not parse DLC '{dlc_str}'. Defaulting to 0.")
         return 0  # Default DLC if invalid format
 
@@ -83,7 +87,8 @@ def calculate_frequency_ms(frequency_hz):
     """Calculates frequency in milliseconds."""
     if frequency_hz is not None and frequency_hz > 0:
         try:
-            return (1.0 / frequency_hz) * 1000.0
+            # Round to a reasonable number of decimal places if needed
+            return round((1.0 / frequency_hz) * 1000.0, 4)
         except ZeroDivisionError:
             return None  # Should be caught by freq > 0 check, but safety first
     return None
@@ -110,7 +115,9 @@ def process_csv(csv_filepath):
         return []
 
     try:
-        with open(csv_filepath, mode="r", encoding="utf-8") as csvfile:
+        with open(
+            csv_filepath, mode="r", encoding="utf-8-sig"
+        ) as csvfile:  # Use utf-8-sig to handle potential BOM
             # Handle potential empty lines or lines not matching headers
             # Filter out rows where the essential 'CAN ID' might be missing or implied
             reader = csv.DictReader(filter(lambda row: row.strip(), csvfile))
@@ -145,10 +152,16 @@ def process_csv(csv_filepath):
                             continue
                 else:
                     # Skip rows that don't explicitly define a CAN ID in the first column
-                    # print(f"Info: Row {i+2}: Skipping row due to missing CAN ID.")
+                    # This filters out the continuation-like rows in the example CSV.
                     continue  # Skip rows without an explicit CAN ID
 
                 # --- 2. Get Other Basic Fields ---
+                # Extract Packet Name from 'Packet Info' column
+                packet_name = row.get("Packet Info", "").strip()
+                # Use CAN ID as fallback if Packet Info is empty
+                if not packet_name:
+                    packet_name = f"Packet_{packet_id_str}"  # Default name if 'Packet Info' is empty
+
                 dlc = parse_dlc(row.get("Data Length Code (DLC)", "0"))
                 frequency_hz = parse_frequency(row.get("Frequency (Hz)", "NA"))
                 frequency_ms = calculate_frequency_ms(frequency_hz)
@@ -180,8 +193,8 @@ def process_csv(csv_filepath):
                         match_start_index = match.start()
                         name = byte_info_str[:match_start_index].strip()
                         if not name:
-                            # If no text before parenthesis, use a placeholder or skip name
-                            name = f"Unnamed Field {byte_num}"  # Placeholder if desired
+                            # If no text before parenthesis, try to infer from context or use placeholder
+                            name = f"Field_{byte_num}"  # Simple placeholder
 
                         # --- Extract Type and Precision ---
                         type_str = (
@@ -196,7 +209,7 @@ def process_csv(csv_filepath):
                         length = type_lengths.get(normalized_type)
                         if length is None:
                             print(
-                                f"Warning: Row {i+2}, CAN ID {packet_id_str}: Unknown data type '{type_str}' in '{byte_info_str}'. Assuming length 1."
+                                f"Warning: Row {i+2}, CAN ID {packet_id_str}: Unknown data type '{type_str}' in '{byte_info_str}'. Assuming length 1 for field '{name}'."
                             )
                             length = 1  # Default length if type is unknown
                             conv_type = type_str
@@ -214,7 +227,7 @@ def process_csv(csv_filepath):
                                     precision = math.pow(2, exponent)
                                 except ValueError:
                                     print(
-                                        f"Warning: Row {i+2}, CAN ID {packet_id_str}: Invalid exponent in power-of-2 precision '{precision_str}'. Using 1.0."
+                                        f"Warning: Row {i+2}, CAN ID {packet_id_str}: Invalid exponent in power-of-2 precision '{precision_str}' for field '{name}'. Using 1.0."
                                     )
                             else:
                                 try:
@@ -231,29 +244,19 @@ def process_csv(csv_filepath):
                                             precision = 1.0  # Treat alpha descriptors like boolean as precision 1
                                         else:
                                             print(
-                                                f"Warning: Row {i+2}, CAN ID {packet_id_str}: Could not parse precision '{precision_str}'. Using 1.0."
+                                                f"Warning: Row {i+2}, CAN ID {packet_id_str}: Could not parse precision '{precision_str}' for field '{name}'. Using 1.0."
                                             )
                                 except ValueError:
                                     print(
-                                        f"Warning: Row {i+2}, CAN ID {packet_id_str}: Invalid precision format '{precision_str}'. Using 1.0."
+                                        f"Warning: Row {i+2}, CAN ID {packet_id_str}: Invalid precision format '{precision_str}' for field '{name}'. Using 1.0."
                                     )
 
-                        # Check if field definition starts beyond the current byte index
-                        # This indicates sparse definitions (e.g., Data[0] defines bytes 0-1, Data[2] defines byte 2)
-                        # If so, assume bytes in between are unused/padding.
+                        # Check for gaps and update index if necessary
                         if byte_num > current_byte_index:
-                            print(
-                                f"Info: Row {i+2}, CAN ID {packet_id_str}: Gap detected. Assuming padding bytes between byte {current_byte_index} and {byte_num}."
-                            )
-                            # You could optionally create "padding" byte entries here if needed.
-                            # For now, we just update the index.
+                            # print(f"Info: Row {i+2}, CAN ID {packet_id_str}: Gap detected. Assuming padding bytes between byte {current_byte_index} and {byte_num}.")
                             current_byte_index = (
                                 byte_num  # Jump index to the start of this field
                             )
-
-                        # Check if adding this field exceeds expected DLC (optional sanity check)
-                        # if current_byte_index + length > dlc:
-                        #     print(f"Warning: Row {i+2}, CAN ID {packet_id_str}: Byte definition {name} (start: {current_byte_index}, len: {length}) may exceed DLC ({dlc}).")
 
                         byte_def = {
                             "start_byte": current_byte_index,
@@ -267,8 +270,7 @@ def process_csv(csv_filepath):
                         # IMPORTANT: Increment index *after* processing the field
                         current_byte_index += length
                     else:
-                        # Optional: Warn if Data[n] has content but doesn't match the expected '(type, precision)' pattern
-                        # Check if it's just a type like '(byte)'
+                        # Handle simple type definitions like "VSM (byte)"
                         simple_type_match = re.match(r"\(\s*(\w+)\s*\)", byte_info_str)
                         if simple_type_match:
                             type_str = simple_type_match.group(1).lower().strip()
@@ -280,11 +282,15 @@ def process_csv(csv_filepath):
                                 name = (
                                     byte_info_str[:paren_index].strip()
                                     if paren_index != -1
-                                    else f"Unnamed Field {byte_num}"
+                                    else f"Field_{byte_num}"
                                 )
                                 name = (
-                                    name or f"Unnamed Field {byte_num}"
+                                    name or f"Field_{byte_num}"
                                 )  # Ensure name is not empty
+
+                                # Check for gaps
+                                if byte_num > current_byte_index:
+                                    current_byte_index = byte_num
 
                                 byte_def = {
                                     "start_byte": current_byte_index,
@@ -306,13 +312,10 @@ def process_csv(csv_filepath):
                 # --- 4. Construct Packet JSON ---
                 # Only add if packet_id was valid and processed
                 if packet_id is not None:
-                    # Adjust DLC if calculated total bytes differ (optional)
-                    # calculated_dlc = sum(b['length'] for b in bytes_list)
-                    # final_dlc = max(dlc, calculated_dlc) # Or just use the CSV DLC 'dlc'
-
                     can_packet_json = {
                         "packet_id": packet_id,
-                        "data_length": dlc,  # Use DLC from CSV
+                        "packet_name": packet_name,  # Added packet_name here
+                        "data_length": dlc,
                         "frequency_ms": frequency_ms,
                         "frequency": frequency_hz,
                         "quantity": quantity,
@@ -324,8 +327,11 @@ def process_csv(csv_filepath):
         print(f"Error: CSV file not found at '{csv_filepath}'")
         return []
     except Exception as e:
-        print(f"An error occurred while processing the CSV file: {e}")
-        return []
+        print(
+            f"An error occurred while processing the CSV file at row {i+2}: {e}"
+        )  # Added row number context
+        # Optionally re-raise e if debugging is needed: raise
+        return []  # Return empty list on error
 
     return can_packets
 
@@ -348,4 +354,4 @@ if __name__ == "__main__":
         except IOError as e:
             print(f"\nError writing JSON to file: {e}")
     else:
-        print("No packets were processed.")
+        print("No valid packets were processed or an error occurred.")

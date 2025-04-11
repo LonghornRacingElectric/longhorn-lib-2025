@@ -1,6 +1,7 @@
 [
     {
         "packet_id": 4,
+        "packet_name": "Write Memory Data -- Firmware Update",
         "data_length": 8,
         "frequency_ms": null,
         "frequency": null,
@@ -8,56 +9,56 @@
         "bytes": [
             {
                 "start_byte": 0,
-                "name": "Unnamed Field 0",
+                "name": "Field_0",
                 "length": 1,
                 "conv_type": "uint8",
                 "precision": 1.0
             },
             {
                 "start_byte": 1,
-                "name": "Unnamed Field 1",
+                "name": "Field_1",
                 "length": 1,
                 "conv_type": "uint8",
                 "precision": 1.0
             },
             {
                 "start_byte": 2,
-                "name": "Unnamed Field 2",
+                "name": "Field_2",
                 "length": 1,
                 "conv_type": "uint8",
                 "precision": 1.0
             },
             {
                 "start_byte": 3,
-                "name": "Unnamed Field 3",
+                "name": "Field_3",
                 "length": 1,
                 "conv_type": "uint8",
                 "precision": 1.0
             },
             {
                 "start_byte": 4,
-                "name": "Unnamed Field 4",
+                "name": "Field_4",
                 "length": 1,
                 "conv_type": "uint8",
                 "precision": 1.0
             },
             {
                 "start_byte": 5,
-                "name": "Unnamed Field 5",
+                "name": "Field_5",
                 "length": 1,
                 "conv_type": "uint8",
                 "precision": 1.0
             },
             {
                 "start_byte": 6,
-                "name": "Unnamed Field 6",
+                "name": "Field_6",
                 "length": 1,
                 "conv_type": "uint8",
                 "precision": 1.0
             },
             {
                 "start_byte": 7,
-                "name": "Unnamed Field 7",
+                "name": "Field_7",
                 "length": 1,
                 "conv_type": "uint8",
                 "precision": 1.0
@@ -66,6 +67,7 @@
     },
     {
         "packet_id": 16,
+        "packet_name": "Packet_0x010",
         "data_length": 0,
         "frequency_ms": null,
         "frequency": null,
@@ -74,6 +76,7 @@
     },
     {
         "packet_id": 18,
+        "packet_name": "Packet_0x012",
         "data_length": 0,
         "frequency_ms": null,
         "frequency": null,
@@ -82,6 +85,7 @@
     },
     {
         "packet_id": 19,
+        "packet_name": "Packet_0x013",
         "data_length": 0,
         "frequency_ms": null,
         "frequency": null,
@@ -90,6 +94,7 @@
     },
     {
         "packet_id": 20,
+        "packet_name": "Packet_0x014",
         "data_length": 0,
         "frequency_ms": null,
         "frequency": null,
@@ -98,6 +103,7 @@
     },
     {
         "packet_id": 32,
+        "packet_name": "Bus Enable/Disable",
         "data_length": 1,
         "frequency_ms": null,
         "frequency": null,
@@ -105,7 +111,7 @@
         "bytes": [
             {
                 "start_byte": 0,
-                "name": "Unnamed Field 0",
+                "name": "Field_0",
                 "length": 1,
                 "conv_type": "uint8",
                 "precision": 1.0
@@ -114,6 +120,7 @@
     },
     {
         "packet_id": 33,
+        "packet_name": "Bus Enable/Disable",
         "data_length": 1,
         "frequency_ms": null,
         "frequency": null,
@@ -121,7 +128,7 @@
         "bytes": [
             {
                 "start_byte": 0,
-                "name": "Unnamed Field 0",
+                "name": "Field_0",
                 "length": 1,
                 "conv_type": "uint8",
                 "precision": 1.0
@@ -130,6 +137,7 @@
     },
     {
         "packet_id": 34,
+        "packet_name": "Bus Enable/Disable",
         "data_length": 1,
         "frequency_ms": null,
         "frequency": null,
@@ -137,7 +145,7 @@
         "bytes": [
             {
                 "start_byte": 0,
-                "name": "Unnamed Field 0",
+                "name": "Field_0",
                 "length": 1,
                 "conv_type": "uint8",
                 "precision": 1.0
@@ -146,6 +154,7 @@
     },
     {
         "packet_id": 49,
+        "packet_name": "(Meta Data for Write Memory -- Firmware Update, 256B max)",
         "data_length": 5,
         "frequency_ms": null,
         "frequency": null,
@@ -153,35 +162,35 @@
         "bytes": [
             {
                 "start_byte": 0,
-                "name": "Unnamed Field 0",
+                "name": "Field_0",
                 "length": 1,
                 "conv_type": "uint8",
                 "precision": 1.0
             },
             {
                 "start_byte": 1,
-                "name": "Unnamed Field 1",
+                "name": "Field_1",
                 "length": 1,
                 "conv_type": "uint8",
                 "precision": 1.0
             },
             {
                 "start_byte": 2,
-                "name": "Unnamed Field 2",
+                "name": "Field_2",
                 "length": 1,
                 "conv_type": "uint8",
                 "precision": 1.0
             },
             {
                 "start_byte": 3,
-                "name": "Unnamed Field 3",
+                "name": "Field_3",
                 "length": 1,
                 "conv_type": "uint8",
                 "precision": 1.0
             },
             {
                 "start_byte": 4,
-                "name": "Unnamed Field 4",
+                "name": "Field_4",
                 "length": 1,
                 "conv_type": "uint8",
                 "precision": 1.0
@@ -190,6 +199,7 @@
     },
     {
         "packet_id": 160,
+        "packet_name": "Inverter Temps",
         "data_length": 8,
         "frequency_ms": 100.0,
         "frequency": 10.0,
@@ -227,6 +237,7 @@
     },
     {
         "packet_id": 162,
+        "packet_name": "Inverter Temps 2",
         "data_length": 8,
         "frequency_ms": 100.0,
         "frequency": 10.0,
@@ -264,6 +275,7 @@
     },
     {
         "packet_id": 165,
+        "packet_name": "Inverter Status",
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -301,6 +313,7 @@
     },
     {
         "packet_id": 166,
+        "packet_name": "Inverter Current",
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -338,6 +351,7 @@
     },
     {
         "packet_id": 167,
+        "packet_name": "Inverter Voltage",
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -375,6 +389,7 @@
     },
     {
         "packet_id": 170,
+        "packet_name": "Inverter Details",
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -440,6 +455,7 @@
     },
     {
         "packet_id": 171,
+        "packet_name": "Inverter Faults",
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -463,6 +479,7 @@
     },
     {
         "packet_id": 172,
+        "packet_name": "Inverter TSO",
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -493,8 +510,9 @@
     },
     {
         "packet_id": 176,
+        "packet_name": "Inverter Speed",
         "data_length": 8,
-        "frequency_ms": 3.003003003003003,
+        "frequency_ms": 3.003,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -530,8 +548,9 @@
     },
     {
         "packet_id": 192,
+        "packet_name": "Inverter Torque Command",
         "data_length": 8,
-        "frequency_ms": 3.003003003003003,
+        "frequency_ms": 3.003,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -574,6 +593,7 @@
     },
     {
         "packet_id": 193,
+        "packet_name": "Inverter Parameter Request",
         "data_length": 8,
         "frequency_ms": null,
         "frequency": null,
@@ -597,6 +617,7 @@
     },
     {
         "packet_id": 194,
+        "packet_name": "Inverter Parameter Response",
         "data_length": 8,
         "frequency_ms": null,
         "frequency": null,
@@ -620,6 +641,7 @@
     },
     {
         "packet_id": 209,
+        "packet_name": "Wheel Speed, Ride height",
         "data_length": 4,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -643,8 +665,9 @@
     },
     {
         "packet_id": 2560,
+        "packet_name": "APPS Voltages",
         "data_length": 8,
-        "frequency_ms": 3.003003003003003,
+        "frequency_ms": 3.003,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -680,8 +703,9 @@
     },
     {
         "packet_id": 2561,
+        "packet_name": "Accelerator Pedal",
         "data_length": 3,
-        "frequency_ms": 3.003003003003003,
+        "frequency_ms": 3.003,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -703,8 +727,9 @@
     },
     {
         "packet_id": 2562,
+        "packet_name": "BPPS Voltages",
         "data_length": 8,
-        "frequency_ms": 3.003003003003003,
+        "frequency_ms": 3.003,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -740,8 +765,9 @@
     },
     {
         "packet_id": 2563,
+        "packet_name": "Brake Pedal",
         "data_length": 3,
-        "frequency_ms": 3.003003003003003,
+        "frequency_ms": 3.003,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -763,8 +789,9 @@
     },
     {
         "packet_id": 256,
+        "packet_name": "BSE Voltages",
         "data_length": 6,
-        "frequency_ms": 3.003003003003003,
+        "frequency_ms": 3.003,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -793,8 +820,9 @@
     },
     {
         "packet_id": 2564,
+        "packet_name": "Brakes",
         "data_length": 8,
-        "frequency_ms": 3.003003003003003,
+        "frequency_ms": 3.003,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -830,8 +858,9 @@
     },
     {
         "packet_id": 2565,
+        "packet_name": "Rack Steering",
         "data_length": 2,
-        "frequency_ms": 3.003003003003003,
+        "frequency_ms": 3.003,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -846,8 +875,9 @@
     },
     {
         "packet_id": 1024,
+        "packet_name": "FL Steering",
         "data_length": 2,
-        "frequency_ms": 3.003003003003003,
+        "frequency_ms": 3.003,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -862,8 +892,9 @@
     },
     {
         "packet_id": 1025,
+        "packet_name": "FR Steering",
         "data_length": 2,
-        "frequency_ms": 3.003003003003003,
+        "frequency_ms": 3.003,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -878,6 +909,7 @@
     },
     {
         "packet_id": 1026,
+        "packet_name": "Acceleration Vector Unsprung FL",
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -908,6 +940,7 @@
     },
     {
         "packet_id": 1027,
+        "packet_name": "Acceleration Vector Unsprung FR",
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -938,6 +971,7 @@
     },
     {
         "packet_id": 1028,
+        "packet_name": "Acceleration Vector Unsprung RL",
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -968,6 +1002,7 @@
     },
     {
         "packet_id": 1029,
+        "packet_name": "Acceleration Vector Unsprung RR",
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -998,6 +1033,7 @@
     },
     {
         "packet_id": 1280,
+        "packet_name": "Acceleration Vector Sprung FL",
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1028,6 +1064,7 @@
     },
     {
         "packet_id": 1281,
+        "packet_name": "Acceleration Vector Sprung FR",
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1058,6 +1095,7 @@
     },
     {
         "packet_id": 1282,
+        "packet_name": "Acceleration Vector Sprung RL",
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1088,6 +1126,7 @@
     },
     {
         "packet_id": 1283,
+        "packet_name": "Acceleration Vector Sprung RR",
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1118,6 +1157,7 @@
     },
     {
         "packet_id": 1284,
+        "packet_name": "Angular Rate Vector FL Sprung",
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1148,6 +1188,7 @@
     },
     {
         "packet_id": 1285,
+        "packet_name": "Angular Rate Vector FR Sprung",
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1178,6 +1219,7 @@
     },
     {
         "packet_id": 1286,
+        "packet_name": "Angular Rate Vector BL Sprung",
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1208,6 +1250,7 @@
     },
     {
         "packet_id": 1287,
+        "packet_name": "Angular Rate Vector BR Sprung",
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1238,6 +1281,7 @@
     },
     {
         "packet_id": 1030,
+        "packet_name": "Wheel Speed + Strain Gauge + Pushrod + Spring Disp. FL",
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1275,6 +1319,7 @@
     },
     {
         "packet_id": 1031,
+        "packet_name": "Wheel Speed + Strain Gauge + Pushrod + Spring Disp. FR",
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1312,6 +1357,7 @@
     },
     {
         "packet_id": 1032,
+        "packet_name": "Wheel Speed + Strain Gauge + Pushrod + Spring Disp. RL",
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1349,6 +1395,7 @@
     },
     {
         "packet_id": 1033,
+        "packet_name": "Wheel Speed + Strain Gauge + Pushrod + Spring Disp. RR",
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1386,6 +1433,7 @@
     },
     {
         "packet_id": 1288,
+        "packet_name": "Ride Height FL",
         "data_length": 2,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1402,6 +1450,7 @@
     },
     {
         "packet_id": 1289,
+        "packet_name": "Ride Height FR",
         "data_length": 2,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1418,6 +1467,7 @@
     },
     {
         "packet_id": 1296,
+        "packet_name": "Ride Height RL",
         "data_length": 2,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1434,6 +1484,7 @@
     },
     {
         "packet_id": 1297,
+        "packet_name": "Ride Height RR",
         "data_length": 2,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1450,6 +1501,7 @@
     },
     {
         "packet_id": 257,
+        "packet_name": "GPS",
         "data_length": 8,
         "frequency_ms": 100.0,
         "frequency": 10.0,
@@ -1487,6 +1539,7 @@
     },
     {
         "packet_id": 258,
+        "packet_name": "Motor Cooling",
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1524,6 +1577,7 @@
     },
     {
         "packet_id": 259,
+        "packet_name": "Battery Cooling",
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1554,6 +1608,7 @@
     },
     {
         "packet_id": 260,
+        "packet_name": "Temps",
         "data_length": 6,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1584,6 +1639,7 @@
     },
     {
         "packet_id": 512,
+        "packet_name": "Battery Pack Status",
         "data_length": 8,
         "frequency_ms": 10.0,
         "frequency": 100.0,
@@ -1628,6 +1684,7 @@
     },
     {
         "packet_id": 513,
+        "packet_name": "Battery Temperature Status",
         "data_length": 8,
         "frequency_ms": 100.0,
         "frequency": 10.0,
@@ -1665,6 +1722,7 @@
     },
     {
         "packet_id": 514,
+        "packet_name": "Indicators + Shutdown Status",
         "data_length": 6,
         "frequency_ms": 100.0,
         "frequency": 10.0,
@@ -1716,6 +1774,7 @@
     },
     {
         "packet_id": 515,
+        "packet_name": "Contactor Status",
         "data_length": 3,
         "frequency_ms": 100.0,
         "frequency": 10.0,
@@ -1746,6 +1805,7 @@
     },
     {
         "packet_id": 516,
+        "packet_name": "Cell Voltages",
         "data_length": 8,
         "frequency_ms": 1000.0,
         "frequency": 1.0,
@@ -1782,7 +1842,8 @@
         ]
     },
     {
-        "packet_id": 556,
+        "packet_id": 517,
+        "packet_name": "Cell Temperatures",
         "data_length": 8,
         "frequency_ms": 1000.0,
         "frequency": 1.0,
@@ -1820,6 +1881,7 @@
     },
     {
         "packet_id": 261,
+        "packet_name": "Allow Balance Command",
         "data_length": 0,
         "frequency_ms": null,
         "frequency": null,
@@ -1828,6 +1890,7 @@
     },
     {
         "packet_id": 1536,
+        "packet_name": "HVC Bounds Parameters",
         "data_length": 0,
         "frequency_ms": null,
         "frequency": null,
