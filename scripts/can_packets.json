@@ -1,0 +1,1837 @@
+[
+    {
+        "packet_id": 4,
+        "data_length": 8,
+        "frequency_ms": null,
+        "frequency": null,
+        "quantity": 0,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Unnamed Field 0",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 1,
+                "name": "Unnamed Field 1",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 2,
+                "name": "Unnamed Field 2",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 3,
+                "name": "Unnamed Field 3",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 4,
+                "name": "Unnamed Field 4",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 5,
+                "name": "Unnamed Field 5",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 6,
+                "name": "Unnamed Field 6",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 7,
+                "name": "Unnamed Field 7",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 16,
+        "data_length": 0,
+        "frequency_ms": null,
+        "frequency": null,
+        "quantity": 0,
+        "bytes": []
+    },
+    {
+        "packet_id": 18,
+        "data_length": 0,
+        "frequency_ms": null,
+        "frequency": null,
+        "quantity": 0,
+        "bytes": []
+    },
+    {
+        "packet_id": 19,
+        "data_length": 0,
+        "frequency_ms": null,
+        "frequency": null,
+        "quantity": 0,
+        "bytes": []
+    },
+    {
+        "packet_id": 20,
+        "data_length": 0,
+        "frequency_ms": null,
+        "frequency": null,
+        "quantity": 0,
+        "bytes": []
+    },
+    {
+        "packet_id": 32,
+        "data_length": 1,
+        "frequency_ms": null,
+        "frequency": null,
+        "quantity": 3,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Unnamed Field 0",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 33,
+        "data_length": 1,
+        "frequency_ms": null,
+        "frequency": null,
+        "quantity": 3,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Unnamed Field 0",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 34,
+        "data_length": 1,
+        "frequency_ms": null,
+        "frequency": null,
+        "quantity": 3,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Unnamed Field 0",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 49,
+        "data_length": 5,
+        "frequency_ms": null,
+        "frequency": null,
+        "quantity": 0,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Unnamed Field 0",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 1,
+                "name": "Unnamed Field 1",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 2,
+                "name": "Unnamed Field 2",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 3,
+                "name": "Unnamed Field 3",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 4,
+                "name": "Unnamed Field 4",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 160,
+        "data_length": 8,
+        "frequency_ms": 100.0,
+        "frequency": 10.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Module A Temp",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.1
+            },
+            {
+                "start_byte": 2,
+                "name": "Module B Temp",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 4,
+                "name": "Module C Temp",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 6,
+                "name": "Gate Driver Temp",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 162,
+        "data_length": 8,
+        "frequency_ms": 100.0,
+        "frequency": 10.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "RTD #4 Temp",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 2,
+                "name": "RTD #5 Temp",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 4,
+                "name": "Motor Temp",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 6,
+                "name": "Torque Shudder",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.1
+            }
+        ]
+    },
+    {
+        "packet_id": 165,
+        "data_length": 8,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Motor Angle",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.1
+            },
+            {
+                "start_byte": 2,
+                "name": "Motor Speed",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 4,
+                "name": "Inverter Frequency",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.1
+            },
+            {
+                "start_byte": 6,
+                "name": "Delta Resolver Angle",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.1
+            }
+        ]
+    },
+    {
+        "packet_id": 166,
+        "data_length": 8,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Phase A Current",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.1
+            },
+            {
+                "start_byte": 2,
+                "name": "Phase B Current",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 4,
+                "name": "Phase C Current",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 6,
+                "name": "DC Bus Current",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 167,
+        "data_length": 8,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "DC Bus Voltage",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.1
+            },
+            {
+                "start_byte": 2,
+                "name": "Neutral Output Voltage",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 4,
+                "name": "Vab / Vq Voltage",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 6,
+                "name": "Vbc / Vd Voltage",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 170,
+        "data_length": 8,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "VSM",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 1,
+                "name": "PWM Freq",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 2,
+                "name": "Inverter",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 3,
+                "name": "Relay",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 4,
+                "name": "Misc.",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 5,
+                "name": "Misc.",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 6,
+                "name": "Misc.",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 7,
+                "name": "Misc.",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 171,
+        "data_length": 8,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "POST Faults",
+                "length": 4,
+                "conv_type": "uint32",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 4,
+                "name": "Run Faults",
+                "length": 4,
+                "conv_type": "uint32",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 172,
+        "data_length": 8,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "commanded torque",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.1
+            },
+            {
+                "start_byte": 2,
+                "name": "torque feedback",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 4,
+                "name": "Time since turned ON",
+                "length": 4,
+                "conv_type": "uint32",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 176,
+        "data_length": 8,
+        "frequency_ms": 3.003003003003003,
+        "frequency": 333.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "commanded torque",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 2,
+                "name": "torque feedback",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 4,
+                "name": "Motor Speed",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 6,
+                "name": "Bus Voltage",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 192,
+        "data_length": 8,
+        "frequency_ms": 3.003003003003003,
+        "frequency": 333.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "torque request",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.1
+            },
+            {
+                "start_byte": 2,
+                "name": "rpm request",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 4,
+                "name": "direction",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 5,
+                "name": "enable",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 6,
+                "name": "torque limit",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.1
+            }
+        ]
+    },
+    {
+        "packet_id": 193,
+        "data_length": 8,
+        "frequency_ms": null,
+        "frequency": null,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "parameter address",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 2,
+                "name": "r/w",
+                "length": 1,
+                "conv_type": "0/1",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 194,
+        "data_length": 8,
+        "frequency_ms": null,
+        "frequency": null,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "parameter address",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 2,
+                "name": "success",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 209,
+        "data_length": 4,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Wheel Speed",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.0078125
+            },
+            {
+                "start_byte": 2,
+                "name": "Ride Height",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0625
+            }
+        ]
+    },
+    {
+        "packet_id": 2560,
+        "data_length": 8,
+        "frequency_ms": 3.003003003003003,
+        "frequency": 333.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "APPS1 Voltage",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            },
+            {
+                "start_byte": 2,
+                "name": "APPS2 Voltage",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            },
+            {
+                "start_byte": 4,
+                "name": "APPS1 Travel",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            },
+            {
+                "start_byte": 6,
+                "name": "APPS2 Travel",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            }
+        ]
+    },
+    {
+        "packet_id": 2561,
+        "data_length": 3,
+        "frequency_ms": 3.003003003003003,
+        "frequency": 333.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Accelerator Pedal Travel",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            },
+            {
+                "start_byte": 2,
+                "name": "APPS Faults",
+                "length": 1,
+                "conv_type": "see bitfield",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 2562,
+        "data_length": 8,
+        "frequency_ms": 3.003003003003003,
+        "frequency": 333.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "BPPS1 Voltage",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            },
+            {
+                "start_byte": 2,
+                "name": "BPPS2 Voltage",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            },
+            {
+                "start_byte": 4,
+                "name": "BPPS1 Travel",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            },
+            {
+                "start_byte": 6,
+                "name": "BPPS2 Travel",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            }
+        ]
+    },
+    {
+        "packet_id": 2563,
+        "data_length": 3,
+        "frequency_ms": 3.003003003003003,
+        "frequency": 333.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Brake Pedal Travel",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            },
+            {
+                "start_byte": 2,
+                "name": "BPPS Faults",
+                "length": 1,
+                "conv_type": "see bitfield",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 256,
+        "data_length": 6,
+        "frequency_ms": 3.003003003003003,
+        "frequency": 333.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "BSE Front Voltage",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            },
+            {
+                "start_byte": 2,
+                "name": "BSE Rear Voltage",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            },
+            {
+                "start_byte": 4,
+                "name": "BSE Line Lock Voltage",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            }
+        ]
+    },
+    {
+        "packet_id": 2564,
+        "data_length": 8,
+        "frequency_ms": 3.003003003003003,
+        "frequency": 333.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Brake Pressure Front",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.05
+            },
+            {
+                "start_byte": 2,
+                "name": "Brake Pressure Rear Pre Lock",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.05
+            },
+            {
+                "start_byte": 4,
+                "name": "Brake Pressure Rear Post Lock",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.05
+            },
+            {
+                "start_byte": 7,
+                "name": "BSE Faults",
+                "length": 1,
+                "conv_type": "see bitfield",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 2565,
+        "data_length": 2,
+        "frequency_ms": 3.003003003003003,
+        "frequency": 333.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Steering Column Angle",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.004
+            }
+        ]
+    },
+    {
+        "packet_id": 1024,
+        "data_length": 2,
+        "frequency_ms": 3.003003003003003,
+        "frequency": 333.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "FL Est Steering Angle",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            }
+        ]
+    },
+    {
+        "packet_id": 1025,
+        "data_length": 2,
+        "frequency_ms": 3.003003003003003,
+        "frequency": 333.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "FR Est Steering Angle",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            }
+        ]
+    },
+    {
+        "packet_id": 1026,
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            }
+        ]
+    },
+    {
+        "packet_id": 1027,
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            }
+        ]
+    },
+    {
+        "packet_id": 1028,
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            }
+        ]
+    },
+    {
+        "packet_id": 1029,
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            }
+        ]
+    },
+    {
+        "packet_id": 1280,
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            }
+        ]
+    },
+    {
+        "packet_id": 1281,
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            }
+        ]
+    },
+    {
+        "packet_id": 1282,
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            }
+        ]
+    },
+    {
+        "packet_id": 1283,
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            }
+        ]
+    },
+    {
+        "packet_id": 1284,
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03
+            }
+        ]
+    },
+    {
+        "packet_id": 1285,
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03
+            }
+        ]
+    },
+    {
+        "packet_id": 1286,
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03
+            }
+        ]
+    },
+    {
+        "packet_id": 1287,
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "X",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03
+            },
+            {
+                "start_byte": 2,
+                "name": "Y",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03
+            },
+            {
+                "start_byte": 4,
+                "name": "Z",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.03
+            }
+        ]
+    },
+    {
+        "packet_id": 1030,
+        "data_length": 8,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Speed",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.01
+            },
+            {
+                "start_byte": 2,
+                "name": "Strain Gauge Voltage",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.0002
+            },
+            {
+                "start_byte": 4,
+                "name": "Pushrod",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.5
+            },
+            {
+                "start_byte": 6,
+                "name": "Spring Displacement",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.001
+            }
+        ]
+    },
+    {
+        "packet_id": 1031,
+        "data_length": 8,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Speed",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.01
+            },
+            {
+                "start_byte": 2,
+                "name": "Strain Gauge Voltage",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.0002
+            },
+            {
+                "start_byte": 4,
+                "name": "Pushrod",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.5
+            },
+            {
+                "start_byte": 6,
+                "name": "Spring Displacement",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.001
+            }
+        ]
+    },
+    {
+        "packet_id": 1032,
+        "data_length": 8,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Speed",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.01
+            },
+            {
+                "start_byte": 2,
+                "name": "Strain Gauge Voltage",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.0002
+            },
+            {
+                "start_byte": 4,
+                "name": "Pushrod",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.5
+            },
+            {
+                "start_byte": 6,
+                "name": "Spring Displacement",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.001
+            }
+        ]
+    },
+    {
+        "packet_id": 1033,
+        "data_length": 8,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Speed",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.01
+            },
+            {
+                "start_byte": 2,
+                "name": "Strain Gauge Voltage",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.0002
+            },
+            {
+                "start_byte": 4,
+                "name": "Pushrod",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.5
+            },
+            {
+                "start_byte": 6,
+                "name": "Spring Displacement",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.001
+            }
+        ]
+    },
+    {
+        "packet_id": 1288,
+        "data_length": 2,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Ride Height",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.002
+            }
+        ]
+    },
+    {
+        "packet_id": 1289,
+        "data_length": 2,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Ride Height",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.002
+            }
+        ]
+    },
+    {
+        "packet_id": 1296,
+        "data_length": 2,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Ride Height",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.002
+            }
+        ]
+    },
+    {
+        "packet_id": 1297,
+        "data_length": 2,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Ride Height",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.002
+            }
+        ]
+    },
+    {
+        "packet_id": 257,
+        "data_length": 8,
+        "frequency_ms": 100.0,
+        "frequency": 10.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "GPS Rear Longitude",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            },
+            {
+                "start_byte": 2,
+                "name": "GPS Rear Latitude",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.001
+            },
+            {
+                "start_byte": 4,
+                "name": "GPS Rear Speed",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.001
+            },
+            {
+                "start_byte": 6,
+                "name": "GPS Rear Heading",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.001
+            }
+        ]
+    },
+    {
+        "packet_id": 258,
+        "data_length": 8,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Loop Temp After Motor",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.01
+            },
+            {
+                "start_byte": 2,
+                "name": "Loop Temp After Inverter",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.01
+            },
+            {
+                "start_byte": 4,
+                "name": "Temp After Radiator",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.01
+            },
+            {
+                "start_byte": 6,
+                "name": "Radiator Fan Speed",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.2
+            }
+        ]
+    },
+    {
+        "packet_id": 259,
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Temp After Battery",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.01
+            },
+            {
+                "start_byte": 2,
+                "name": "Temp After Radiator",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.01
+            },
+            {
+                "start_byte": 4,
+                "name": "Radiator Fan Speed",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.2
+            }
+        ]
+    },
+    {
+        "packet_id": 260,
+        "data_length": 6,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Inverter",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.01
+            },
+            {
+                "start_byte": 2,
+                "name": "Motor",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.01
+            },
+            {
+                "start_byte": 4,
+                "name": "Ambient",
+                "length": 2,
+                "conv_type": "int16",
+                "precision": 0.01
+            }
+        ]
+    },
+    {
+        "packet_id": 512,
+        "data_length": 8,
+        "frequency_ms": 10.0,
+        "frequency": 100.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Pack Voltage",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.01
+            },
+            {
+                "start_byte": 2,
+                "name": "Tractive Current",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.01
+            },
+            {
+                "start_byte": 4,
+                "name": "State of Charge",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.01
+            },
+            {
+                "start_byte": 6,
+                "name": "Cell Top Temp",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 7,
+                "name": "Cell Bottom Temp",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 513,
+        "data_length": 8,
+        "frequency_ms": 100.0,
+        "frequency": 10.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Bus Bar 1 Temp",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.1
+            },
+            {
+                "start_byte": 2,
+                "name": "Bus Bar 2 Temp",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.1
+            },
+            {
+                "start_byte": 4,
+                "name": "Bus Bar 3 Temp",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.1
+            },
+            {
+                "start_byte": 6,
+                "name": "Precharge Resistor Temp",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 514,
+        "data_length": 6,
+        "frequency_ms": 100.0,
+        "frequency": 10.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "BMS Error",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 1,
+                "name": "IMD Error",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 2,
+                "name": "Shutdown Leg 1",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 3,
+                "name": "Shutdown Leg 2",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 4,
+                "name": "Shutdown Leg 3",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 5,
+                "name": "Shutdown Leg 4",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 515,
+        "data_length": 3,
+        "frequency_ms": 100.0,
+        "frequency": 10.0,
+        "quantity": 1,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "HVC State Machine",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 1,
+                "name": "Positive HV Contactor",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 2,
+                "name": "Negative HV Contactor",
+                "length": 1,
+                "conv_type": "uint8",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 516,
+        "data_length": 8,
+        "frequency_ms": 1000.0,
+        "frequency": 1.0,
+        "quantity": 35,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Voltage[i]",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.0001
+            },
+            {
+                "start_byte": 2,
+                "name": "Voltage[i+1]",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 4,
+                "name": "Voltage[i+2]",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 6,
+                "name": "Voltage[i+3]",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 556,
+        "data_length": 8,
+        "frequency_ms": 1000.0,
+        "frequency": 1.0,
+        "quantity": 23,
+        "bytes": [
+            {
+                "start_byte": 0,
+                "name": "Temp[i]",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.1
+            },
+            {
+                "start_byte": 2,
+                "name": "Temp[i+1]",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 4,
+                "name": "Temp[i+2]",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 1.0
+            },
+            {
+                "start_byte": 6,
+                "name": "Temp[i+3]",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 1.0
+            }
+        ]
+    },
+    {
+        "packet_id": 261,
+        "data_length": 0,
+        "frequency_ms": null,
+        "frequency": null,
+        "quantity": 0,
+        "bytes": []
+    },
+    {
+        "packet_id": 1536,
+        "data_length": 0,
+        "frequency_ms": null,
+        "frequency": null,
+        "quantity": 0,
+        "bytes": []
+    }
+]

@@ -35,6 +35,11 @@
 // Define ONE of these (or similar) in your project's preprocessor settings:
 // #define STM32H733xx
 // #define STM32L4xx
+
+#ifdef STM32H723xx
+#define STM32H733xx
+#endif
+
 #if defined(STM32H733xx)
 #include "stm32h7xx_hal.h"
 #define NIGHTCAN_HANDLE_TYPEDEF FDCAN_HandleTypeDef
@@ -113,7 +118,7 @@ typedef enum {
  */
 typedef struct {
     NIGHTCAN_HANDLE_TYPEDEF
-        *hcan;  // Pointer to the HAL CAN handle for this instance
+    *hcan;  // Pointer to the HAL CAN handle for this instance
 
     NightCANReceivePacket
         *rx_buffer[CAN_RX_BUFFER_SIZE];  // buffer of pointers to user-defined
@@ -242,9 +247,10 @@ void CAN_addReceivePacket(NightCANInstance *instance,
  * @warning See general warnings in file header regarding safety and alignment.
  * Example: uint16_t status = can_readInt(uint16_t, &myReceivedPacket, 2);
  */
-#define CAN_readInt(T, packet_ptr, start_byte) \
-    (*((T *)((uint8_t *)((packet_ptr)->data) + \
-             (start_byte))))  // Cast data to uint8_t* for pointer arithmetic
+#define CAN_readInt(T, packet_ptr, start_byte, default)              \
+    ((packet_ptr)->is_recent)                                        \
+        ? (*((T *)((uint8_t *)((packet_ptr)->data) + (start_byte)))) \
+        : default  // Cast data to uint8_t* for pointer arithmetic
 
 /**
  * @brief Write an integral value (e.g., int16_t, uint32_t) to a CAN packet's
@@ -304,8 +310,10 @@ void CAN_addReceivePacket(NightCANInstance *instance,
  * @return The reconstructed floating-point value.
  * @warning See general warnings in file header regarding safety and alignment.
  */
-#define CAN_readFloat(T, packet_ptr, start_byte, precision)             \
-    ((float)(*((T *)((uint8_t *)((packet_ptr)->data) + (start_byte))) * \
-             (precision)))  // Cast data to uint8_t*
+#define CAN_readFloat(T, packet_ptr, start_byte, precision, default)          \
+    ((packet_ptr)->is_recent)                                                 \
+        ? ((float)(*((T *)((uint8_t *)((packet_ptr)->data) + (start_byte))) * \
+                   (precision)))                                              \
+        : 0.0f  // Cast data to uint8_t*
 
 #endif  // CAN_DRIVER_H
