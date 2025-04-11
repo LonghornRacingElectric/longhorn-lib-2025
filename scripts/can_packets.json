@@ -1516,28 +1516,28 @@
         "bytes": [
             {
                 "start_byte": 0,
-                "name": "GPS Rear Longitude",
+                "name": "Rear Longitude",
                 "length": 2,
                 "conv_type": "int16",
                 "precision": 0.001
             },
             {
                 "start_byte": 2,
-                "name": "GPS Rear Latitude",
+                "name": "Rear Latitude",
                 "length": 2,
                 "conv_type": "int16",
                 "precision": 0.001
             },
             {
                 "start_byte": 4,
-                "name": "GPS Rear Speed",
+                "name": "Rear Speed",
                 "length": 2,
                 "conv_type": "uint16",
                 "precision": 0.001
             },
             {
                 "start_byte": 6,
-                "name": "GPS Rear Heading",
+                "name": "Rear Heading",
                 "length": 2,
                 "conv_type": "uint16",
                 "precision": 0.001

@@ -50,7 +50,7 @@ CAN ID,CAN ID Binary,From,To,Packet Info,Frequency (Hz),Data Length Code (DLC),Q
 0x509,#NUM!,Undertray,Pi,Ride Height FR,100,2,1,"Ride Height (uint16, 0.002 mm)",,unused,unused,unused,unused,unused,unused,,63,6300,0.63%
 0x510,#NUM!,Undertray,Pi,Ride Height RL,100,2,1,"Ride Height (uint16, 0.002 mm)",,unused,unused,unused,unused,unused,unused,,63,6300,0.63%
 0x511,#NUM!,Undertray,Pi,Ride Height RR,100,2,1,"Ride Height (uint16, 0.002 mm)",,unused,unused,unused,unused,unused,unused,,63,6300,0.63%
-0x101,100000001,VCU,Pi,GPS,10,8,1,"GPS Rear Longitude (int16, 0.001º)",,"GPS Rear Latitude (int16, 0.001º)",,"GPS Rear Speed (uint16, 0.001 m/s)",,"GPS Rear Heading (uint16, 0.001º)",,,111,1110,0.11%
+0x101,100000001,VCU,Pi,GPS,10,8,1,"Rear Longitude (int16, 0.001º)",,"Rear Latitude (int16, 0.001º)",,"Rear Speed (uint16, 0.001 m/s)",,"Rear Heading (uint16, 0.001º)",,,111,1110,0.11%
 0x102,100000010,VCU,Pi,Motor Cooling,100,8,1,"Loop Temp After Motor (int16, 0.01ºC)",,"Loop Temp After Inverter (int16, 0.01ºC)",,"Temp After Radiator (int16, 0.01ºC)",,"Radiator Fan Speed (uint16, 0.2 RPM)",,,111,11100,1.11%
 0x103,100000011,VCU,Pi,Battery Cooling,100,6,1,"Temp After Battery (int16, 0.01ºC)",,"Temp After Radiator (int16, 0.01ºC)",,"Radiator Fan Speed (uint16, 0.2 RPM)",,unused,unused,,95,9500,0.95%
 0x104,100000100,VCU,Pi,Temps,100,6,1,"Inverter (int16, 0.01ºC)",,"Motor (int16, 0.01ºC)",,"Ambient (int16, 0.01ºC)",,unused,unused,,95,9500,0.95%
