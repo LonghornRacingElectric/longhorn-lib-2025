@@ -26,7 +26,7 @@ CAN ID,CAN ID Binary,From,To,Packet Info,Frequency (Hz),Data Length Code (DLC),Q
 0xA02,#NUM!,Rack,VCU,BPPS Voltages,333,8,1,"BPPS1 Voltage (uint16, 0.0001 V)",,"BPPS2 Voltage (uint16, 0.0001 V)",,"BPPS1 Travel (uint16, 0.0001 %)",,"BPPS2 Travel (uint16, 0.0001 %)",,,111,36963,3.70%
 0xA03,#NUM!,Rack,VCU,Brake Pedal,333,3,1,"Brake Pedal Travel (uint16, 0.0001 %)",,BPPS Faults (see bitfield),unused,unused,unused,unused,unused,,71,23643,2.36%
 0x100,100000000,VCU,Pi,BSE Voltages,333,6,1,"BSE Front Voltage (uint16, 0.0001 V)",,"BSE Rear Voltage (uint16, 0.0001 V)",,"BSE Line Lock Voltage (uint16, 0.0001 V)",,unused,unused,,95,31635,3.16%
-0xA04,#NUM!,Rack,Pi,Brakes,333,8,1,"Brake Pressure Front (uint16, 0.05 psi)",,"Brake Pressure Rear Pre Lock (uint16, 0.05 psi)",,"Brake Pressure Rear Post Lock (uint16, 0.05 psi)",,TODO: BRAKE BIAS,BSE Faults (see bitfield),,111,36963,3.70%
+0xA04,#NUM!,Rack,Pi,Brakes,333,8,1,"Brake Pressure Front (uint16, 0.05 psi)",,"Brake Pressure Rear Pre Lock (uint16, 0.05 psi)",,"Brake Pressure Rear Post Lock (uint16, 0.05 psi)",,"Brake Bias (uint8, 0.01 %)",BSE Faults (see bitfield),,111,36963,3.70%
 0xA05,#NUM!,Rack,Pi,Rack Steering,333,2,1,"Steering Column Angle (int16, 0.004º)",,unused,unused,unused,unused,unused,unused,,63,20979,2.10%
 0x400,#NUM!,Upright,Pi,FL Steering,333,2,1,"FL Est Steering Angle (int16, 0.001º)",,unused,unused,unused,unused,unused,unused,,63,20979,2.10%
 0x401,#NUM!,Upright,Pi,FR Steering,333,2,1,"FR Est Steering Angle (int16, 0.001º)",,unused,unused,unused,unused,unused,unused,,63,20979,2.10%
