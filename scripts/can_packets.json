@@ -922,8 +922,34 @@
                 "start_byte": 2,
                 "name": "APPS Faults",
                 "length": 1,
-                "conv_type": "see bitfield",
-                "precision": 1.0
+                "conv_type": "bitfield",
+                "precision": 1.0,
+                "bitfield_encoding": [
+                    {
+                        "protobuf_field": "apps1_disconnect",
+                        "bit_index": 0
+                    },
+                    {
+                        "protobuf_field": "apps2_disconnect",
+                        "bit_index": 1
+                    },
+                    {
+                        "protobuf_field": "apps1_out_range",
+                        "bit_index": 2
+                    },
+                    {
+                        "protobuf_field": "apps2_out_range",
+                        "bit_index": 3
+                    },
+                    {
+                        "protobuf_field": "apps_mismatch",
+                        "bit_index": 4
+                    },
+                    {
+                        "protobuf_field": "apps_implause",
+                        "bit_index": 5
+                    }
+                ]
             }
         ]
     },
@@ -1002,8 +1028,30 @@
                 "start_byte": 2,
                 "name": "BPPS Faults",
                 "length": 1,
-                "conv_type": "see bitfield",
-                "precision": 1.0
+                "conv_type": "bitfield",
+                "precision": 1.0,
+                "bitfield_encoding": [
+                    {
+                        "protobuf_field": "bpps1_disconnect",
+                        "bit_index": 0
+                    },
+                    {
+                        "protobuf_field": "bpps2_disconnect",
+                        "bit_index": 1
+                    },
+                    {
+                        "protobuf_field": "bpps1_out_range",
+                        "bit_index": 2
+                    },
+                    {
+                        "protobuf_field": "bpps2_out_range",
+                        "bit_index": 3
+                    },
+                    {
+                        "protobuf_field": "bpps_mismatch",
+                        "bit_index": 4
+                    }
+                ]
             }
         ]
     },
@@ -1141,7 +1189,25 @@
                 "name": "BSE Faults",
                 "length": 1,
                 "conv_type": "bitfield",
-                "precision": 1.0
+                "precision": 1.0,
+                "bitfield_encoding": [
+                    {
+                        "protobuf_field": "bse1_disconnect",
+                        "bit_index": 0
+                    },
+                    {
+                        "protobuf_field": "bse2_disconnect",
+                        "bit_index": 1
+                    },
+                    {
+                        "protobuf_field": "bse1_out_range",
+                        "bit_index": 2
+                    },
+                    {
+                        "protobuf_field": "bse2_out_range",
+                        "bit_index": 3
+                    }
+                ]
             }
         ]
     },
@@ -2661,6 +2727,20 @@
                 "protobuf": {
                     "type": "float",
                     "field": "bus_bar_temp3",
+                    "repeated": false,
+                    "field_index": null
+                }
+            },
+            {
+                "index": 3,
+                "start_byte": 6,
+                "name": "Precharge Resistor Temp",
+                "length": 2,
+                "conv_type": "uint16",
+                "precision": 0.1,
+                "protobuf": {
+                    "type": "float",
+                    "field": "precharge_r_temp",
                     "repeated": false,
                     "field_index": null
                 }
