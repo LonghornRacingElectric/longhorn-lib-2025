@@ -42,10 +42,11 @@ def generate_header(json_data, input_filename, output_filename=DEFAULT_OUTPUT_FI
         "int8": "int8_t",
         "uint16": "uint16_t",
         "int16": "int16_t",
-        # Add more types if needed (e.g., uint32, int32, double)
         "uint32": "uint32_t",
         "int32": "int32_t",
         "double": "double",
+        # Bitfield needs _BYTE and _LENGTH, but not _TYPE or _PREC at the signal level
+        "bitfield": "/* N/A (bitfield) */",
     }
 
     # --- Process Each Packet ---
@@ -69,48 +70,32 @@ def generate_header(json_data, input_filename, output_filename=DEFAULT_OUTPUT_FI
             to_nodes = packet.get("to", [])  # Get 'to' list, default to empty
 
             # --- Handle frequency_ms (allowing for null/None) ---
-            freq_ms_value = packet.get(
-                "frequency_ms"
-            )  # Get value, could be None or missing
+            freq_ms_value = packet.get("frequency_ms")
             frequency_ms_int = 0  # Default frequency value
-
             if freq_ms_value is not None:
                 try:
-                    # Attempt to convert to float first (as input might be float) then to int
                     frequency_ms_int = int(float(freq_ms_value))
                 except (ValueError, TypeError):
                     print(
                         f"Warning: Invalid or non-numeric value '{freq_ms_value}' for 'frequency_ms' in packet {packet_name_for_error}. Using default 0."
                     )
-                    # frequency_ms_int remains 0
             else:
-                # frequency_ms was null or missing
                 print(
                     f"Warning: 'frequency_ms' is null or missing for packet {packet_name_for_error}. Using default frequency 0."
                 )
-                # frequency_ms_int remains 0
 
             # --- Start Generating Header Lines for Packet ---
             packet_macro_base = to_macro_name(packet_name)
-
             header_lines.append(f"// Packet: {packet_name}")
-
-            # --- Add From/To comments if data exists ---
             if from_nodes:
-                from_str = ", ".join(
-                    str(n) for n in from_nodes
-                )  # Ensure items are strings
-                header_lines.append(f"// From: {from_str}")
+                header_lines.append(f"// From: {', '.join(str(n) for n in from_nodes)}")
             if to_nodes:
-                to_str = ", ".join(str(n) for n in to_nodes)  # Ensure items are strings
-                header_lines.append(f"// To:   {to_str}")  # Added spacing for alignment
+                header_lines.append(f"// To:   {', '.join(str(n) for n in to_nodes)}")
 
             # --- Add Packet Defines ---
             header_lines.append(f"#define {packet_macro_base}_ID {packet_id}")
             header_lines.append(f"#define {packet_macro_base}_DLC {data_length}")
-            header_lines.append(
-                f"#define {packet_macro_base}_FREQ {frequency_ms_int}"
-            )  # Use the processed integer value
+            header_lines.append(f"#define {packet_macro_base}_FREQ {frequency_ms_int}")
             header_lines.append(f"#define {packet_macro_base}_QUANTITY {quantity}")
             header_lines.append("")
 
@@ -122,46 +107,133 @@ def generate_header(json_data, input_filename, output_filename=DEFAULT_OUTPUT_FI
                     f"signal index {signal_index - 1} in packet {packet_name_for_error}"
                 )
                 try:
+                    # --- Extract Common Signal Info ---
                     signal_name = byte_info["name"]
-                    signal_name_for_error = f"'{signal_name}' in packet {packet_name_for_error}"  # Use name if available
+                    signal_name_for_error = (
+                        f"'{signal_name}' in packet {packet_name_for_error}"
+                    )
                     start_byte = byte_info["start_byte"]
                     length = byte_info["length"]
                     conv_type = byte_info["conv_type"]
-                    precision = byte_info["precision"]
 
                     signal_macro_name = to_macro_name(signal_name)
                     signal_macro_base = f"{packet_macro_base}_{signal_macro_name}"
 
-                    # Get the C type, default to 'unknown_type_t' if not found
-                    c_type = c_type_map.get(
-                        conv_type, f"unknown_type_t /* {conv_type} */"
-                    )
-                    if conv_type not in c_type_map:
-                        print(
-                            f"Warning: Unknown conversion type '{conv_type}' for signal {signal_name_for_error}. Using fallback type."
-                        )
-
+                    # --- Generate Common Signal Defines (_BYTE, _LENGTH) ---
+                    # These apply to both standard signals and bitfield containers
                     header_lines.append(
                         f"#define {signal_macro_base}_BYTE {start_byte}"
                     )
-                    # Add 'f' suffix for float literals in C
-                    header_lines.append(
-                        f"#define {signal_macro_base}_PREC {precision}f"
-                    )
                     header_lines.append(f"#define {signal_macro_base}_LENGTH {length}")
-                    header_lines.append(f"#define {signal_macro_base}_TYPE {c_type}")
-                    header_lines.append("")  # Add a blank line for readability
+
+                    # --- Handle Type-Specific Defines ---
+                    if conv_type == "bitfield":
+                        # Bitfields don't have signal-level _PREC or _TYPE
+                        # Generate the individual bit index defines instead
+                        bitfield_encoding = byte_info.get("bitfield_encoding")
+                        if not bitfield_encoding or not isinstance(
+                            bitfield_encoding, list
+                        ):
+                            print(
+                                f"Warning: Missing or invalid 'bitfield_encoding' list for signal {signal_name_for_error}. Skipping bitfield index defines."
+                            )
+                            header_lines.append(
+                                f"// Warning: Bitfield index definitions skipped for {signal_name} due to missing/invalid encoding data."
+                            )
+                        else:
+                            header_lines.append(
+                                f"// --- Bitfield Indices for: {signal_name} ---"
+                            )
+                            bit_index_count = 0
+                            for bit_spec in bitfield_encoding:
+                                try:
+                                    protobuf_field = bit_spec["protobuf_field"]
+                                    bit_index = bit_spec["bit_index"]
+
+                                    max_bit_index = (length * 8) - 1
+                                    if (
+                                        not isinstance(bit_index, int)
+                                        or bit_index < 0
+                                        or bit_index > max_bit_index
+                                    ):
+                                        print(
+                                            f"Warning: Invalid 'bit_index' ({bit_index}) for protobuf_field '{protobuf_field}' in signal {signal_name_for_error}. Expected 0-{max_bit_index}. Skipping this bit."
+                                        )
+                                        continue
+
+                                    protobuf_macro_name = to_macro_name(protobuf_field)
+                                    bit_macro_name = (
+                                        f"{signal_macro_base}_{protobuf_macro_name}_IDX"
+                                    )
+                                    header_lines.append(
+                                        f"#define {bit_macro_name} {bit_index}"
+                                    )
+                                    bit_index_count += 1
+
+                                except KeyError as e:
+                                    print(
+                                        f"Warning: Missing key {e} in bitfield specification within signal {signal_name_for_error}. Skipping this bit."
+                                    )
+                                except Exception as e:
+                                    print(
+                                        f"Error processing bit definition in signal {signal_name_for_error}: {e}. Skipping this bit."
+                                    )
+
+                            if (
+                                bit_index_count == 0
+                            ):  # Remove the "--- Bitfield Indices ---" comment if no bits were defined
+                                header_lines.pop()  # Remove the last added comment line
+
+                    else:
+                        # --- Generate Defines for Standard Numeric/Float Types (_PREC, _TYPE) ---
+                        precision = byte_info["precision"]
+                        c_type = c_type_map.get(conv_type)  # Get type from map
+
+                        if c_type is None:
+                            print(
+                                f"Warning: Unknown conversion type '{conv_type}' for signal {signal_name_for_error}. Omitting _TYPE define."
+                            )
+                            header_lines.append(
+                                f"// Warning: Unknown conversion type '{conv_type}' - _TYPE define omitted."
+                            )
+                        else:
+                            header_lines.append(
+                                f"#define {signal_macro_base}_TYPE {c_type}"
+                            )
+
+                        try:
+                            precision_float = float(precision)
+                            header_lines.append(
+                                f"#define {signal_macro_base}_PREC {precision_float}f"
+                            )
+                        except (ValueError, TypeError):
+                            print(
+                                f"Warning: Invalid precision value '{precision}' for signal {signal_name_for_error}. Omitting _PREC define."
+                            )
+                            header_lines.append(
+                                f"// Warning: Invalid precision value '{precision}' - _PREC define omitted."
+                            )
+
+                    # Add a blank line after each signal definition block (standard or bitfield)
+                    header_lines.append("")
 
                 except KeyError as e:
                     print(
-                        f"Warning: Missing key {e} in signal definition {signal_name_for_error}. Skipping signal."
+                        f"Warning: Missing required key {e} in signal definition {signal_name_for_error}. Skipping signal generation."
                     )
-                except (
-                    Exception
-                ) as e:  # Catch other potential errors within signal processing
+                    # Add a comment indicating the skip
+                    header_lines.append(
+                        f"// Warning: Signal definition skipped for {signal_name_for_error} due to missing key: {e}"
+                    )
+                    header_lines.append("")
+                except Exception as e:
                     print(
-                        f"Error processing signal {signal_name_for_error}: {e}. Skipping signal."
+                        f"Error processing signal {signal_name_for_error}: {e}. Skipping signal generation."
                     )
+                    header_lines.append(
+                        f"// Error: Signal definition skipped for {signal_name_for_error} due to error: {e}"
+                    )
+                    header_lines.append("")
 
             header_lines.append("// End Packet: " + packet_name)
             header_lines.append("")  # Blank line after packet definition
@@ -194,7 +266,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description=f"Generate a C header file for CAN IDs from '{DEFAULT_INPUT_FILENAME}'."
     )
-    # Only argument is for the output file (optional)
     parser.add_argument(
         "-o",
         "--output",
@@ -203,9 +274,8 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-    output_file = args.output  # Get the potentially specified output filename
+    output_file = args.output
 
-    # --- Read Hardcoded JSON File ---
     input_file = DEFAULT_INPUT_FILENAME
     try:
         with open(input_file, "r") as f:
@@ -224,14 +294,10 @@ if __name__ == "__main__":
         print(f"Error reading input file '{input_file}': {e}")
         exit(1)
 
-    # --- Validate Top-Level Structure (must be a list) ---
     if not isinstance(can_data, list):
         print(
             f"Error: The top-level structure in '{input_file}' must be a JSON array (list)."
         )
         exit(1)
 
-    # --- Generate Header ---
-    generate_header(
-        can_data, input_file, output_file
-    )  # Pass input filename for header comment
+    generate_header(can_data, input_file, output_file)

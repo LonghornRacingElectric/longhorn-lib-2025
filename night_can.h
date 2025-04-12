@@ -247,10 +247,10 @@ void CAN_addReceivePacket(NightCANInstance *instance,
  * @warning See general warnings in file header regarding safety and alignment.
  * Example: uint16_t status = can_readInt(uint16_t, &myReceivedPacket, 2);
  */
-#define CAN_readInt(T, packet_ptr, start_byte)              \
-        (*((T *)((uint8_t *)((packet_ptr)->data) + (start_byte))))
+#define CAN_readInt(T, packet_ptr, start_byte) \
+    (*((T *)((uint8_t *)((packet_ptr)->data) + (start_byte))))
 
-#define CAN_readInt_with_default(T, packet_ptr, start_byte, default)              \
+#define CAN_readInt_with_default(T, packet_ptr, start_byte, default) \
     ((packet_ptr)->is_recent)                                        \
         ? (*((T *)((uint8_t *)((packet_ptr)->data) + (start_byte)))) \
         : default  // Cast data to uint8_t* for pointer arithmetic
@@ -271,6 +271,26 @@ void CAN_addReceivePacket(NightCANInstance *instance,
 #define CAN_writeInt(T, packet_ptr, start_byte, value)          \
     (*((T *)((uint8_t *)((packet_ptr)->data) + (start_byte))) = \
          (value))  // Cast data to uint8_t*
+
+#define CAN_setBit(packet_ptr, start_byte, bitfield_index)                    \
+    do {                                                                      \
+        uint8_t *byte_ptr = ((uint8_t *)((packet_ptr)->data) + (start_byte)); \
+        *byte_ptr |= (uint8_t)(1U << (bitfield_index));                       \
+    } while (0)
+
+#define CAN_clearBit(packet_ptr, start_byte, bitfield_index)                  \
+    do {                                                                      \
+        uint8_t *byte_ptr = ((uint8_t *)((packet_ptr)->data) + (start_byte)); \
+        *byte_ptr &= (uint8_t)~(1U << (bitfield_index));                      \
+    } while (0)
+
+#define CAN_writeBitfield(packet_ptr, start_byte, bitfield_index, value)  \
+    uint8_t *byte_ptr = ((uint8_t *)((packet_ptr)->data) + (start_byte)); \
+    if (value) {                                                          \
+        *byte_ptr |= (uint8_t)(1U << (bitfield_index));                   \
+    } else {                                                              \
+        *byte_ptr &= (uint8_t)~(1U << (bitfield_index));                  \
+    }
 
 /**
  * @brief Write a floating point value to a CAN packet's data buffer after
@@ -313,14 +333,20 @@ void CAN_addReceivePacket(NightCANInstance *instance,
  * @return The reconstructed floating-point value.
  * @warning See general warnings in file header regarding safety and alignment.
  */
-#define CAN_readFloat(T, packet_ptr, start_byte, precision)          \
-((float)(*((T *)((uint8_t *)((packet_ptr)->data) + (start_byte))) * \
-                   (precision)))                                              // Cast data to uint8_t*
+#define CAN_readFloat(T, packet_ptr, start_byte, precision)             \
+    ((float)(*((T *)((uint8_t *)((packet_ptr)->data) + (start_byte))) * \
+             (precision)))  // Cast data to uint8_t*
 
-#define CAN_readFloat_with_default(T, packet_ptr, start_byte, precision, default)          \
+#define CAN_readFloat_with_default(T, packet_ptr, start_byte, precision,      \
+                                   default)                                   \
     ((packet_ptr)->is_recent)                                                 \
         ? ((float)(*((T *)((uint8_t *)((packet_ptr)->data) + (start_byte))) * \
                    (precision)))                                              \
         : default  // Cast data to uint8_t*
+
+#define CAN_readBitfield(packet_ptr, start_byte, bitfield_index)      \
+    (bool)(((1 << bitfield_index) &                                   \
+            (*(((uint8_t *)((packet_ptr)->data) + (start_byte))))) >> \
+           bitfield_index)
 
 #endif  // CAN_DRIVER_H
