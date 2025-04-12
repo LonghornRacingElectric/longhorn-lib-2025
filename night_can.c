@@ -19,6 +19,7 @@
 // Static array to hold pointers to active driver instances
 static NightCANInstance *night_can_instances[MAX_CAN_INSTANCES] = {NULL};
 
+
 // number of instances of the can
 static uint32_t night_active_instances = 0;
 
@@ -85,11 +86,24 @@ NightCANReceivePacket *get_packet_from_id(NightCANInstance *instance,
 static void update_rx_buffer(NightCANInstance *instance,
                              NIGHTCAN_RX_HANDLETYPEDEF *rx_header,
                              uint8_t *rx_data) {
+
 #ifdef STM32L496xx
+    uint8_t temp_id = (rx_header->IDE == CAN_ID_STD) ? rx_header->StdId : rx_header->ExtId);
+
+    if(temp_id == BUS_ENABLE_DISABLE_ID) {
+        instance->bus_silence = (BUS_ENABLE_DISABLE_FIELD_0_TYPE) rx_data[BUS_ENABLE_DISABLE_FIELD_0_BYTE]; // updates
+        return;                                                                                             // bus silence
+    }
+
     NightCANReceivePacket *packet = get_packet_from_id(
         instance,
         (rx_header->IDE == CAN_ID_STD) ? rx_header->StdId : rx_header->ExtId);
 #elif defined(STM32H733xx)
+    if(rx_header->Identifier == BUS_ENABLE_DISABLE_ID) {
+        instance->bus_silence = (BUS_ENABLE_DISABLE_FIELD_0_TYPE) rx_data[BUS_ENABLE_DISABLE_FIELD_0_BYTE]; // updates
+        return;                                                                                             // bus silence
+    }
+
     NightCANReceivePacket *packet =
         get_packet_from_id(instance, rx_header->Identifier);
 #endif
@@ -368,6 +382,7 @@ CANDriverStatus CAN_PollReceive(NightCANInstance *instance) {
     while (fill_level0 > 0) {
         if (HAL_FDCAN_GetRxMessage(instance->hcan, FDCAN_RX_FIFO0, &rx_header,
                                    rx_data) == HAL_OK) {
+
             update_rx_buffer(instance, &rx_header, rx_data);
         } else {
             // Error getting message from FIFO0, break out of loop so we don't
@@ -442,6 +457,8 @@ CANDriverStatus CAN_PollReceive(NightCANInstance *instance) {
  * @param instance
  */
 void check_timeouts(NightCANInstance *instance) {
+    if(!instance || instance->bus_silence) return; // if bus silence, nothing times out
+
     for (int i = 0; i < instance->rx_buffer_count; i++) {
         NightCANReceivePacket *packet = instance->rx_buffer[i];
         // if the ms is defined, then we can check for timeouts, otherwise
@@ -470,6 +487,8 @@ void CAN_Service(NightCANInstance *instance) {
     // make sure that the we are actually ready to send (filtering stupid
     // mistakes)
     if (!instance || !instance->initialized || !instance->hcan) return;
+
+    if(instance->bus_silence) return; // no sending messages while silenced.
 
     uint32_t current_time_ms = lib_timer_elapsed_ms();
 

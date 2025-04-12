@@ -133,6 +133,7 @@ typedef struct {
     // Add any other instance-specific state if needed (e.g., error flags)
     bool initialized;
 
+    bool bus_silence; // for flashing over CAN, we set the whole bus to SILENCE.
 } NightCANInstance;
 
 // --- Function Prototypes ---
