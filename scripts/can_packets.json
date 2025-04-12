@@ -265,7 +265,7 @@
             "VCU"
         ],
         "data_length": 8,
-        "frequency_ms": 100.0,
+        "frequency_ms": 100,
         "frequency": 10.0,
         "quantity": 1,
         "bytes": [
@@ -313,7 +313,7 @@
             "VCU"
         ],
         "data_length": 8,
-        "frequency_ms": 100.0,
+        "frequency_ms": 100,
         "frequency": 10.0,
         "quantity": 1,
         "bytes": [
@@ -361,7 +361,7 @@
             "VCU"
         ],
         "data_length": 8,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -409,7 +409,7 @@
             "VCU"
         ],
         "data_length": 8,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -457,7 +457,7 @@
             "VCU"
         ],
         "data_length": 8,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -505,7 +505,7 @@
             "VCU"
         ],
         "data_length": 8,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -585,7 +585,7 @@
             "VCU"
         ],
         "data_length": 8,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -617,7 +617,7 @@
             "VCU"
         ],
         "data_length": 8,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -657,7 +657,7 @@
             "VCU"
         ],
         "data_length": 8,
-        "frequency_ms": 3.003,
+        "frequency_ms": 3,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -705,7 +705,7 @@
             "Inverter"
         ],
         "data_length": 8,
-        "frequency_ms": 3.003,
+        "frequency_ms": 3,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -825,7 +825,7 @@
             "VCU"
         ],
         "data_length": 4,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -857,7 +857,7 @@
             "VCU"
         ],
         "data_length": 8,
-        "frequency_ms": 3.003,
+        "frequency_ms": 3,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -905,7 +905,7 @@
             "VCU"
         ],
         "data_length": 3,
-        "frequency_ms": 3.003,
+        "frequency_ms": 3,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -963,7 +963,7 @@
             "VCU"
         ],
         "data_length": 8,
-        "frequency_ms": 3.003,
+        "frequency_ms": 3,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -1011,7 +1011,7 @@
             "VCU"
         ],
         "data_length": 3,
-        "frequency_ms": 3.003,
+        "frequency_ms": 3,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -1065,7 +1065,7 @@
             "Pi"
         ],
         "data_length": 6,
-        "frequency_ms": 3.003,
+        "frequency_ms": 3,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -1123,7 +1123,7 @@
             "Pi"
         ],
         "data_length": 8,
-        "frequency_ms": 3.003,
+        "frequency_ms": 3,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -1221,7 +1221,7 @@
             "Pi"
         ],
         "data_length": 2,
-        "frequency_ms": 3.003,
+        "frequency_ms": 3,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -1251,7 +1251,7 @@
             "Pi"
         ],
         "data_length": 2,
-        "frequency_ms": 3.003,
+        "frequency_ms": 3,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -1281,7 +1281,7 @@
             "Pi"
         ],
         "data_length": 2,
-        "frequency_ms": 3.003,
+        "frequency_ms": 3,
         "frequency": 333.0,
         "quantity": 1,
         "bytes": [
@@ -1311,7 +1311,7 @@
             "Pi"
         ],
         "data_length": 6,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -1369,7 +1369,7 @@
             "Pi"
         ],
         "data_length": 6,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -1427,7 +1427,7 @@
             "Pi"
         ],
         "data_length": 6,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -1485,7 +1485,7 @@
             "Pi"
         ],
         "data_length": 6,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -1543,7 +1543,7 @@
             "Pi"
         ],
         "data_length": 8,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -1615,7 +1615,7 @@
             "Pi"
         ],
         "data_length": 8,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -1687,7 +1687,7 @@
             "Pi"
         ],
         "data_length": 8,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -1759,7 +1759,7 @@
             "Pi"
         ],
         "data_length": 8,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -1831,7 +1831,7 @@
             "Pi"
         ],
         "data_length": 6,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -1889,7 +1889,7 @@
             "Pi"
         ],
         "data_length": 6,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -1947,7 +1947,7 @@
             "Pi"
         ],
         "data_length": 6,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -2005,7 +2005,7 @@
             "Pi"
         ],
         "data_length": 6,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -2063,7 +2063,7 @@
             "Pi"
         ],
         "data_length": 8,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -2135,7 +2135,7 @@
             "Pi"
         ],
         "data_length": 8,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -2207,7 +2207,7 @@
             "Pi"
         ],
         "data_length": 8,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -2279,7 +2279,7 @@
             "Pi"
         ],
         "data_length": 8,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -2351,7 +2351,7 @@
             "Pi"
         ],
         "data_length": 8,
-        "frequency_ms": 100.0,
+        "frequency_ms": 100,
         "frequency": 10.0,
         "quantity": 1,
         "bytes": [
@@ -2423,7 +2423,7 @@
             "Pi"
         ],
         "data_length": 8,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -2495,7 +2495,7 @@
             "Pi"
         ],
         "data_length": 6,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -2553,7 +2553,7 @@
             "Pi"
         ],
         "data_length": 6,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -2611,7 +2611,7 @@
             "Pi"
         ],
         "data_length": 8,
-        "frequency_ms": 10.0,
+        "frequency_ms": 10,
         "frequency": 100.0,
         "quantity": 1,
         "bytes": [
@@ -2685,7 +2685,7 @@
             "Pi"
         ],
         "data_length": 8,
-        "frequency_ms": 100.0,
+        "frequency_ms": 100,
         "frequency": 10.0,
         "quantity": 1,
         "bytes": [
@@ -2757,7 +2757,7 @@
             "Pi"
         ],
         "data_length": 6,
-        "frequency_ms": 100.0,
+        "frequency_ms": 100,
         "frequency": 10.0,
         "quantity": 1,
         "bytes": [
@@ -2857,7 +2857,7 @@
             "Pi"
         ],
         "data_length": 3,
-        "frequency_ms": 100.0,
+        "frequency_ms": 100,
         "frequency": 10.0,
         "quantity": 1,
         "bytes": [
@@ -2897,7 +2897,7 @@
             "Pi"
         ],
         "data_length": 8,
-        "frequency_ms": 1000.0,
+        "frequency_ms": 1000,
         "frequency": 1.0,
         "quantity": 35,
         "bytes": [
@@ -2969,7 +2969,7 @@
             "Pi"
         ],
         "data_length": 8,
-        "frequency_ms": 1000.0,
+        "frequency_ms": 1000,
         "frequency": 1.0,
         "quantity": 23,
         "bytes": [

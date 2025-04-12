@@ -78,7 +78,7 @@ def parse_frequency(freq_str):
 def calculate_frequency_ms(frequency_hz):
     if frequency_hz is not None and frequency_hz > 0:
         try:
-            return round((1.0 / frequency_hz) * 1000.0, 4)
+            return int(round((1.0 / frequency_hz) * 1000.0, 4))
         except ZeroDivisionError:
             return None
     return None
