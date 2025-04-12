@@ -18,10 +18,11 @@ can_signal_pattern = re.compile(r"\(([^,]+)(?:,\s*([^)\s]+))?.*\)", re.IGNORECAS
 # Regex to parse power-of-2 notation like "2^-7"
 pow2_pattern = re.compile(r"2\^(-?\d+)")
 
-# Regex to parse the protobuf definition like "field_name (type)" or "nested.field (type)"
+# Regex to parse the protobuf definition like "field_name[index](type)" or "field_name(type)"
 # Group 1: Field name (allowing letters, numbers, underscore, dot)
-# Group 2: Type string
-protobuf_pattern = re.compile(r"([\w\.]+)\s*\(([^)]+)\)")
+# Group 2: Optional index inside brackets (digits)
+# Group 3: Type string
+protobuf_pattern = re.compile(r"([\w\.]+)(?:\[(\d+)\])?\s*\(([^)]+)\)")
 
 # Type mapping to byte length
 type_lengths = {
@@ -31,24 +32,19 @@ type_lengths = {
     "int16": 2,
     "uint32": 4,
     "int32": 4,
-    "uint64": 8,  # Assuming 64-bit types if they appear
+    "uint64": 8,
     "int64": 8,
-    "bool": 1,  # Often represented as uint8
-    "boolean": 1,  # Alias for bool
-    "byte": 1,  # Explicit byte
-    "float": 4,  # Standard float, though often scaled integers are used in CAN
+    "bool": 1,
+    "boolean": 1,
+    "byte": 1,
+    "float": 4,
     "float32": 4,
-    "double": 8,  # Standard double
+    "double": 8,
     "float64": 8,
 }
 
-# Type normalization (map aliases to standard names used in type_lengths)
-type_normalization = {
-    "boolean": "uint8",  # Represent boolean as uint8
-    "bool": "uint8",
-    "byte": "uint8",
-    # Add other normalizations if needed
-}
+# Type normalization
+type_normalization = {"boolean": "uint8", "bool": "uint8", "byte": "uint8"}
 
 
 def parse_dlc(dlc_str):
@@ -107,7 +103,6 @@ def parse_participants(participant_str):
     participant_str = participant_str.strip()
     if not participant_str:
         return []
-    # Simple case: treat the whole string as one participant
     return [participant_str]
 
 
@@ -124,7 +119,7 @@ def process_csv(csv_filepath):
             processed_rows = 0
 
             for i, row in enumerate(reader):
-                row_num = i + 2  # Account for header and 0-based index
+                row_num = i + 2  # For user messages
                 try:
                     # --- 1. Get Packet ID ---
                     packet_id_str = row.get("CAN ID", "").strip()
@@ -154,11 +149,14 @@ def process_csv(csv_filepath):
                     # --- 3. Parse Data Bytes ---
                     bytes_list = []
                     current_byte_index = 0
+                    field_index_counter = (
+                        0  # Initialize sequential field index for this packet
+                    )
 
                     for byte_num in range(8):  # Process Data[0] through Data[7]
                         data_key = f"Data[{byte_num}]"
                         byte_info_str_raw = row.get(data_key, "").strip()
-                        byte_info_str = byte_info_str_raw.strip('"')  # Clean quotes
+                        byte_info_str = byte_info_str_raw.strip('"')
 
                         if (
                             not byte_info_str
@@ -175,31 +173,52 @@ def process_csv(csv_filepath):
                             can_part = parts[0].strip()
                             proto_part_raw = parts[1].strip()
 
-                            # Parse the protobuf part
+                            # Parse the protobuf part using the updated regex
                             proto_match = protobuf_pattern.search(proto_part_raw)
                             if proto_match:
                                 proto_field = proto_match.group(1).strip()
-                                proto_type = proto_match.group(2).strip()
+                                proto_index_str = proto_match.group(
+                                    2
+                                )  # Optional index (string or None)
+                                proto_type = proto_match.group(3).strip()
+
                                 protobuf_info = {
                                     "type": proto_type,
                                     "field": proto_field,
                                 }
+
+                                if proto_index_str is not None:
+                                    protobuf_info["repeated"] = True
+                                    try:
+                                        protobuf_info["field_index"] = int(
+                                            proto_index_str
+                                        )
+                                    except ValueError:
+                                        print(
+                                            f"Warning: Row {row_num}, ID {packet_id_str}, Data[{byte_num}]: Invalid protobuf field index '{proto_index_str}'. Setting index to None."
+                                        )
+                                        protobuf_info["field_index"] = (
+                                            None  # Handle invalid index
+                                        )
+                                else:
+                                    protobuf_info["repeated"] = False
+                                    protobuf_info["field_index"] = (
+                                        None  # Explicitly set index to None for non-repeated
+                                    )
                             else:
                                 print(
-                                    f"Warning: Row {row_num}, CAN ID {packet_id_str}, Data[{byte_num}]: Could not parse protobuf definition format in '{proto_part_raw}'."
+                                    f"Warning: Row {row_num}, ID {packet_id_str}, Data[{byte_num}]: Could not parse protobuf definition format in '{proto_part_raw}'."
                                 )
 
                         # --- Parse the CAN signal part ---
                         can_match = can_signal_pattern.search(can_part)
                         if can_match:
-                            # Extract CAN Name (text before the parenthesis in can_part)
+                            # Extract CAN Name, Type, Precision, Length
                             match_start_index = can_match.start()
                             name = (
                                 can_part[:match_start_index].strip()
-                                or f"Field_{byte_num}"
-                            )
-
-                            # Extract CAN Type and Precision
+                                or f"Field_{field_index_counter}"
+                            )  # Use field index in placeholder
                             type_str = (
                                 can_match.group(1).lower().strip()
                                 if can_match.group(1)
@@ -208,21 +227,18 @@ def process_csv(csv_filepath):
                             precision_str = (
                                 can_match.group(2) if can_match.group(2) else None
                             )
-
-                            # Normalize type, get length
                             normalized_type = type_normalization.get(type_str, type_str)
                             length = type_lengths.get(normalized_type)
                             if length is None:
                                 print(
-                                    f"Warning: Row {row_num}, CAN ID {packet_id_str}: Unknown CAN data type '{type_str}'. Assuming length 1 for field '{name}'."
+                                    f"Warning: Row {row_num}, ID {packet_id_str}: Unknown CAN type '{type_str}'. Assuming length 1 for field '{name}'."
                                 )
                                 length = 1
                                 conv_type = type_str
                             else:
                                 conv_type = normalized_type
 
-                            # Parse CAN precision
-                            precision = 1.0  # Default
+                            precision = 1.0  # Default precision
                             if precision_str:
                                 precision_str = precision_str.strip()
                                 pow2_match = pow2_pattern.match(precision_str)
@@ -232,86 +248,87 @@ def process_csv(csv_filepath):
                                         precision = math.pow(2, exponent)
                                     except ValueError:
                                         print(
-                                            f"Warning: Row {row_num}, CAN ID {packet_id_str}: Invalid exponent '{precision_str}'. Using 1.0 for field '{name}'."
+                                            f"Warning: Row {row_num}, ID {packet_id_str}: Invalid exponent '{precision_str}'. Using 1.0 for field '{name}'."
                                         )
                                 else:
                                     try:
-                                        numeric_part_match = re.match(
+                                        numeric_part = re.match(
                                             r"([-+]?\d*\.?\d+([eE][-+]?\d+)?)",
                                             precision_str,
                                         )
-                                        if numeric_part_match:
-                                            precision = float(
-                                                numeric_part_match.group(1)
-                                            )
+                                        if numeric_part:
+                                            precision = float(numeric_part.group(1))
                                         elif precision_str.isalpha():
-                                            precision = 1.0  # Treat boolean etc. as 1.0
+                                            precision = 1.0
                                         else:
                                             print(
-                                                f"Warning: Row {row_num}, CAN ID {packet_id_str}: Could not parse CAN precision '{precision_str}'. Using 1.0 for field '{name}'."
+                                                f"Warning: Row {row_num}, ID {packet_id_str}: Could not parse CAN precision '{precision_str}'. Using 1.0 for field '{name}'."
                                             )
                                     except ValueError:
                                         print(
-                                            f"Warning: Row {row_num}, CAN ID {packet_id_str}: Invalid CAN precision format '{precision_str}'. Using 1.0 for field '{name}'."
+                                            f"Warning: Row {row_num}, ID {packet_id_str}: Invalid CAN precision format '{precision_str}'. Using 1.0 for field '{name}'."
                                         )
 
-                            # Check for gaps and update index
-                            if byte_num > current_byte_index:
-                                current_byte_index = byte_num
-
                             # --- Create Byte Definition ---
+                            if byte_num > current_byte_index:
+                                current_byte_index = byte_num  # Handle gaps
+
                             byte_def = {
+                                "index": field_index_counter,  # Sequential index of the field within the packet
                                 "start_byte": current_byte_index,
                                 "name": name,
                                 "length": length,
                                 "conv_type": conv_type,
                                 "precision": precision,
                             }
-                            # Add protobuf info if found
                             if protobuf_info:
                                 byte_def["protobuf"] = protobuf_info
 
                             bytes_list.append(byte_def)
-                            current_byte_index += length  # Increment index
+                            field_index_counter += 1  # Increment sequential field index for the next valid field
+                            current_byte_index += length  # Increment byte index
 
                         else:
                             # Handle simple CAN type definitions like "VSM (byte)" within can_part
-                            simple_type_match = re.match(r"\(\s*(\w+)\s*\)", can_part)
-                            if simple_type_match:
-                                type_str = simple_type_match.group(1).lower().strip()
+                            simple_match = re.match(r"\(\s*(\w+)\s*\)", can_part)
+                            if simple_match:
+                                type_str = simple_match.group(1).lower().strip()
                                 normalized_type = type_normalization.get(
                                     type_str, type_str
                                 )
                                 length = type_lengths.get(normalized_type)
                                 if length:
-                                    paren_index = can_part.find("(")
+                                    paren_idx = can_part.find("(")
                                     name = (
-                                        can_part[:paren_index].strip()
-                                        or f"Field_{byte_num}"
+                                        can_part[:paren_idx].strip()
+                                        or f"Field_{field_index_counter}"
                                     )
 
                                     if byte_num > current_byte_index:
-                                        current_byte_index = byte_num
+                                        current_byte_index = byte_num  # Handle gaps
 
                                     byte_def = {
+                                        "index": field_index_counter,  # Sequential index
                                         "start_byte": current_byte_index,
                                         "name": name,
                                         "length": length,
                                         "conv_type": normalized_type,
-                                        "precision": 1.0,  # Default precision
+                                        "precision": 1.0,
                                     }
-                                    # Add protobuf info if found (even for simple CAN types)
                                     if protobuf_info:
                                         byte_def["protobuf"] = protobuf_info
 
                                     bytes_list.append(byte_def)
-                                    current_byte_index += length
+                                    field_index_counter += (
+                                        1  # Increment sequential index
+                                    )
+                                    current_byte_index += length  # Increment byte index
                                 else:
                                     print(
-                                        f"Warning: Row {row_num}, CAN ID {packet_id_str}: Simple CAN type '{type_str}' found but unknown length in '{can_part}'. Skipping field."
+                                        f"Warning: Row {row_num}, ID {packet_id_str}: Simple CAN type '{type_str}' found but unknown length in '{can_part}'."
                                     )
                             # else: # Optionally warn about unparsed CAN part structure
-                            # print(f"Warning: Row {row_num}, CAN ID {packet_id_str}: Could not parse CAN signal structure in '{can_part}'. Skipping field.")
+                            # print(f"Warning: Row {row_num}, ID {packet_id_str}: Could not parse CAN signal structure in '{can_part}'.")
 
                     # --- 4. Construct Packet JSON ---
                     if packet_id is not None:
