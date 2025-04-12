@@ -86,60 +86,12 @@
             "Pi"
         ],
         "to": [
-            "HVC"
+            "HVC, VCU, Upright, Undertray"
         ],
         "data_length": 1,
         "frequency_ms": null,
         "frequency": null,
-        "quantity": 3,
-        "bytes": [
-            {
-                "index": 0,
-                "start_byte": 0,
-                "name": "Field_0",
-                "length": 1,
-                "conv_type": "uint8",
-                "precision": 1.0
-            }
-        ]
-    },
-    {
-        "packet_id": 33,
-        "packet_name": "Bus Enable/Disable",
-        "from": [
-            "Pi"
-        ],
-        "to": [
-            "VCU"
-        ],
-        "data_length": 1,
-        "frequency_ms": null,
-        "frequency": null,
-        "quantity": 3,
-        "bytes": [
-            {
-                "index": 0,
-                "start_byte": 0,
-                "name": "Field_0",
-                "length": 1,
-                "conv_type": "uint8",
-                "precision": 1.0
-            }
-        ]
-    },
-    {
-        "packet_id": 34,
-        "packet_name": "Bus Enable/Disable",
-        "from": [
-            "Pi"
-        ],
-        "to": [
-            "Upright"
-        ],
-        "data_length": 1,
-        "frequency_ms": null,
-        "frequency": null,
-        "quantity": 3,
+        "quantity": 20,
         "bytes": [
             {
                 "index": 0,

@@ -59,41 +59,11 @@
 
 // Packet: Bus Enable/Disable
 // From: Pi
-// To:   HVC
+// To:   HVC, VCU, Upright, Undertray
 #define BUS_ENABLE_DISABLE_ID 32
 #define BUS_ENABLE_DISABLE_DLC 1
 #define BUS_ENABLE_DISABLE_FREQ 0
-#define BUS_ENABLE_DISABLE_QUANTITY 3
-
-#define BUS_ENABLE_DISABLE_FIELD_0_BYTE 0
-#define BUS_ENABLE_DISABLE_FIELD_0_LENGTH 1
-#define BUS_ENABLE_DISABLE_FIELD_0_TYPE uint8_t
-#define BUS_ENABLE_DISABLE_FIELD_0_PREC 1.0f
-
-// End Packet: Bus Enable/Disable
-
-// Packet: Bus Enable/Disable
-// From: Pi
-// To:   VCU
-#define BUS_ENABLE_DISABLE_ID 33
-#define BUS_ENABLE_DISABLE_DLC 1
-#define BUS_ENABLE_DISABLE_FREQ 0
-#define BUS_ENABLE_DISABLE_QUANTITY 3
-
-#define BUS_ENABLE_DISABLE_FIELD_0_BYTE 0
-#define BUS_ENABLE_DISABLE_FIELD_0_LENGTH 1
-#define BUS_ENABLE_DISABLE_FIELD_0_TYPE uint8_t
-#define BUS_ENABLE_DISABLE_FIELD_0_PREC 1.0f
-
-// End Packet: Bus Enable/Disable
-
-// Packet: Bus Enable/Disable
-// From: Pi
-// To:   Upright
-#define BUS_ENABLE_DISABLE_ID 34
-#define BUS_ENABLE_DISABLE_DLC 1
-#define BUS_ENABLE_DISABLE_FREQ 0
-#define BUS_ENABLE_DISABLE_QUANTITY 3
+#define BUS_ENABLE_DISABLE_QUANTITY 20
 
 #define BUS_ENABLE_DISABLE_FIELD_0_BYTE 0
 #define BUS_ENABLE_DISABLE_FIELD_0_LENGTH 1
