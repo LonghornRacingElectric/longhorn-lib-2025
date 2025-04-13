@@ -236,12 +236,12 @@ dfu_path = find_first_path_for_device_regex(process.read())
 # Note: Ensure dfu-util is installed and in your system's PATH
 # Use the correct DFU VID:PID for STM32 bootloader
 dfu_vid_pid = "0483:df11"
-dfu_command = f"dfu-util -a 0 -p {dfu_path} --dfuse-address 0x08000000 -D \"{binpath}\""
+dfu_command = f"dfu-util -a 0 -p {dfu_path} --dfuse-address 0x08000000 -D \"{binpath}\" -s: leave"
 print(f"DFU VID:PID used: -p {dfu_path}")
 
 
 
-run_command(dfu_command)
+run_command(dfu_command, ignore_error=True)
 run_command(f"dfu-util -a 0 -p {dfu_path} -s :leave", ignore_error=True)
 # The ':leave' suffix should handle the reset. If not, uncomment the lines below.
 # run_command("dfu-util -a 0 -d 0483:df11 -s 0x08000000:leave", ignore_error=True) # Alternative leave command
