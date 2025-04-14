@@ -3148,5 +3148,80 @@
                 "precision": 0.04
             }
         ]
+    },
+    {
+        "packet_id": 34,
+        "packet_name": "VCU Enter Bootloader",
+        "from": [
+            "Pi"
+        ],
+        "to": [
+            "VCU"
+        ],
+        "data_length": 1,
+        "frequency_ms": null,
+        "frequency": null,
+        "quantity": 1,
+        "bytes": []
+    },
+    {
+        "packet_id": 35,
+        "packet_name": "Undertray Enter Bootloader",
+        "from": [
+            "Pi"
+        ],
+        "to": [
+            "Undertray"
+        ],
+        "data_length": 1,
+        "frequency_ms": null,
+        "frequency": null,
+        "quantity": 1,
+        "bytes": []
+    },
+    {
+        "packet_id": 36,
+        "packet_name": "HVC Enter Bootloader",
+        "from": [
+            "Pi"
+        ],
+        "to": [
+            "HVC"
+        ],
+        "data_length": 1,
+        "frequency_ms": null,
+        "frequency": null,
+        "quantity": 1,
+        "bytes": []
+    },
+    {
+        "packet_id": 37,
+        "packet_name": "Upright Enter Bootloader",
+        "from": [
+            "Pi"
+        ],
+        "to": [
+            "Upright"
+        ],
+        "data_length": 1,
+        "frequency_ms": null,
+        "frequency": null,
+        "quantity": 1,
+        "bytes": []
+    },
+    {
+        "packet_id": 38,
+        "packet_name": "Rack Enter Bootloader",
+        "from": [
+            "Pi"
+        ],
+        "to": [
+            "Rack"
+        ],
+        "data_length": 0,
+        "frequency_ms": null,
+        "frequency": null,
+        "quantity": 0,
+        "bytes": []
     }
 ]

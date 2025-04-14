@@ -55,4 +55,8 @@ CAN ID,CAN ID Binary,From,To,Packet Info,Frequency (Hz),Data Length Code (DLC),Q
 0x106,100000110,VCU,Pi,VCU Shutdown Status,333,1,1,"VCU Shutdown Status (bitfield, vcu_shutdown_faults)",unused,unused,unused,unused,unused,unused,unused,,55,18315,1.83%
 0x107,100000111,VCU,Pi,VCU Fuses,333,2,1,"VCU Fuses 1 (bitfield, vcu_fuses_1)","VCU Fuses 2 (bitfield, vcu_fuses_2)",unused,unused,unused,unused,unused,unused,,63,20979,2.10%
 0x108,100001000,VCU,Pi,VCU Current Sense,333,5,1,"LV Boards Current (uint8, 0.04A)","Shutdown Current (uint8, 0.04A)","Battery Cooling Current (uint8, 0.04A)","Motor Cooling Current (uint8, 0.04A)","Lights Current Current (uint8, 0.04A)",unused,unused,unused,,87,28971,2.90%
-,,,,,,,,,,,,,,,,,47,0,0.00%
+0x022,100010,Pi,VCU,VCU Enter Bootloader,NA,1,1,Enable,unused,unused,unused,unused,unused,unused,unused,,55,0,0.00%
+0x023,100011,Pi,Undertray,Undertray Enter Bootloader,NA,1,1,Enable,unused,unused,unused,unused,unused,unused,unused,,,,
+0x024,100100,Pi,HVC,HVC Enter Bootloader,NA,1,1,Enable,unused,unused,unused,unused,unused,unused,unused,,,,
+0x025,100101,Pi,Upright,Upright Enter Bootloader,NA,1,1,Enable,unused,unused,unused,unused,unused,unused,unused,,,,
+0x026,100110,Pi,Rack,Rack Enter Bootloader,,,,,,,,,,,,,,,

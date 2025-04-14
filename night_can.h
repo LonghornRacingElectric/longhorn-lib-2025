@@ -237,6 +237,8 @@ void CAN_consume_packet(NightCANReceivePacket *packet);
 void CAN_addReceivePacket(NightCANInstance *instance,
                           NightCANReceivePacket *packet);
 
+void CAN_bootload_init(uint8_t BOOTLOAD_PACKET_ID);
+
 /**
  * @brief Read an integral value (e.g., int16_t, uint32_t) from a CAN packet's
  * data buffer. Performs direct memory access via pointer casting.

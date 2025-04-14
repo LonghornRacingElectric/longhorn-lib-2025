@@ -13,13 +13,15 @@
 
 #include "timer.h"
 #include "usb_vcp.h"
+#include "dfu.h"
 
 // --- Static Variables for Instance Management ---
 
 // Static array to hold pointers to active driver instances
 static NightCANInstance *night_can_instances[MAX_CAN_INSTANCES] = {NULL};
 
-
+static bool bootload_inited = false;
+static uint8_t BOOTLOAD_PACKET = 0xFF;
 // number of instances of the can
 static uint32_t night_active_instances = 0;
 
@@ -88,7 +90,13 @@ static void update_rx_buffer(NightCANInstance *instance,
                              uint8_t *rx_data) {
 
 #ifdef STM32L496xx
-    uint8_t temp_id = (rx_header->IDE == CAN_ID_STD) ? rx_header->StdId : rx_header->ExtId);
+    uint8_t temp_id = (rx_header->IDE == CAN_ID_STD) ? rx_header->StdId : rx_header->ExtId;
+
+    if(temp_id == BOOTLOAD_PACKET) {
+        boot_to_dfu();
+        return;
+    }
+
 
     if(temp_id == BUS_ENABLE_DISABLE_ID) {
         instance->bus_silence = (BUS_ENABLE_DISABLE_FIELD_0_TYPE) rx_data[BUS_ENABLE_DISABLE_FIELD_0_BYTE]; // updates
@@ -99,6 +107,11 @@ static void update_rx_buffer(NightCANInstance *instance,
         instance,
         (rx_header->IDE == CAN_ID_STD) ? rx_header->StdId : rx_header->ExtId);
 #elif defined(STM32H733xx)
+    if(rx_header->Identifier == BOOTLOAD_PACKET) {
+        boot_to_dfu();
+        return;
+    }
+
     if(rx_header->Identifier == BUS_ENABLE_DISABLE_ID) {
         instance->bus_silence = (BUS_ENABLE_DISABLE_FIELD_0_TYPE) rx_data[BUS_ENABLE_DISABLE_FIELD_0_BYTE]; // updates
         return;                                                                                             // bus silence
@@ -609,3 +622,11 @@ CANDriverStatus CAN_ConfigFilter(NightCANInstance *instance,
 
     return CAN_OK;
 }
+
+void CAN_bootload_init(uint8_t BOOTLOAD_PACKET_ID) {
+    if (bootload_inited) return;
+
+    BOOTLOAD_PACKET = BOOTLOAD_PACKET_ID;
+    bootload_inited = true;
+}
+

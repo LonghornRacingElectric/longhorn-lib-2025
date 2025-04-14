@@ -1539,4 +1539,54 @@
 
 // End Packet: VCU Current Sense
 
+// Packet: VCU Enter Bootloader
+// From: Pi
+// To:   VCU
+#define VCU_ENTER_BOOTLOADER_ID 34
+#define VCU_ENTER_BOOTLOADER_DLC 1
+#define VCU_ENTER_BOOTLOADER_FREQ 0
+#define VCU_ENTER_BOOTLOADER_QUANTITY 1
+
+// End Packet: VCU Enter Bootloader
+
+// Packet: Undertray Enter Bootloader
+// From: Pi
+// To:   Undertray
+#define UNDERTRAY_ENTER_BOOTLOADER_ID 35
+#define UNDERTRAY_ENTER_BOOTLOADER_DLC 1
+#define UNDERTRAY_ENTER_BOOTLOADER_FREQ 0
+#define UNDERTRAY_ENTER_BOOTLOADER_QUANTITY 1
+
+// End Packet: Undertray Enter Bootloader
+
+// Packet: HVC Enter Bootloader
+// From: Pi
+// To:   HVC
+#define HVC_ENTER_BOOTLOADER_ID 36
+#define HVC_ENTER_BOOTLOADER_DLC 1
+#define HVC_ENTER_BOOTLOADER_FREQ 0
+#define HVC_ENTER_BOOTLOADER_QUANTITY 1
+
+// End Packet: HVC Enter Bootloader
+
+// Packet: Upright Enter Bootloader
+// From: Pi
+// To:   Upright
+#define UPRIGHT_ENTER_BOOTLOADER_ID 37
+#define UPRIGHT_ENTER_BOOTLOADER_DLC 1
+#define UPRIGHT_ENTER_BOOTLOADER_FREQ 0
+#define UPRIGHT_ENTER_BOOTLOADER_QUANTITY 1
+
+// End Packet: Upright Enter Bootloader
+
+// Packet: Rack Enter Bootloader
+// From: Pi
+// To:   Rack
+#define RACK_ENTER_BOOTLOADER_ID 38
+#define RACK_ENTER_BOOTLOADER_DLC 0
+#define RACK_ENTER_BOOTLOADER_FREQ 0
+#define RACK_ENTER_BOOTLOADER_QUANTITY 0
+
+// End Packet: Rack Enter Bootloader
+
 #endif // NIGHT_CAN_IDS_H
