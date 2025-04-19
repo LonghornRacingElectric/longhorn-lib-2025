@@ -288,11 +288,10 @@ void CAN_bootload_init(uint8_t BOOTLOAD_PACKET_ID);
     } while (0)
 
 #define CAN_writeBitfield(packet_ptr, start_byte, bitfield_index, value)  \
-    uint8_t *byte_ptr = ((uint8_t *)((packet_ptr)->data) + (start_byte)); \
     if (value) {                                                          \
-        *byte_ptr |= (uint8_t)(1U << (bitfield_index));                   \
+        *((uint8_t *)((packet_ptr)->data) + (start_byte)) |= (uint8_t)(1U << (bitfield_index));                   \
     } else {                                                              \
-        *byte_ptr &= (uint8_t)~(1U << (bitfield_index));                  \
+        *((uint8_t *)((packet_ptr)->data) + (start_byte)) &= (uint8_t)~(1U << (bitfield_index));                  \
     }
 
 /**
