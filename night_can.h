@@ -346,9 +346,7 @@ void CAN_bootload_init(uint8_t BOOTLOAD_PACKET_ID);
                    (precision)))                                              \
         : default  // Cast data to uint8_t*
 
-#define CAN_readBitfield(packet_ptr, start_byte, bitfield_index)      \
-    (bool)(((1 << bitfield_index) &                                   \
-            (*(((uint8_t *)((packet_ptr)->data) + (start_byte))))) >> \
-           bitfield_index)
+#define CAN_readBitfield(packet_ptr, start_byte, bitfield_index) \
+    (bool)(( (*(((uint8_t *)((packet_ptr)->data) + (start_byte)))) >> (bitfield_index) ) & 1)
 
 #endif  // CAN_DRIVER_H
