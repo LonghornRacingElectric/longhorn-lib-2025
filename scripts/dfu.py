@@ -159,6 +159,7 @@ serial_port_name = None
 # Default values
 target_desc = "lhre"  # Default description keyword
 target_hwid = "0483:5740" # Default VID:PID
+target_desc_windows = "USB Serial Device"
 
 # Allow overriding description keyword from command line
 if len(sys.argv) > 2:
@@ -178,8 +179,9 @@ for port in sorted(ports):
     # Ensure checks handle None values gracefully
     desc_match = target_desc and port.description and target_desc.lower() in port.description.lower()
     hwid_match = target_hwid and port.hwid and target_hwid.lower() in port.hwid.lower()
+    bullshit_windows_match = target_desc_windows and port.description and target_desc_windows.lower() in port.description.lower()
 
-    if desc_match or hwid_match:
+    if desc_match or hwid_match or bullshit_windows_match:
         print(bcolors.OKGREEN + f"Found target device at port {port.device}" + bcolors.ENDC)
         serial_port_name = port.device
         break # Stop after finding the first match
@@ -267,8 +269,9 @@ for i in range(retries):
         # Use the same matching logic as before
         desc_match = target_desc and port.description and target_desc.lower() in port.description.lower()
         hwid_match = target_hwid and port.hwid and target_hwid.lower() in port.hwid.lower()
+        bullshit_windows_match = target_desc_windows and port.description and target_desc_windows.lower() in port.description.lower()
 
-        if desc_match or hwid_match:
+        if desc_match or hwid_match or bullshit_windows_match:
             print(bcolors.OKGREEN + f"Found device post-update at port {port.device}" + bcolors.ENDC)
             serial_port_name_after_dfu = port.device
             found = True
