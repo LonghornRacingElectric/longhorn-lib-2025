@@ -120,13 +120,13 @@ static void update_rx_buffer(NightCANInstance *instance,
     }
 
     // -- uncomment below for CAN dump --
-    char hex_str[8 * 5 + 1]; // "0xHH " ×8 + null terminator = 41 chars
-    char *p = hex_str;
-
-    for (int i = 0; i < rx_header->DataLength; i++) {
-        p += sprintf(p, "0x%02x ", rx_data[i]);
-    }
-    usb_printf("[%#03x] %s", rx_header->Identifier, hex_str);
+    // char hex_str[8 * 5 + 1]; // "0xHH " ×8 + null terminator = 41 chars
+    // char *p = hex_str;
+    //
+    // for (int i = 0; i < rx_header->DataLength; i++) {
+    //     p += sprintf(p, "0x%02x ", rx_data[i]);
+    // }
+    // usb_printf("[%#03x] %s", rx_header->Identifier, hex_str);
     // -- end --
 
     NightCANReceivePacket *packet =
